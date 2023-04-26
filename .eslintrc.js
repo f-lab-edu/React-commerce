@@ -34,5 +34,6 @@ module.exports = {
     'prettier/prettier': 'error',
     'import/extensions': ['off'],
     'no-param-reassign': ['off'],
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
   },
 };

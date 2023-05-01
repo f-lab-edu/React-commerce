@@ -6,7 +6,6 @@ import ProductBuyerNumber from '../atom/ProductBuyerNumber';
 const StyledProductBoxAboutBoughtUser = styled.span`
   display: flex;
   align-items: center;
-  margin-top: 15px;
 `;
 
 interface ProductBoxAboutBoughtUserInterface {

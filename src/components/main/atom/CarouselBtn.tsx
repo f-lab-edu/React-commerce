@@ -11,15 +11,15 @@ const StyledCarouselBtn = styled.button<StyledProps>`
   background-color: rgba(255, 255, 255, 0.3);
   box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.04);
 `;
-interface Props {
+type Props = {
   direction: string;
   click: Function;
-}
+};
 
-interface StyledProps {
+type StyledProps = {
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   direction: string;
-}
+};
 function CarouselBtn({ direction, click }: Props) {
   return (
     <StyledCarouselBtn

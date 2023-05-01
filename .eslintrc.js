@@ -33,7 +33,11 @@ module.exports = {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     'prettier/prettier': 'error',
     'import/extensions': ['off'],
+    'import/no-unresolved': 'off',
     'no-param-reassign': ['off'],
-    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'import/no-extraneous-dependencies': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'react/require-default-props': 'off',
+    'react/function-component-definition': [2, { namedComponents: ['arrow-function', 'function-declaration'] }],
   },
 };

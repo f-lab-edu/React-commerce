@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const CategoryLi = styled.li`
@@ -14,10 +15,19 @@ const CategoryLi = styled.li`
 `;
 
 function CategoryItem({ content, path }: { content: string; path: string }) {
+  const navigator = useNavigate();
   return (
-    <CategoryLi>
-      <span>{content}</span>
-    </CategoryLi>
+    <button
+      type="button"
+      onClick={(e: React.MouseEvent<HTMLElement>) => {
+        e.preventDefault();
+        navigator(path);
+      }}
+    >
+      <CategoryLi>
+        <span>{content}</span>
+      </CategoryLi>
+    </button>
   );
 }
 

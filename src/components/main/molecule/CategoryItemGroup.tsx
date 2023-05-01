@@ -12,10 +12,8 @@ const StyledCategoryItemGroup = styled.ul`
 `;
 
 const items = [
-  { content: '1', path: '/1' },
-  { content: '1', path: '/1' },
-  { content: '1', path: '/1' },
-  { content: '1', path: '/1' },
+  { content: '홈', path: '/' },
+  { content: '기획전', path: '/promotion' },
 ];
 
 interface Items {

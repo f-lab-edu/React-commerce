@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledProductBoxLike = styled.div`
+const StyledProductBoxLike = styled.button`
+  border: none;
+  background-color: inherit;
   color: rgba(24, 32, 55, 0.7);
   font-size: 24px;
 `;

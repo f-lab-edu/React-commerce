@@ -20,6 +20,7 @@ const config: StorybookConfig = {
         '@interfaces': path.resolve(__dirname, 'src/interfaces'),
       },
     };
+    config.resolve.extensions?.push('.ts', '.tsx');
     config.resolve?.plugins?.push(new TsconfigPathsPlugin({}));
     return config;
   },

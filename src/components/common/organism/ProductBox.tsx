@@ -34,6 +34,7 @@ function ProductBox({
   freeDelivery,
   label,
   productName,
+  mainCopy,
   profiles,
   groupDiscountUserCount,
 }: product) {
@@ -41,7 +42,7 @@ function ProductBox({
     <StyledProductBox>
       <ProductBoxImage src={imageUrl} alt={productName} />
       <ProductTagList freeDelivery={freeDelivery} label={label} />
-      <ProductBoxItemName content={productName} />
+      <ProductBoxItemName content={mainCopy} />
       <ProductBoxAboutPrice
         specialDeal={groupDiscountDisplayable}
         originPrice={originalPrice}

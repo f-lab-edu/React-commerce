@@ -1,33 +1,40 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const CategoryLi = styled.li`
-  display: flex;
+  display: inline-block;
   list-style: none;
-  height: 100%;
-  align-items: center;
+`;
+const CategoryItemNavLink = styled(NavLink)`
+  display: inline-block;
+  padding: 31px 12px 29px;
   box-sizing: border-box;
+  background-color: inherit;
+  border: none;
+  color: #333;
+  height: 100%;
+  text-decoration: none;
+  &.active {
+    font-weight: bold;
+    border-bottom: 3px solid black;
+  }
   &:hover {
-    border-bottom: 1px solid black;
+    border-bottom: 3px solid black;
     font-weight: bold;
   }
 `;
-
-function CategoryItem({ content, path }: { content: string; path: string }) {
-  const navigator = useNavigate();
+interface categoryItemInterface {
+  content: string;
+  path: string;
+}
+function CategoryItem({ content, path }: categoryItemInterface) {
   return (
-    <button
-      type="button"
-      onClick={(e: React.MouseEvent<HTMLElement>) => {
-        e.preventDefault();
-        navigator(path);
-      }}
-    >
-      <CategoryLi>
+    <CategoryLi>
+      <CategoryItemNavLink className={({ isActive }) => (isActive ? 'active' : '')} to={path}>
         <span>{content}</span>
-      </CategoryLi>
-    </button>
+      </CategoryItemNavLink>
+    </CategoryLi>
   );
 }
 

@@ -3,12 +3,15 @@ import styled from 'styled-components';
 import CategoryItem from '../atom/CategoryItem';
 
 const StyledCategoryItemGroup = styled.ul`
+  display: inline-block;
   height: 100%;
   margin: 0;
-  display: flex;
-  flex: 1;
-  flex-direction: row;
-  justify-content: space-around;
+  &:after {
+    content: '';
+    width: 1px;
+    height: 30px;
+    border-right: 1px solid rgba(34, 34, 34, 0.1);
+  }
 `;
 
 const items = [

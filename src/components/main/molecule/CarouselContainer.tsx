@@ -15,7 +15,17 @@ const CarouselContainer = forwardRef((props, ref: ForwardedRef<HTMLDivElement>) 
   return (
     <StyledCarouselContainer ref={ref}>
       {bannerData?.map((e: mainBanner) => {
-        return <CarouselScreen key={e.id} bannerUrl={e.firstImageUrl} name={e.name} />;
+        return (
+          <CarouselScreen
+            key={e.id}
+            bannerUrl={e.firstImageUrl}
+            name={e.name}
+            subCopy={e.subCopy}
+            subCopyColor={e.subCopyColor}
+            mainCopy={e.mainCopy}
+            mainCopyColor={e.mainCopyColor}
+          />
+        );
       })}
     </StyledCarouselContainer>
   );

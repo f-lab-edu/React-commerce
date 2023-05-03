@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import styled from 'styled-components';
-import shareIcon from 'public/shareIcon.png';
+import shareIcon from '@assets/shareIcon.png';
 import ProductShareModal from './ProductShareModal';
 
 const StyledProductBoxShare = styled.button`

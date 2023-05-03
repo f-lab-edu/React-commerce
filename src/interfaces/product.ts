@@ -1,4 +1,7 @@
-export default interface product {
+export interface IproductWrap {
+  products: Iproduct[];
+}
+export interface Iproduct {
   productId: number;
   productName: string;
   productImage: string;

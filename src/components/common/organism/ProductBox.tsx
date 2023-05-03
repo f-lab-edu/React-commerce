@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import type product from '@interfaces/product';
+import type { Iproduct } from '@interfaces/product';
+import { Link } from 'react-router-dom';
 import ProductBoxImage from '../atom/ProductBoxImage';
 import ProductBoxItemName from '../atom/ProductBoxItemName';
 import ProductBoxAboutPrice from '../molecule/ProductBoxAboutPrice';
@@ -9,15 +10,9 @@ import ProductBoxAboutBoughtUser from '../molecule/ProductBoxAboutBoughtUser';
 import ProductBoxIconSet from '../molecule/ProductBoxIconSet';
 
 const StyledProductBox = styled.li`
-  @media screen and (max-width: 500px) {
-    width: 100%;
-    aspect-ratio: 1;
-  }
-  @media screen and (min-width: 501px) {
-    position: relative;
-    width: 300px;
-    height: 300px;
-  }
+  position: relative;
+  width: 320px;
+  height: 320px;
   list-style: none;
 `;
 const StyledProductBoxFooter = styled.div`
@@ -26,10 +21,15 @@ const StyledProductBoxFooter = styled.div`
   justify-content: space-between;
   margin-top: 15px;
 `;
+
+const StyledProdcutBoxWrap = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
 function ProductBox({
   imageUrl,
   groupDiscountDisplayable,
-  discountedPrice,
+  groupDiscountedPrice,
   originalPrice,
   freeDelivery,
   label,
@@ -37,21 +37,23 @@ function ProductBox({
   mainCopy,
   profiles,
   groupDiscountUserCount,
-}: product) {
+}: Iproduct) {
   return (
     <StyledProductBox>
-      <ProductBoxImage src={imageUrl} alt={productName} />
-      <ProductTagList freeDelivery={freeDelivery} label={label} />
-      <ProductBoxItemName content={mainCopy} />
-      <ProductBoxAboutPrice
-        specialDeal={groupDiscountDisplayable}
-        originPrice={originalPrice}
-        discountPrice={discountedPrice}
-      />
-      <StyledProductBoxFooter>
-        <ProductBoxAboutBoughtUser profiles={profiles} groupDiscountUserCount={groupDiscountUserCount} />
-        <ProductBoxIconSet />
-      </StyledProductBoxFooter>
+      <StyledProdcutBoxWrap to="">
+        <ProductBoxImage src={imageUrl} alt={productName} />
+        <ProductTagList freeDelivery={freeDelivery} label={label} />
+        <ProductBoxItemName content={mainCopy} />
+        <ProductBoxAboutPrice
+          specialDeal={groupDiscountDisplayable}
+          originPrice={originalPrice}
+          discountPrice={groupDiscountedPrice}
+        />
+        <StyledProductBoxFooter>
+          <ProductBoxAboutBoughtUser profiles={profiles} groupDiscountUserCount={groupDiscountUserCount} />
+          <ProductBoxIconSet />
+        </StyledProductBoxFooter>
+      </StyledProdcutBoxWrap>
     </StyledProductBox>
   );
 }

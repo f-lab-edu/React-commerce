@@ -1,4 +1,5 @@
 const path = require('path');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = function override(config) {
   config.resolve = {
@@ -10,6 +11,8 @@ module.exports = function override(config) {
       '@interfaces': path.resolve(__dirname, 'src/interfaces'),
     },
   };
+  config.resolve.extensions?.push('.ts', '.tsx');
+  config.resolve?.plugins?.push(new TsconfigPathsPlugin({}));
 
   return config;
 };

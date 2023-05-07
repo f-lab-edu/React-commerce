@@ -1,39 +1,40 @@
 import React, { useState, useEffect, forwardRef, ForwardedRef } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import styled from 'styled-components';
-import mainBanner from '@interfaces/mainBanner';
+import MainBanner from '@interfaces/MainBanner';
 import CarouselScreen from '../atom/CarouselScreen';
 
 const CarouselContainer = forwardRef((props, ref: ForwardedRef<HTMLDivElement>) => {
-  const [bannerData, setBannerData] = useState<mainBanner[]>();
+  const [bannerDatas, setBannerDatas] = useState<MainBanner[]>();
   useEffect(() => {
     axios
       .get('http://localhost:3000/mainBanners')
-      .then((response: AxiosResponse<mainBanner[]>) => setBannerData(response.data));
+      .then((response: AxiosResponse<MainBanner[]>) => setBannerDatas(response.data));
   }, []);
 
   return (
-    <StyledCarouselContainer ref={ref}>
-      {bannerData?.map((e: mainBanner) => {
+    <S.CarouselContainer ref={ref}>
+      {bannerDatas?.map((bannerData: MainBanner) => {
         return (
           <CarouselScreen
-            key={e.id}
-            bannerUrl={e.firstImageUrl}
-            name={e.name}
-            subCopy={e.subCopy}
-            subCopyColor={e.subCopyColor}
-            mainCopy={e.mainCopy}
-            mainCopyColor={e.mainCopyColor}
+            key={bannerData.id}
+            bannerUrl={bannerData.firstImageUrl}
+            name={bannerData.name}
+            subCopy={bannerData.subCopy}
+            subCopyColor={bannerData.subCopyColor}
+            mainCopy={bannerData.mainCopy}
+            mainCopyColor={bannerData.mainCopyColor}
           />
         );
       })}
-    </StyledCarouselContainer>
+    </S.CarouselContainer>
   );
 });
-
-const StyledCarouselContainer = styled.div`
-  display: flex;
-  transition: 0.3s;
-`;
-
 export default CarouselContainer;
+
+const S = {
+  CarouselContainer: styled.div`
+    display: flex;
+    transition: 0.3s;
+  `,
+};

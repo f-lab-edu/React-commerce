@@ -1,31 +1,20 @@
-import React, { useCallback, useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
+import useDebounce from 'src/hooks/useDebounce';
 import CarouselBtn from '../atom/CarouselBtn';
 import CarouselContainer from '../molecule/CarouselContainer';
 
-const StyledCarousel = styled.div`
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  height: 300px;
-  width: 100%;
-`;
-let timer: ReturnType<typeof setTimeout>;
 function Carousel() {
   const [curIndex, setIndex] = useState<number>(0);
   const slideContainer = useRef<HTMLDivElement>(null);
 
-  const slideBtnHandler = useCallback<Function>((direction: string) => {
+  const slideBtnHandler = (direction: string) => {
     direction === 'left' ? setIndex((prev) => prev - 1) : setIndex((prev) => prev + 1);
-  }, []);
+  };
+
+  useDebounce(() => setIndex((prev) => prev + 1), 5000, [curIndex]);
 
   useEffect(() => {
-    if (timer) {
-      clearTimeout(timer);
-    }
-    timer = setTimeout(() => {
-      setIndex((prev) => prev + 1);
-    }, 5000);
     const container = slideContainer.current;
     if (container) {
       if (container.childNodes.length === curIndex) {
@@ -39,12 +28,22 @@ function Carousel() {
   }, [curIndex]);
 
   return (
-    <StyledCarousel>
+    <S.Carousel>
       <CarouselContainer ref={slideContainer} />
       <CarouselBtn direction="left" click={() => slideBtnHandler('left')} />
       <CarouselBtn direction="right" click={() => slideBtnHandler('right')} />
-    </StyledCarousel>
+    </S.Carousel>
   );
 }
 
 export default Carousel;
+
+const S = {
+  Carousel: styled.div`
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    height: 300px;
+    width: 100%;
+  `,
+};

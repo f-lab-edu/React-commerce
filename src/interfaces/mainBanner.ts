@@ -1,4 +1,4 @@
-export default interface mainBanner {
+export default interface MainBanner {
   id: number;
   name: string;
   firstImageUrl: string;

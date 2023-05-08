@@ -26,7 +26,7 @@ const ReviewBestTalkDeal = () => {
       {data ? (
         data.map((product: IreviewBest, index) => {
           return (
-            <S.container>
+            <S.container key={product.productId}>
               <S.productImg src={data[index].productImage} />
               <S.productDescription>
                 <S.productCount>{data[index].userCount.toLocaleString('ko-KR')}명이 참여한 딜</S.productCount>

@@ -6,6 +6,7 @@ import styled from 'styled-components';
 interface IMiddleNavbar {
   title: string;
   path: string;
+  categoryId: number;
 }
 
 export const MiddleNavbar = () => {
@@ -18,7 +19,7 @@ export const MiddleNavbar = () => {
 
   const ItemList = Items?.map((item: IMiddleNavbar) => {
     return (
-      <S.LinkWrap>
+      <S.LinkWrap key={item.categoryId}>
         <S.Navlink to={item.path}>{item.title}</S.Navlink>
       </S.LinkWrap>
     );

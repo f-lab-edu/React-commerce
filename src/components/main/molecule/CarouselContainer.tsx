@@ -18,7 +18,7 @@ const CarouselContainer = forwardRef((props, ref: ForwardedRef<HTMLDivElement>) 
         return (
           <CarouselScreen
             key={bannerData.id}
-            bannerUrl={bannerData.firstImageUrl}
+            bannerUrl={bannerData.pcImageUrl}
             name={bannerData.name}
             subCopy={bannerData.subCopy}
             subCopyColor={bannerData.subCopyColor}

@@ -9,23 +9,6 @@ import ProductTagList from '../molecule/ProductTagList';
 import ProductBoxAboutBoughtUser from '../molecule/ProductBoxAboutBoughtUser';
 import ProductBoxIconSet from '../molecule/ProductBoxIconSet';
 
-const StyledProductBox = styled.li`
-  position: relative;
-  width: 320px;
-  height: 320px;
-  list-style: none;
-`;
-const StyledProductBoxFooter = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 15px;
-`;
-
-const StyledProdcutBoxWrap = styled(Link)`
-  text-decoration: none;
-  color: black;
-`;
 function ProductBox({
   imageUrl,
   groupDiscountDisplayable,
@@ -39,8 +22,8 @@ function ProductBox({
   groupDiscountUserCount,
 }: Iproduct) {
   return (
-    <StyledProductBox>
-      <StyledProdcutBoxWrap to="">
+    <S.ProductBox>
+      <S.ProdcutBoxWrap to="">
         <ProductBoxImage src={imageUrl} alt={productName} />
         <ProductTagList freeDelivery={freeDelivery} label={label} />
         <ProductBoxItemName content={mainCopy} />
@@ -49,13 +32,33 @@ function ProductBox({
           originPrice={originalPrice}
           discountPrice={groupDiscountedPrice}
         />
-        <StyledProductBoxFooter>
+        <S.ProductBoxFooter>
           <ProductBoxAboutBoughtUser profiles={profiles} groupDiscountUserCount={groupDiscountUserCount} />
           <ProductBoxIconSet />
-        </StyledProductBoxFooter>
-      </StyledProdcutBoxWrap>
-    </StyledProductBox>
+        </S.ProductBoxFooter>
+      </S.ProdcutBoxWrap>
+    </S.ProductBox>
   );
 }
+
+const S = {
+  ProductBox: styled.li`
+    position: relative;
+    width: 284px;
+    height: 320px;
+    list-style: none;
+    padding: 0 10px 10px 0;
+  `,
+  ProductBoxFooter: styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+  `,
+  ProdcutBoxWrap: styled(Link)`
+    text-decoration: none;
+    color: black;
+  `,
+};
 
 export default ProductBox;

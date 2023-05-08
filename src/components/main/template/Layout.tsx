@@ -9,7 +9,7 @@ const StyledMainLayout = styled.div`
   display: flex;
   margin: 0 auto;
   padding-top: 30px;
-  width: 1440px;
+  max-width: 1280px;
 `;
 const StyledTitle = styled.h2`
   font-size: 23px;
@@ -19,14 +19,16 @@ const StyledTitle = styled.h2`
   margin-bottom: 15px;
 `;
 const MainSection = styled.div`
-  flex: 3;
   border-right: 1px solid #e7e8eb;
   padding: 0 20px;
+  width: 900px;
+  flex-shrink: 0;
 `;
 const SideSection = styled.div`
-  flex: 1;
   box-sizing: border-box;
   margin: 0 50px;
+  width: 300px;
+  flex-shrink: 0;
 `;
 function Layout() {
   return (

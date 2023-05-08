@@ -17,7 +17,7 @@ function CarouselSlide({ bannerUrl, name, mainCopy, mainCopyColor, subCopy, subC
         <S.SubCopy color={subCopyColor}>{subCopy}</S.SubCopy>
         <S.MainCopy color={mainCopyColor}>{mainCopy}</S.MainCopy>
       </S.Copy>
-      <img src={bannerUrl} alt={name} width={window.innerWidth} height={300} />
+      <img src={bannerUrl} alt={name} width={1920} height={300} />
     </S.CarouselScreen>
   );
 }
@@ -26,8 +26,6 @@ export default CarouselSlide;
 
 const S = {
   CarouselScreen: styled.div`
-    height: 100%;
-
     position: relative;
   `,
   SubCopy: styled.span<{ color: string }>`

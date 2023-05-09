@@ -4,8 +4,8 @@ const ColorSet = {
   textGray: '#999',
   textOrange: '#fa8300',
   textBlack: '#333',
-  borderGray: 'D8DAE1',
-  borderBlue: 'bad3f5',
+  borderGray: '#D8DAE1',
+  borderBlue: '#bad3f5',
   borderOrange: '#f5d6ba',
 } as const;
 

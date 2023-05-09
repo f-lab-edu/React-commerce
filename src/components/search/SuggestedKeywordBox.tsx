@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import ISearchKeyword from '@interfaces/SearchKeywords';
 import { Link } from 'react-router-dom';
 import { setLocalStorage } from 'src/utils/localStorage';
-import RECENT_KEYWORD from 'src/utils/constant';
+import { RECENT_KEYWORD } from 'src/utils/constant';
 
 /* eslint-disable */
 const SuggestedKeywordBox = ({ keywords }: { keywords: ISearchKeyword[] }) => {

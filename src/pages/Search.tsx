@@ -5,17 +5,24 @@ import ISearchKeyword from '@interfaces/SearchKeywords';
 import SearchBar from '@components/search/SearchBar';
 import SuggestedKeywordBox from '@components/search/SuggestedKeywordBox';
 import RecentSearchedBox from '@components/search/RecentSearchedBox';
+import useDebounce from 'src/hooks/useDebounce';
 
 const Search = () => {
   const [searchValue, setSearchValue] = useState<string>('');
   const [keywords, setKeywords] = useState<ISearchKeyword[]>([]);
+  const [debounceValue, setDebounceValue] = useState<string>('');
+
+  useDebounce(() => setDebounceValue(searchValue), 300, [searchValue]);
+
   const fetchData = async () => {
-    const response = await axios.get(`/search/?q=${searchValue}`);
+    const response = await axios.get(`/search/?q=${debounceValue}`);
     setKeywords(response.data);
   };
+
   useEffect(() => {
     fetchData();
-  }, [searchValue]);
+  }, [debounceValue]);
+
   return (
     <S.Layout>
       <SearchBar changeHandler={setSearchValue} />

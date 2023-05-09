@@ -12,9 +12,13 @@ const RecentSearchedBox = () => {
       <S.Title>최근 검색</S.Title>
       <S.Remover onClick={() => setRecentSearchedKeyword(clearLocalStorage(RECENT_KEYWORD))}>전체 삭제</S.Remover>
       <S.ListBox>
-        {recentSearchedKeyword?.map((keyword) => {
-          return <RecentSearchedItem content={keyword.name} path={keyword.path} />;
-        })}
+        {recentSearchedKeyword ? (
+          recentSearchedKeyword.map((keyword) => {
+            return <RecentSearchedItem content={keyword.name} path={keyword.path} />;
+          })
+        ) : (
+          <S.Notice>최근 검색 내역이 없습니다.</S.Notice>
+        )}
       </S.ListBox>
     </S.RecentSearched>
   );
@@ -44,5 +48,9 @@ const S = {
   `,
   ListBox: styled.ul`
     display: flex;
+  `,
+  Notice: styled.p`
+    font-size: 14px;
+    color: ${ColorSet.textGray};
   `,
 };

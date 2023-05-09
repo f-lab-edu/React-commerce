@@ -36,10 +36,14 @@ export const setLocalStorage = (e: React.MouseEvent<HTMLAnchorElement, MouseEven
   );
 };
 
-export const getLocalStorage = (keyName: string): IStorageData | void => {
+export const getLocalStorage = (keyName: string): IRecentKeyword[] | void => {
   const base = localStorage.getItem(keyName);
   if (base != null) {
     return JSON.parse(base).data;
   }
   return undefined;
+};
+
+export const clearLocalStorage = (keyName: string): void => {
+  localStorage.removeItem(keyName);
 };

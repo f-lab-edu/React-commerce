@@ -27,8 +27,8 @@ const S = {
   `,
   Input: styled.input`
     flex: 1;
+    border: none;
     font-size: 16px;
-    background-color: orange;
     height: 30px;
     padding: 20px;
     outline: none;

@@ -40,6 +40,25 @@ const handlers = [
     const page = req.url.searchParams.get('page');
     return res(ctx.status(200), ctx.json(reviewBestTalkeDeals.data.slice(page * 2, page * 2 + 2)));
   }),
+
+  rest.get('/search', (req, res, ctx) => {
+    const query = req.url.searchParams.get('q');
+    const matched = [];
+    if (query) {
+      product.data.products.forEach((page) => {
+        page.forEach((item) => {
+          if (item.productName.includes(query)) {
+            matched.push({ keyword: item.productName, path: `detail/?productId=${item.productId}` });
+          }
+        });
+      });
+    }
+    return res(ctx.status(200), ctx.json(matched));
+  }),
+
+  rest.get('/detail', (req, res, ctx) => {
+    const target = req.url.searchParm.get('productId');
+  }),
 ];
 
 export default handlers;

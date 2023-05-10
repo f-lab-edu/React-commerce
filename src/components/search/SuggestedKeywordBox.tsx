@@ -6,7 +6,7 @@ import { setLocalStorage } from 'src/utils/localStorage';
 import { RECENT_KEYWORD } from 'src/utils/constant';
 
 /* eslint-disable */
-const SuggestedKeywordBox = ({ keywords }: { keywords: ISearchKeyword[] }) => {
+const SuggestedKeywordBox = ({ keywords }: { keywords: ISearchKeyword[] | undefined }) => {
   return (
     <ul>
       {keywords?.map((keywordData: ISearchKeyword, index) => {

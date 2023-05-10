@@ -1,27 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import axios, { AxiosResponse } from 'axios';
 import ISearchKeyword from '@interfaces/SearchKeywords';
 import SearchBar from '@components/search/SearchBar';
 import SuggestedKeywordBox from '@components/search/SuggestedKeywordBox';
 import RecentSearchedBox from '@components/search/RecentSearchedBox';
 import useDebounce from 'src/hooks/useDebounce';
+import useFetch from 'src/hooks/useFetch';
 
 const Search = () => {
   const [searchValue, setSearchValue] = useState<string>('');
-  const [keywords, setKeywords] = useState<ISearchKeyword[]>([]);
   const [debounceValue, setDebounceValue] = useState<string>('');
 
-  useDebounce(() => setDebounceValue(searchValue), 300, [searchValue]);
-
-  const fetchData = async () => {
-    const response = await axios.get(`/search/?q=${debounceValue}`);
-    setKeywords(response.data);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [debounceValue]);
+  useDebounce(() => setDebounceValue(searchValue), 300);
+  const keywords = useFetch<ISearchKeyword[]>(`/search/?q=${debounceValue}`, 'GET');
 
   return (
     <S.Layout>

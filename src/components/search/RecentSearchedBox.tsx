@@ -30,8 +30,8 @@ const S = {
   RecentSearched: styled.div`
     box-sizing: border-box;
     position: relative;
-    padding: 10px;
-    height: 120px;
+    padding: 30px 0;
+    border-bottom: 1px solid ${ColorSet.borderGray};
   `,
   Title: styled.h3`
     color: ${ColorSet.textBlack};
@@ -42,7 +42,7 @@ const S = {
     position: absolute;
     border: none;
     background-color: inherit;
-    top: 5px;
+    top: 30px;
     right: 0;
     color: ${ColorSet.textGray};
   `,

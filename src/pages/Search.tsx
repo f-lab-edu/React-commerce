@@ -6,6 +6,7 @@ import SearchBar from '@components/search/SearchBar';
 import SuggestedKeywordBox from '@components/search/SuggestedKeywordBox';
 import RecentSearchedBox from '@components/search/RecentSearchedBox';
 import useDebounce from 'src/hooks/useDebounce';
+import HotKeywords from '@components/search/HotKeywords';
 
 const Search = () => {
   const [searchValue, setSearchValue] = useState<string>('');
@@ -26,7 +27,14 @@ const Search = () => {
   return (
     <S.Layout>
       <SearchBar changeHandler={setSearchValue} />
-      {searchValue ? <SuggestedKeywordBox keywords={keywords} /> : <RecentSearchedBox />}
+      {searchValue ? (
+        <SuggestedKeywordBox keywords={keywords} />
+      ) : (
+        <>
+          <RecentSearchedBox />
+          <HotKeywords />
+        </>
+      )}
     </S.Layout>
   );
 };
@@ -34,7 +42,6 @@ const Search = () => {
 const S = {
   Layout: styled.div`
     max-width: 750px;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     margin: 0 auto;

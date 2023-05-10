@@ -1,5 +1,13 @@
 import { rest } from 'msw';
-import { product, categoryGroups, mainBanners, recommedStores, reviewBestTalkeDeals, specialCard } from './data';
+import {
+  product,
+  categoryGroups,
+  mainBanners,
+  recommedStores,
+  reviewBestTalkeDeals,
+  specialCard,
+  hotKeyword,
+} from './data';
 
 const handlers = [
   rest.get('/product', (req, res, ctx) => {
@@ -54,6 +62,9 @@ const handlers = [
       });
     }
     return res(ctx.status(200), ctx.json(matched));
+  }),
+  rest.get('/search/hotkeywords', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(hotKeyword));
   }),
 
   rest.get('/detail', (req, res, ctx) => {

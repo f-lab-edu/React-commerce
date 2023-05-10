@@ -26,6 +26,7 @@ const ProductBox = ({
   profiles,
   groupDiscountUserCount,
   isLast,
+  linkPath,
   fetchMoreProducts,
 }: Props) => {
   const target = useRef<HTMLLIElement | null>(null);
@@ -35,9 +36,10 @@ const ProductBox = ({
   useEffect(() => {
     isLast && isIntersecting && fetchMoreProducts();
   }, [isLast, isIntersecting]);
+
   return (
     <S.ProductBox ref={target}>
-      <S.ProdcutBoxWrap to="">
+      <S.ProdcutBoxWrap to={linkPath}>
         <ProductBoxImage src={imageUrl} alt={productName} />
         <ProductTagList freeDelivery={freeDelivery} label={label} />
         <ProductBoxItemName content={mainCopy} />

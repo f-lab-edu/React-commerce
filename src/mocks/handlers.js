@@ -1,5 +1,13 @@
 import { rest } from 'msw';
-import { product, categoryGroups, mainBanners, recommedStores, reviewBestTalkeDeals, specialCard } from './data';
+import {
+  product,
+  categoryGroups,
+  mainBanners,
+  recommedStores,
+  reviewBestTalkeDeals,
+  specialCard,
+  productDetail,
+} from './data';
 
 const handlers = [
   rest.get('/product', (req, res, ctx) => {
@@ -58,6 +66,7 @@ const handlers = [
 
   rest.get('/detail', (req, res, ctx) => {
     const target = req.url.searchParm.get('productId');
+    return res(ctx.status(200), ctx.json(productDetail[target]));
   }),
 ];
 

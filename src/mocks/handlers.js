@@ -51,6 +51,7 @@ const handlers = [
 
   rest.get('/search', (req, res, ctx) => {
     const query = req.url.searchParams.get('q');
+    console.log(query);
     const matched = [];
     if (query) {
       product.data.products.forEach((page) => {
@@ -65,7 +66,7 @@ const handlers = [
   }),
 
   rest.get('/detail', (req, res, ctx) => {
-    const target = req.url.searchParm.get('productId');
+    const target = req.url.searchParams.get('productId');
     return res(ctx.status(200), ctx.json(productDetail[target]));
   }),
 ];

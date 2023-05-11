@@ -1,0 +1,32 @@
+export default interface IreviewBest {
+  productId: number;
+  productName: string;
+  productImage: string;
+  productImageOrigin: string;
+  originalPrice: number;
+  discountedPrice: number;
+  discountRate: number;
+  alarmDisplaying: false;
+  storeId: number;
+  storeName: string;
+  storeDomain: string;
+  storeProfileImage: string;
+  new: boolean;
+  linkPath: string;
+  storeLinkPath: string;
+  plusFriendSubscriberExclusive: boolean;
+  farmer: boolean;
+  deliveryFeeType: string;
+  freeDelivery: boolean;
+  reviewCount: number;
+  productPositivePercentage: number;
+  reviewContent: string;
+  imageRatio: string;
+  displayedSaleStatus: string;
+  categoryId: string;
+  categoryName: string;
+  hasAdditionalOptionPrice: boolean;
+  totalSaleCount: number;
+  trackId: string;
+  userCount: number;
+}

@@ -18,9 +18,9 @@ const config: StorybookConfig = {
         '@components': path.resolve(__dirname, 'src/components'),
         '@pages': path.resolve(__dirname, 'src/pages'),
         '@interfaces': path.resolve(__dirname, 'src/interfaces'),
+        '@assets': path.resolve('./', 'src/assets'),
       },
     };
-    config.resolve.extensions?.push('.ts', '.tsx');
     config.resolve?.plugins?.push(new TsconfigPathsPlugin({}));
     return config;
   },
@@ -31,7 +31,6 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
-  staticDirs: ['../public'],
 };
 
 export default config;

@@ -30,12 +30,12 @@ export default memorizedCarouselBtn;
 const S = {
   CarouselBtn: styled.button<StyledProps>`
     position: absolute;
-    ${(props) => (props.direction === 'right' ? `right: 20px;` : `left:20px;`)}
     border-radius: 50px;
     width: 50px;
     height: 50px;
     border: 1px solid rgba(255, 255, 255, 0.23);
     background-color: rgba(255, 255, 255, 0.3);
     box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.04);
+    ${(props) => (props.direction === 'right' ? `right:50px;` : `left:50px;`)}
   `,
 };

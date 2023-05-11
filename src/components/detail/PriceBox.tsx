@@ -1,23 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { ColorSet } from 'src/utils/constant';
 import ProductBoxShare from '@components/common/atom/ProductBoxShare';
+import ProductDetailContext from 'src/context/ProductDetailContext';
 import Price from './Price';
 
-interface Props {
-  standardPrice: number;
-  discountPrice: number;
-}
-const PriceBox = ({ standardPrice, discountPrice }: Props) => {
+const PriceBox = () => {
+  const data = useContext(ProductDetailContext);
+  if (data === null) return null;
   return (
     <S.Wrap>
-      {discountPrice ? (
+      {data.talkDeal ? (
         <>
-          <Price type={false} content={`${standardPrice.toLocaleString('ko-KR')}원`} />
-          <Price type content={`톡딜가 ${discountPrice.toLocaleString('ko-KR')}원~`} />
+          <Price type={false} content={`${data.price?.standardPrice.toLocaleString('ko-KR')}원`} />
+          <Price type content={`톡딜가 ${data.talkDeal.discountPrice.toLocaleString('ko-KR')}원~`} />
         </>
       ) : (
-        <S.NormalPrice>{`${standardPrice.toLocaleString('ko-KR')}원`}</S.NormalPrice>
+        <S.NormalPrice>{`${data.price?.standardPrice.toLocaleString('ko-KR')}원`}</S.NormalPrice>
       )}
       <S.Share />
     </S.Wrap>

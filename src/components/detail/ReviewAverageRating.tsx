@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { ColorSet } from 'src/utils/constant';
+import ProductDetailContext from 'src/context/ProductDetailContext';
 
 interface Props {
   averageRating: number;
   reviewCount: number;
 }
-const ReviewAverageRating = ({ averageRating, reviewCount }: Props) => {
+const ReviewAverageRating = () => {
+  const data = useContext(ProductDetailContext);
+  if (data === null) return null;
   return (
     <S.ProductRating>
-      <S.ProductStar>{'★'.repeat(averageRating) + '☆'.repeat(4 - averageRating)}</S.ProductStar>
-      <S.ProductReviewCount> 리뷰 {reviewCount}건</S.ProductReviewCount>
+      {typeof data.review?.averageRating === 'number' && (
+        <S.ProductStar>
+          {'★'.repeat(data.review.averageRating) + '☆'.repeat(4 - data.review.averageRating)}
+        </S.ProductStar>
+      )}
+      <S.ProductReviewCount> 리뷰 {data.review?.reviewCount}건</S.ProductReviewCount>
     </S.ProductRating>
   );
 };

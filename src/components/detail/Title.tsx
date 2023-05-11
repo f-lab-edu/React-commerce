@@ -1,15 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import ProductDetailContext from 'src/context/ProductDetailContext';
 import styled from 'styled-components';
 
-interface Props {
-  name: string;
-  content: string | undefined;
-}
-const Title = ({ name, content }: Props) => {
+const Title = () => {
+  const data = useContext(ProductDetailContext);
+  if (data == null) return null;
   return (
     <S.Title>
-      {name} <br />
-      {content && `원산지: ${content}`}
+      {data.name} <br />
+      {data.originArea && `원산지: ${data.originArea.content}`}
     </S.Title>
   );
 };

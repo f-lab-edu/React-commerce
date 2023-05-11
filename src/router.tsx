@@ -5,7 +5,6 @@ import App from './App';
 const Main = lazy(() => import('@pages/Main'));
 const Search = lazy(() => import('@pages/Search'));
 const Detail = lazy(() => import('@pages/Detail'));
-
 const router = createBrowserRouter([
   {
     path: '/',

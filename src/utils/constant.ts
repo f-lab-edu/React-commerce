@@ -7,6 +7,8 @@ const ColorSet = {
   borderGray: '#D8DAE1',
   borderBlue: '#bad3f5',
   borderOrange: '#f5d6ba',
+  backgroundYellow: '#ffeb00',
+  backgroundBlack: '#1e1e1e',
 } as const;
 
 export { RECENT_KEYWORD, ColorSet };

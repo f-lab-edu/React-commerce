@@ -5,7 +5,7 @@ import { clearLocalStorage, getLocalStorage } from 'src/utils/localStorage';
 import RecentSearchedItem from './RecentSearchedItem';
 
 const RecentSearchedBox = () => {
-  const [recentSearchedKeyword, setRecentSearchedKeyword] = useState(getLocalStorage(RECENT_KEYWORD));
+  const [recentSearchedKeyword, setRecentSearchedKeyword] = useState(() => getLocalStorage(RECENT_KEYWORD));
 
   return (
     <S.RecentSearched>
@@ -14,7 +14,7 @@ const RecentSearchedBox = () => {
       <S.ListBox>
         {recentSearchedKeyword ? (
           recentSearchedKeyword.map((keyword) => {
-            return <RecentSearchedItem content={keyword.name} path={keyword.path} />;
+            return <RecentSearchedItem key={keyword.expire} content={keyword.name} path={keyword.path} />;
           })
         ) : (
           <S.Notice>최근 검색 내역이 없습니다.</S.Notice>

@@ -8,6 +8,7 @@ import ProductDetailContext from 'src/context/ProductDetailContext';
 import PriceBox from './PriceBox';
 import ReviewAverageRating from './ReviewAverageRating';
 import Title from './Title';
+import ProductImageBox from './ProductImageBox';
 
 const MainSection = () => {
   const { search } = useLocation();
@@ -22,7 +23,7 @@ const MainSection = () => {
       <S.MainSection>
         <ProductDetailContext.Provider value={data}>
           <S.ProductInfoWrap>
-            <img src={data?.image?.images[0]} width={430} height={430} />
+            <ProductImageBox />
             <S.ProductInfo>
               <ReviewAverageRating />
               <Title />

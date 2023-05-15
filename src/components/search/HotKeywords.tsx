@@ -1,21 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import axios, { AxiosResponse } from 'axios';
+import React from 'react';
 import styled from 'styled-components';
-import IHotKeywords from '@interfaces/HotKeywords';
 import { ColorSet } from 'src/utils/constant';
 import { Link } from 'react-router-dom';
+import IHotKeywords from '@interfaces/HotKeywords';
 
-const HotKeywords = () => {
-  const [keywords, setKeywords] = useState<IHotKeywords>();
-  useEffect(() => {
-    axios('/search/hotkeywords').then((response: AxiosResponse<IHotKeywords>) => {
-      setKeywords(response.data);
-    });
-  }, []);
+const HotKeywords = ({ fetcher }: { fetcher: { read(): IHotKeywords } }) => {
+  const keywords = fetcher.read();
+
   return (
     <S.Wrap>
       <S.Title>쇼핑하기 인기키워드</S.Title>
-      {keywords?.hotShoppingKeywords.map((keyword) => {
+      {keywords.hotShoppingKeywords.map((keyword) => {
         return (
           <S.HotKeyword key={keyword.shoppingKeywordId}>
             <S.Link to={keyword.landingUrl}>
@@ -25,7 +20,7 @@ const HotKeywords = () => {
           </S.HotKeyword>
         );
       })}
-      {keywords?.commonShoppingKeywords.map((keyword) => {
+      {keywords.commonShoppingKeywords.map((keyword) => {
         return (
           <S.CommonKeyword key={keyword.shoppingKeywordId}>
             <S.Link to={keyword.landingUrl}># {keyword.keywordName}</S.Link>
@@ -39,6 +34,9 @@ const HotKeywords = () => {
 export default HotKeywords;
 
 const S = {
+  Error: styled.div`
+    text-align: center;
+  `,
   Wrap: styled.div`
     box-sizing: border-box;
     position: relative;

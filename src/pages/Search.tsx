@@ -1,38 +1,56 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import styled from 'styled-components';
-import axios, { AxiosResponse } from 'axios';
+import fetchData from 'src/utils/fetchData';
 import ISearchKeyword from '@interfaces/SearchKeywords';
 import SearchBar from '@components/search/SearchBar';
 import SuggestedKeywordBox from '@components/search/SuggestedKeywordBox';
 import RecentSearchedBox from '@components/search/RecentSearchedBox';
 import useDebounce from 'src/hooks/useDebounce';
 import HotKeywords from '@components/search/HotKeywords';
+import IHotKeywords from '@interfaces/HotKeywords';
+import { ErrorBoundary } from 'react-error-boundary';
+import FetchErrorFallback from '@components/FetchErrorFallback';
 
 const Search = () => {
   const [searchValue, setSearchValue] = useState<string>('');
-  const [keywords, setKeywords] = useState<ISearchKeyword[]>([]);
   const [debounceValue, setDebounceValue] = useState<string>('');
+  const [suggestedKeywordFetch, setSuggestedKeywordFetch] = useState(() =>
+    fetchData<ISearchKeyword[]>(`search/${searchValue}`)
+  );
+  const [hotKeywordFetch, setHotKeywordFetch] = useState(() => fetchData<IHotKeywords>('search/hotkeywords'));
 
   useDebounce(() => setDebounceValue(searchValue), 300, [searchValue]);
 
-  const fetchData = async () => {
-    const response = await axios.get(`/search/?q=${debounceValue}`);
-    setKeywords(response.data);
-  };
-
   useEffect(() => {
-    fetchData();
+    setSuggestedKeywordFetch(fetchData<ISearchKeyword[]>(`search/?q=${debounceValue}`));
   }, [debounceValue]);
 
   return (
     <S.Layout>
       <SearchBar changeHandler={setSearchValue} />
       {searchValue ? (
-        <SuggestedKeywordBox keywords={keywords} />
+        <ErrorBoundary
+          onError={() => {
+            setSuggestedKeywordFetch(fetchData<ISearchKeyword[]>(`search/?q=${debounceValue}`));
+          }}
+          fallbackRender={FetchErrorFallback}
+        >
+          <Suspense fallback={<h2>로딩중</h2>}>
+            <SuggestedKeywordBox fetcher={suggestedKeywordFetch} />
+          </Suspense>
+        </ErrorBoundary>
       ) : (
         <>
           <RecentSearchedBox />
-          <HotKeywords />
+
+          <ErrorBoundary
+            onReset={() => setHotKeywordFetch(fetchData<IHotKeywords>('search/hotkeywords'))}
+            fallbackRender={FetchErrorFallback}
+          >
+            <Suspense fallback={<h2>로딩중</h2>}>
+              <HotKeywords fetcher={hotKeywordFetch} />
+            </Suspense>
+          </ErrorBoundary>
         </>
       )}
     </S.Layout>

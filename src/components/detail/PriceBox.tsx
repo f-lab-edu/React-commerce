@@ -12,8 +12,8 @@ const PriceBox = () => {
     <S.Wrap>
       {data.talkDeal ? (
         <>
-          <Price type={false} content={`${data.price?.standardPrice.toLocaleString('ko-KR')}원`} />
-          <Price type content={`톡딜가 ${data.talkDeal.discountPrice.toLocaleString('ko-KR')}원~`} />
+          <Price talkDeal={false} content={`${data.price?.standardPrice.toLocaleString('ko-KR')}원`} />
+          <Price talkDeal content={`톡딜가 ${data.talkDeal.discountPrice.toLocaleString('ko-KR')}원~`} />
         </>
       ) : (
         <S.NormalPrice>{`${data.price?.standardPrice.toLocaleString('ko-KR')}원`}</S.NormalPrice>

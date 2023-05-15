@@ -10,6 +10,10 @@ import ReviewAverageRating from './ReviewAverageRating';
 import Title from './Title';
 import ProductImageBox from './ProductImageBox';
 import DeliveryFee from './DeliveryFee';
+import ProductDetailNav from './ProductDetailNav';
+import ProductDescription from './ProductDescription';
+import ProductReviewContainer from './ProductReviewContainer';
+import ProductInquiryContainer from './ProductInquiryContainer';
 
 const MainSection = () => {
   const { search } = useLocation();
@@ -32,15 +36,11 @@ const MainSection = () => {
               <DeliveryFee />
             </S.ProductInfo>
           </S.ProductInfoWrap>
-          <S.ProductDescriptionNav>
-            <S.ProductDescriptionNavItem className="activate">상세정보</S.ProductDescriptionNavItem>
-            <S.ProductDescriptionNavItem>
-              리뷰 {data?.review?.reviewCount.toLocaleString('ko-KR')}
-            </S.ProductDescriptionNavItem>
-            <S.ProductDescriptionNavItem>
-              문의 {data?.review?.qnaCount.toLocaleString('ko-KR')}
-            </S.ProductDescriptionNavItem>
-          </S.ProductDescriptionNav>
+          <ProductDetailNav>
+            <ProductDescription />
+            <ProductReviewContainer />
+            <ProductInquiryContainer />
+          </ProductDetailNav>
         </ProductDetailContext.Provider>
       </S.MainSection>
     );
@@ -64,24 +64,5 @@ const S = {
   ProductInfo: styled.div`
     flex: 1;
     margin-left: 20px;
-  `,
-  ProductDescriptionNav: styled.ul`
-    display: flex;
-    .activate {
-      color: white;
-      background-color: ${ColorSet.textBlack};
-    }
-  `,
-  ProductDescriptionNavItem: styled.li`
-    flex: 1;
-    line-height: 60px;
-    text-align: center;
-    font-weight: 600;
-    list-style: none;
-  `,
-  ProductDescription: styled.div`
-    width: 900px;
-    height: 2200px;
-    overflow: hidden;
   `,
 };

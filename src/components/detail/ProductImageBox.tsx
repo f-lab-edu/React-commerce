@@ -18,7 +18,7 @@ const ProductImageBox = () => {
               <S.SelectedSubImage
                 width={60}
                 height={60}
-                key={image[i]}
+                key={data.image.images[i]}
                 src={data.image.images[i]}
                 alt={`상품이미지${i}`}
                 onClick={() => setIndex(i)}
@@ -27,7 +27,7 @@ const ProductImageBox = () => {
           }
           return (
             <S.SubImage
-              key={image[i]}
+              key={data.image.images[i]}
               width={60}
               height={60}
               src={data.image.images[i]}

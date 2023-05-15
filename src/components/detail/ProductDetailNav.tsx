@@ -17,9 +17,11 @@ const ProductDetailNav = ({ children }: { children: React.ReactNode }) => {
       <S.ProductDetailNav>
         {listItem.map((li, index) =>
           active === index ? (
-            <S.ActiveProductDetailNavItem>{li}</S.ActiveProductDetailNavItem>
+            <S.ActiveProductDetailNavItem key={li}>{li}</S.ActiveProductDetailNavItem>
           ) : (
-            <S.ProductDetailNavItem onClick={() => setActive(index)}>{li}</S.ProductDetailNavItem>
+            <S.ProductDetailNavItem key={li} onClick={() => setActive(index)}>
+              {li}
+            </S.ProductDetailNavItem>
           )
         )}
       </S.ProductDetailNav>

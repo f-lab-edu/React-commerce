@@ -34,6 +34,8 @@ export default interface IProductDetail {
     freeConditionalAmount: number;
     bundleGroupAvailable: boolean;
     availableIsolatedArea: boolean;
+    isolatedAreaAdditionalFee?: number;
+    jejuAreaAdditionalFee?: number;
   };
   originArea: {
     type: string;

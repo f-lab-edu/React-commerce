@@ -9,6 +9,7 @@ import PriceBox from './PriceBox';
 import ReviewAverageRating from './ReviewAverageRating';
 import Title from './Title';
 import ProductImageBox from './ProductImageBox';
+import DeliveryFee from './DeliveryFee';
 
 const MainSection = () => {
   const { search } = useLocation();
@@ -28,6 +29,7 @@ const MainSection = () => {
               <ReviewAverageRating />
               <Title />
               <PriceBox />
+              <DeliveryFee />
             </S.ProductInfo>
           </S.ProductInfoWrap>
           <S.ProductDescriptionNav>

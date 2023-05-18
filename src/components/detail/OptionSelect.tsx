@@ -6,12 +6,13 @@ import { ProductDispatchContext, ProductOptionsContext } from 'src/context/Produ
 import useDataFilter from 'src/hooks/useDataFilter';
 import { IOption } from '@interfaces/Options';
 import OptionSelectTitle from './OptionSelectTitle';
+import OptionItems from './OptionItems';
 
 const OptionSelect = ({ level }: { level: number }) => {
   const detailData = useContext(ProductDetailContext);
   const optionData = useContext(ProductOptionsContext);
   const dispatch = useContext(ProductDispatchContext);
-  const [toggle, setToggle] = useState<Boolean>(() => optionData?.selected[level] === undefined);
+  const [toggle, setToggle] = useState<boolean>(() => optionData?.selected[level] === undefined);
   const data = useDataFilter(level);
 
   if (optionData === null || detailData === null) return null;
@@ -59,20 +60,17 @@ const OptionSelect = ({ level }: { level: number }) => {
 
   return (
     <S.Wrap>
-      <S.Title onClick={() => toggleHandler()}>
+      <S.OptionTitle onClick={() => toggleHandler()} toggle={toggle}>
         <OptionSelectTitle level={level} data={data} />
-      </S.Title>
-      {toggle &&
-        data?.map((e, index) => (
-          <S.Item
-            onClick={() => {
-              selectHandler(index);
-            }}
-            key={e.name.repeat(index)}
-          >
-            {e.value}
-          </S.Item>
-        ))}
+      </S.OptionTitle>
+      {toggle && data && (
+        <OptionItems
+          data={data}
+          selectHandler={selectHandler}
+          selected={optionData.selected[level]}
+          basePrice={basePrice}
+        />
+      )}
     </S.Wrap>
   );
 };
@@ -80,15 +78,27 @@ const OptionSelect = ({ level }: { level: number }) => {
 export default OptionSelect;
 
 const S = {
-  Wrap: styled.ul``,
-  Title: styled.li`
-    background-color: ${ColorSet.backgroundGray};
-    font-size: 20px;
-    padding: 10px;
-    line-height: 44px;
+  Wrap: styled.div`
+    border: 1px solid ${ColorSet.borderGray};
+    border-radius: 2px;
+    margin: 10px 0;
   `,
-  Item: styled.li`
-    font-size: 18px;
-    padding: 10px;
+  OptionTitle: styled.button<{ toggle: boolean }>`
+    background-color: ${ColorSet.backgroundGray};
+    border: none;
+    text-align: start;
+    position: relative;
+    font-size: 16px;
+    padding: 15px;
+    width: 100%;
+    &:after {
+      content: '<';
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      display: inline-block;
+      color: ${ColorSet.textGray};
+      transform: ${(props) => (props.toggle ? 'rotate(90deg)' : 'rotate(-90deg)')};
+    }
   `,
 };

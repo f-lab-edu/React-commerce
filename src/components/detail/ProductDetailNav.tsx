@@ -35,6 +35,7 @@ export default ProductDetailNav;
 const S = {
   ProductDetailNav: styled.ul`
     display: flex;
+    border: 1px solid ${ColorSet.borderGray};
   `,
   ActiveProductDetailNavItem: styled.li`
     flex: 1;

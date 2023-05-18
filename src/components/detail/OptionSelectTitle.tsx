@@ -27,5 +27,6 @@ const S = {
   `,
   OptionSelected: styled.span`
     color: ${ColorSet.textGray};
+    font-size: 15px;
   `,
 };

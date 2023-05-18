@@ -5,6 +5,7 @@ import { ColorSet } from 'src/utils/constant';
 import OptionSelect from './OptionSelect';
 import OptionDeliveryFee from './OptionDeliveryFee';
 import SelectedProduct from './SelectedProduct';
+import OptionResult from './OptionResult';
 
 const SideSection = () => {
   const optionData = useContext(ProductOptionsContext);
@@ -22,6 +23,7 @@ const SideSection = () => {
         ))}
       </S.OptionSelectSection>
       <OptionDeliveryFee />
+      <OptionResult products={optionData.products} />
     </S.Wrap>
   );
 };
@@ -30,7 +32,7 @@ export default SideSection;
 
 const S = {
   Wrap: styled.div`
-    box-sizing: border-box;
+    flex: 1;
     padding: 30px 0 30px 30px;
     min-height: 350px;
   `,

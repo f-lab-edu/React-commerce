@@ -11,7 +11,7 @@ export interface ISelectedProduct {
   totalPrice: number;
 }
 
-interface ISelectedProducts {
+export interface ISelectedProducts {
   [id: string]: ISelectedProduct;
 }
 

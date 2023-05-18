@@ -89,7 +89,7 @@ const S = {
     text-align: start;
     position: relative;
     font-size: 16px;
-    padding: 15px;
+    padding: 15px 25px 15px 15px;
     width: 100%;
     &:after {
       content: '<';

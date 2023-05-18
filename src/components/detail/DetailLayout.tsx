@@ -32,7 +32,6 @@ export default DetailLayout;
 const S = {
   Wrap: styled.div`
     display: flex;
-    max-width: 1280px;
   `,
   MainSection: styled.div``,
 };

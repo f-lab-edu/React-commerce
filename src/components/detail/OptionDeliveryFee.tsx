@@ -22,7 +22,7 @@ const OptionDeliveryFee = () => {
             : `${detailData?.delivery.deliveryFee.toLocaleString('ko-KR')}원`}
         </S.DeliveryFeeType>
       </S.DeliveryFeeBox>
-      {detailData?.delivery.availableIsolatedArea && (
+      {detailData?.delivery.availableIsolatedArea && detailData.delivery.isolatedAreaAdditionalFee && (
         <S.AdditionalFeeInfo>
           제주 추가 {detailData.delivery.jejuAreaAdditionalFee?.toLocaleString('ko-KR')}원/ 제주 외 도서지역 추가{' '}
           {detailData.delivery.isolatedAreaAdditionalFee?.toLocaleString('ko-KR')}원

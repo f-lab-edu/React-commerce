@@ -1,5 +1,6 @@
-import { IOption } from '@interfaces/Options';
 import React, { useContext } from 'react';
+import styled from 'styled-components';
+import { IOption } from '@interfaces/Options';
 import { ProductOptionsContext } from 'src/context/ProductOptionsContext';
 
 const OptionSelectTitle = ({ level, data }: { level: number; data: IOption[] | undefined }) => {

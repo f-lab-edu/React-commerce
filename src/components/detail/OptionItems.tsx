@@ -34,7 +34,6 @@ const OptionItems = ({ data, selectHandler, selected, basePrice }: Props) => {
         return (
           <S.Item
             onClick={() => {
-              console.log(Boolean(e.stock) && e.stock === 0);
               if ((e.soldOut && e.soldOut) || (e.stock !== undefined && e.stock === 0)) {
                 alert('품절된 상품입니다.');
                 return;

@@ -11,7 +11,11 @@ const OptionResult = ({ products }: { products: ISelectedProducts }) => {
       </span>
       <span>
         총 주문금액{' '}
-        <S.em>{Object.values(products).reduce((prev: number, cur: ISelectedProduct) => prev + cur.totalPrice, 0)}</S.em>
+        <S.em>
+          {Object.values(products)
+            .reduce((prev: number, cur: ISelectedProduct) => prev + cur.totalPrice, 0)
+            .toLocaleString('ko-KR')}
+        </S.em>
         원
       </span>
     </S.OptionResult>
@@ -23,7 +27,7 @@ export default OptionResult;
 const S = {
   OptionResult: styled.div`
     margin: 20px 0;
-    font-size: 21px;
+    font-size: 18px;
     display: flex;
     justify-content: space-between;
   `,

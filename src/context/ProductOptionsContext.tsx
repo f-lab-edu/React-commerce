@@ -3,7 +3,7 @@ import IProductOptions from '@interfaces/Options';
 import { useLocation } from 'react-router-dom';
 import useFetch from 'src/hooks/useFetch';
 
-interface ISelectedProduct {
+export interface ISelectedProduct {
   options: string[];
   value: string;
   singlePrice: number;

@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ISelectedProducts } from 'src/context/ProductOptionsContext';
+import { setProductLocalStorage } from 'src/utils/localStorage';
 import { ColorSet } from 'src/utils/constant';
 import styled from 'styled-components';
+import ProductDetailContext from 'src/context/ProductDetailContext';
 
 const OptionPurchase = ({ products }: { products: ISelectedProducts }) => {
+  const productDetail = useContext(ProductDetailContext);
+  if (productDetail === null) return null;
   return (
     <S.Wrap>
       <S.Item flex={1} backgroundColor={ColorSet.backgroundGray} color="white">
         <S.ItemInner>❤️</S.ItemInner>
       </S.Item>
-      <S.Item flex={1} backgroundColor={ColorSet.backgroundBlack} color="white">
+      <S.Item
+        flex={1}
+        backgroundColor={ColorSet.backgroundBlack}
+        color="white"
+        onClick={() => {
+          setProductLocalStorage(productDetail, products);
+        }}
+      >
         <S.ItemInner>🧺</S.ItemInner>
       </S.Item>
       <S.Item flex={3} backgroundColor={ColorSet.backgroundYellow} color="black">

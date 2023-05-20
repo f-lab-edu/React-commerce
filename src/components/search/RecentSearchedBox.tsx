@@ -5,7 +5,7 @@ import { clearLocalStorage, getLocalStorage } from 'src/utils/localStorage';
 import RecentSearchedItem from './RecentSearchedItem';
 
 const RecentSearchedBox = () => {
-  const [recentSearchedKeyword, setRecentSearchedKeyword] = useState(getLocalStorage(RECENT_KEYWORD));
+  const [recentSearchedKeyword, setRecentSearchedKeyword] = useState(() => getLocalStorage(RECENT_KEYWORD));
 
   return (
     <S.RecentSearched>

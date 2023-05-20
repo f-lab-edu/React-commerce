@@ -2,8 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ISearchKeyword from '@interfaces/SearchKeywords';
 import { Link } from 'react-router-dom';
-import { setLocalStorage } from 'src/utils/localStorage';
-import { RECENT_KEYWORD } from 'src/utils/constant';
+import { setSearchLocalStorage } from 'src/utils/localStorage';
 
 /* eslint-disable */
 const SuggestedKeywordBox = ({ keywords }: { keywords: ISearchKeyword[] | undefined }) => {
@@ -12,10 +11,7 @@ const SuggestedKeywordBox = ({ keywords }: { keywords: ISearchKeyword[] | undefi
       {keywords?.map((keywordData: ISearchKeyword, index) => {
         return (
           <S.SuggestedKeyword key={index}>
-            <S.Link
-              to={''}
-              onClick={(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => setLocalStorage(e, RECENT_KEYWORD)}
-            >
+            <S.Link to={''} onClick={setSearchLocalStorage}>
               {keywordData.keyword}
             </S.Link>
           </S.SuggestedKeyword>

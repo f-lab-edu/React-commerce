@@ -12,10 +12,14 @@ interface IRecentKeyword {
 }
 
 interface ICart {
-  data: ICartItem;
+  data: IShop;
 }
 
-interface ICartItem {
+interface IShop {
+  [shopName: string]: IShopItem;
+}
+
+interface IShopItem {
   [productValue: string]: { productImage: string; options: ISelectedProducts };
 }
 
@@ -59,12 +63,19 @@ export const setProductLocalStorage = (detailItem: IProductDetail, products: ISe
   const base = localStorage.getItem('cart');
   if (base != null) {
     const parsedData: ICart = JSON.parse(base);
-    parsedData.data[detailItem.name] = { productImage: detailItem.image.images[0], options: products };
+    if (!parsedData.data[detailItem.store.name]) {
+      parsedData.data[detailItem.store.name] = {};
+    }
+    parsedData.data[detailItem.store.name][detailItem.name] = {
+      productImage: detailItem.image.images[0],
+      options: products,
+    };
     localStorage.setItem('cart', JSON.stringify(parsedData));
     return;
   }
 
-  const data: ICartItem = {};
-  data[detailItem.name] = { productImage: detailItem.image.images[0], options: products };
+  const data: IShop = {};
+  data[detailItem.store.name] = {};
+  data[detailItem.store.name][detailItem.name] = { productImage: detailItem.image.images[0], options: products };
   localStorage.setItem('cart', JSON.stringify({ data }));
 };

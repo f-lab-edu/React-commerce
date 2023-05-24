@@ -1,5 +1,5 @@
-import React, { useReducer, createContext, useMemo } from 'react';
-import { ICart, IShop, IShopItem } from 'src/utils/localStorage';
+import React, { createContext } from 'react';
+import { ICart, IShopItem } from 'src/utils/localStorage';
 
 interface AllAction {
   type: string;

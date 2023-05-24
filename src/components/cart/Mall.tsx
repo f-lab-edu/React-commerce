@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { IShopItems, IShopItem } from 'src/utils/localStorage';
 import { ColorSet } from 'src/utils/constant';
 import CartContext from 'src/context/CartContext';

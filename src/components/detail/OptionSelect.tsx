@@ -48,6 +48,8 @@ const OptionSelect = ({ level }: { level: number }) => {
           payload: {
             value: selectedOptions[0],
             options: selectedOptions.slice(1),
+            originTotalPrice: detailData.price.standardPrice,
+            originPrice: detailData.price.standardPrice,
             singlePrice: Number(data[index].addPrice) + basePrice,
             totalPrice: Number(data[index].addPrice) + basePrice,
             count: 1,

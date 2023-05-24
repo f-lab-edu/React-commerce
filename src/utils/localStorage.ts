@@ -11,16 +11,24 @@ interface IRecentKeyword {
   expire: number;
 }
 
-interface ICart {
+export interface ICart {
   data: IShop;
 }
 
-interface IShop {
-  [shopName: string]: IShopItem;
+export interface IShop {
+  [shopName: string]: IShopItems;
 }
 
-interface IShopItem {
-  [productValue: string]: { productImage: string; options: ISelectedProducts };
+export interface IShopItems {
+  [productValue: string]: IShopItem;
+}
+
+export interface IShopItem {
+  productImage: string;
+  total: number;
+  estimated: number;
+  options: ISelectedProducts;
+  selected: boolean;
 }
 
 export const setSearchLocalStorage = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -41,10 +49,7 @@ export const setSearchLocalStorage = (e: React.MouseEvent<HTMLAnchorElement, Mou
     }
     return;
   }
-  localStorage.setItem(
-    'ca',
-    JSON.stringify({ data: [{ name: e.currentTarget.text, path: e.currentTarget.href, expire: EXPIRETIME }] })
-  );
+  localStorage.setItem('recentKeyword', JSON.stringify({ data: [{ name: e.currentTarget.text, path: e.currentTarget.href, expire: EXPIRETIME }] }));
 };
 
 export const getLocalStorage = (keyName: string): IRecentKeyword[] | void => {
@@ -68,7 +73,14 @@ export const setProductLocalStorage = (detailItem: IProductDetail, products: ISe
     }
     parsedData.data[detailItem.store.name][detailItem.name] = {
       productImage: detailItem.image.images[0],
-      options: products,
+      total:
+        (parsedData.data[detailItem.store.name][detailItem.name] ? parsedData.data[detailItem.store.name][detailItem.name].total : 0) +
+        Object.values(products).reduce((prev: number, cur: ISelectedProduct) => prev + cur.originTotalPrice, 0),
+      estimated:
+        (parsedData.data[detailItem.store.name][detailItem.name] ? parsedData.data[detailItem.store.name][detailItem.name].estimated : 0) +
+        Object.values(products).reduce((prev: number, cur: ISelectedProduct) => prev + cur.totalPrice, 0),
+      selected: false,
+      options: { ...parsedData.data[detailItem.store.name][detailItem.name]?.options, ...products },
     };
     localStorage.setItem('cart', JSON.stringify(parsedData));
     return;
@@ -76,6 +88,12 @@ export const setProductLocalStorage = (detailItem: IProductDetail, products: ISe
 
   const data: IShop = {};
   data[detailItem.store.name] = {};
-  data[detailItem.store.name][detailItem.name] = { productImage: detailItem.image.images[0], options: products };
+  data[detailItem.store.name][detailItem.name] = {
+    productImage: detailItem.image.images[0],
+    total: Object.values(products).reduce((prev: number, cur: ISelectedProduct) => prev + cur.originTotalPrice, 0),
+    estimated: Object.values(products).reduce((prev: number, cur: ISelectedProduct) => prev + cur.totalPrice, 0),
+    selected: false,
+    options: products,
+  };
   localStorage.setItem('cart', JSON.stringify({ data }));
 };

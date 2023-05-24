@@ -32,6 +32,7 @@ const SelectedProduct = ({ id, payload }: { id: string; payload: ISelectedProduc
                   payload: {
                     ...payload,
                     count: payload.count - 1,
+                    originTotalPrice: payload.originTotalPrice - payload.originPrice,
                     totalPrice: payload.totalPrice - payload.singlePrice,
                   },
                 });
@@ -49,6 +50,7 @@ const SelectedProduct = ({ id, payload }: { id: string; payload: ISelectedProduc
                 payload: {
                   ...payload,
                   count: payload.count + 1,
+                  originTotalPrice: payload.originTotalPrice + payload.originPrice,
                   totalPrice: payload.totalPrice + payload.singlePrice,
                 },
               });

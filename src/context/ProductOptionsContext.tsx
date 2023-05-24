@@ -6,6 +6,8 @@ import useFetch from 'src/hooks/useFetch';
 export interface ISelectedProduct {
   options: string[];
   value: string;
+  originTotalPrice: number;
+  originPrice: number;
   singlePrice: number;
   count: number;
   totalPrice: number;
@@ -55,7 +57,6 @@ const ProductOptionsContextProvider = ({ children }: { children: React.ReactNode
   const [products, dispatch] = useReducer(productReducer, {});
   const options = useFetch<IProductOptions>(`/detail/options/${search}`, 'GET');
   const [selected, setSelected] = useState<number[]>([]);
-
   const providerValue = useMemo(
     () => ({
       products,

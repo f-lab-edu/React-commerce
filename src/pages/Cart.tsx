@@ -1,5 +1,4 @@
 import React, { useState, useReducer, useMemo } from 'react';
-import { Navigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Mall from '@components/cart/Mall';
 import { ColorSet } from 'src/utils/constant';
@@ -10,8 +9,11 @@ const Cart = () => {
   const [toggle, setToggle] = useState<boolean>(false);
 
   const [localData, dispatch] = useReducer(cartReducer, {}, () => {
-    const rawData = localStorage.getItem('cart');
-    if (rawData === null) return {};
+    let rawData = localStorage.getItem('cart');
+    if (rawData === null) {
+      localStorage.setItem('cart', JSON.stringify({ data: {} }));
+      rawData = JSON.stringify({ data: {} });
+    }
     return JSON.parse(rawData);
   });
 
@@ -35,10 +37,6 @@ const Cart = () => {
     }
   };
 
-  if (localData.data === undefined) {
-    localStorage.setItem('cart', JSON.stringify({ data: {} }));
-    <Navigate replace to="/cart" />;
-  }
   const isChecked = (() => {
     const productsCount = Object.keys(localData.data)
       .map((mall) => Object.keys(localData.data[mall]).length)

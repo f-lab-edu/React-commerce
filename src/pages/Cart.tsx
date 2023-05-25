@@ -38,6 +38,7 @@ const Cart = () => {
   };
 
   const isChecked = (() => {
+    console.log(localData.data);
     const productsCount = Object.keys(localData.data)
       .map((mall) => Object.keys(localData.data[mall]).length)
       .reduce((prev, cur) => prev + cur, 0);
@@ -59,9 +60,12 @@ const Cart = () => {
                 .map((item) => {
                   return { originTotalPrice: item.originTotalPrice, totalPrice: item.totalPrice };
                 })
-                .reduce((prev, cur) => {
-                  return { originTotalPrice: prev.originTotalPrice + cur.originTotalPrice, totalPrice: prev.totalPrice + cur.totalPrice };
-                });
+                .reduce(
+                  (prev, cur) => {
+                    return { originTotalPrice: prev.originTotalPrice + cur.originTotalPrice, totalPrice: prev.totalPrice + cur.totalPrice };
+                  },
+                  { originTotalPrice: 0, totalPrice: 0 }
+                );
             }
             return { originTotalPrice: 0, totalPrice: 0 };
           })
@@ -140,6 +144,7 @@ export default Cart;
 const S = {
   Background: styled.div`
     width: 100%;
+    min-height: 100vh;
     height: 100%;
     color: ${ColorSet.textBlack};
     background-color: ${ColorSet.backgroundGray};

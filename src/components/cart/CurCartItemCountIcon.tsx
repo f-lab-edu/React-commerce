@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 const CurCartItemCountIcon = () => {
   const cartData = getLocalStorage<ICart>('cart');
-  if (cartData === null) return null;
+  if (cartData === null || Object.keys(cartData).length === 0) return null;
   return <S.IconWrap>{Object.values(cartData).length}</S.IconWrap>;
 };
 

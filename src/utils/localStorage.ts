@@ -5,7 +5,7 @@ const EXPIRETIME = Date.now() + 86400000;
 interface ISearchStorageData {
   data: IRecentKeyword[];
 }
-interface IRecentKeyword {
+export interface IRecentKeyword {
   name: string;
   path: string;
   expire: number;
@@ -52,15 +52,15 @@ export const setSearchLocalStorage = (e: React.MouseEvent<HTMLAnchorElement, Mou
   localStorage.setItem('recentKeyword', JSON.stringify({ data: [{ name: e.currentTarget.text, path: e.currentTarget.href, expire: EXPIRETIME }] }));
 };
 
-export const getLocalStorage = (keyName: string): IRecentKeyword[] | void => {
+export const getLocalStorage = <T>(keyName: string): T | null => {
   const base = localStorage.getItem(keyName);
-  if (base != null) {
+  if (base !== null) {
     return JSON.parse(base).data;
   }
-  return [];
+  return null;
 };
 
-export const clearLocalStorage = (keyName: string): void => {
+export const clearLocalStorage = (keyName: string) => {
   localStorage.removeItem(keyName);
 };
 

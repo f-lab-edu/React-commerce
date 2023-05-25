@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import CurCartItemCountIcon from '@components/cart/CurCartItemCountIcon';
 import HeaderIcon from '../atom/HeaderIcon';
 
 function HeaderIconGroup() {
@@ -7,7 +8,10 @@ function HeaderIconGroup() {
     <S.HeaderIconGroup>
       <HeaderIcon x={0} y={0} path="/search" />
       <HeaderIcon x={-30} y={0} path="/order_delivery" />
-      <HeaderIcon x={-60} y={0} path="/cart" />
+      <S.CartIconWrap>
+        <HeaderIcon x={-60} y={0} path="/cart" />
+        <CurCartItemCountIcon />
+      </S.CartIconWrap>
     </S.HeaderIconGroup>
   );
 }
@@ -24,5 +28,8 @@ const S = {
       display: inline-block;
       border-right: 1px solid #ddd;
     }
+  `,
+  CartIconWrap: styled.span`
+    position: relative;
   `,
 };

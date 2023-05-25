@@ -23,7 +23,7 @@ const OptionSelect = ({ level }: { level: number }) => {
       alert(`${optionData.options?.names[optionData.selected.length]}먼저 선택 해주세용`);
       return;
     }
-    setToggle(!toggle);
+    setToggle(prev => !prev);
   };
 
   const selectHandler = (index: number) => {

@@ -17,15 +17,10 @@ const ProductDescription = () => {
       </S.Warning>
       <S.Description fold={fold}>
         <div dangerouslySetInnerHTML={{ __html: data.description }} />
-        {fold ? (
+        {
           <S.Fold onClick={() => setFold(!fold)} fold={fold}>
-            상품설명 펼치기
+            {fold ? '상품설명 펼치기' : '상품설명 접기'}
           </S.Fold>
-        ) : (
-          <S.Fold onClick={() => setFold(!fold)} fold={fold}>
-            상품설명 접기
-          </S.Fold>
-        )}
       </S.Description>
     </S.Wrap>
   );

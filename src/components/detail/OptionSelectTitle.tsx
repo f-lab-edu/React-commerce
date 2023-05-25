@@ -8,8 +8,7 @@ const OptionSelectTitle = ({ level, data }: { level: number; data: IOption[] | u
   const optionData = useContext(ProductOptionsContext);
   if (optionData === null) return null;
 
-  const curSelect =
-    data && (optionData.selected[level] === undefined ? '선택안함' : data[optionData.selected[level]].value);
+  const curSelect = data && (optionData.selected[level] === undefined ? '선택안함' : data[optionData.selected[level]].value);
 
   return (
     <>

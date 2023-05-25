@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 
-const useDebounce = (callback: Function, time: number) => {
+const useDebounce = (callback: Function, ms: number) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       callback();
-    }, time);
+    }, ms);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [callback, time]);
+  }, [callback, ms]);
 };
 
 export default useDebounce;

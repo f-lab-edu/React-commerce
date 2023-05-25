@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { ProductOptionsContext } from 'src/context/ProductOptionsContext';
 import { ColorSet } from 'src/utils/constant';
-import OptionSelect from './OptionSelect';
-import OptionDeliveryFee from './OptionDeliveryFee';
-import SelectedProduct from './SelectedProduct';
-import OptionResult from './OptionResult';
+import DeliveryFee from './DeliveryFee';
+import SelectedProducts from './SelectedProducts';
+import OptionSelectResult from './OptionSelectResult';
 import OptionPurchase from './OptionPurchase';
+import OptionItems from './OptionItems';
 
 const SideSection = () => {
   const optionData = useContext(ProductOptionsContext);
@@ -17,15 +17,11 @@ const SideSection = () => {
       <S.Wrap>
         <S.OptionSelectSection>
           <S.OptionSelectTitle>옵션선택</S.OptionSelectTitle>
-          {optionData.options?.names.map((e, index) => (
-            <OptionSelect level={index} key={e} />
-          ))}
-          {Object.entries(optionData.products).map(([id, payload]) => (
-            <SelectedProduct key={id} id={id} payload={payload} />
-          ))}
+          {optionData.options !== undefined && <OptionItems options={optionData.options} />}
+          <SelectedProducts products={optionData.products} />
         </S.OptionSelectSection>
-        <OptionDeliveryFee />
-        <OptionResult products={optionData.products} />
+        <DeliveryFee />
+        <OptionSelectResult products={optionData.products} />
         <OptionPurchase products={optionData.products} />
       </S.Wrap>
     </S.SideSection>

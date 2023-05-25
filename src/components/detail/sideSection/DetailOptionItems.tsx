@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { IOption } from '@interfaces/Options';
 import styled from 'styled-components';
 import { ColorSet } from 'src/utils/constant';
-import { ProductOptionsContext } from 'src/context/ProductOptionsContext';
 
 interface Props {
   data: IOption[];
@@ -10,7 +9,7 @@ interface Props {
   selected: number | undefined;
   basePrice: number;
 }
-const OptionItems = ({ data, selectHandler, selected, basePrice }: Props) => {
+const DetailOptionItems = ({ data, selectHandler, selected, basePrice }: Props) => {
   const priceCalculator = (index: number) => {
     if ((data[index].soldOut && data[index].soldOut === true) || (data[index].stock !== undefined && data[index].stock === 0)) {
       return '품절';
@@ -48,7 +47,7 @@ const OptionItems = ({ data, selectHandler, selected, basePrice }: Props) => {
   );
 };
 
-export default OptionItems;
+export default DetailOptionItems;
 
 const S = {
   Wrap: styled.ul``,

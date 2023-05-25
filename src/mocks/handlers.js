@@ -1,5 +1,13 @@
 import { rest } from 'msw';
-import { product, categoryGroups, mainBanners, recommedStores, reviewBestTalkeDeals, specialCard } from './data';
+import {
+  product,
+  categoryGroups,
+  mainBanners,
+  recommedStores,
+  reviewBestTalkeDeals,
+  specialCard,
+  hotKeyword,
+} from './data';
 
 const handlers = [
   rest.get('/product', (req, res, ctx) => {
@@ -39,6 +47,28 @@ const handlers = [
   rest.get('/reviewBestDeal', (req, res, ctx) => {
     const page = req.url.searchParams.get('page');
     return res(ctx.status(200), ctx.json(reviewBestTalkeDeals.data.slice(page * 2, page * 2 + 2)));
+  }),
+
+  rest.get('/search', (req, res, ctx) => {
+    const query = req.url.searchParams.get('q');
+    const matched = [];
+    if (query) {
+      product.data.products.forEach((page) => {
+        page.forEach((item) => {
+          if (item.productName.includes(query)) {
+            matched.push({ keyword: item.productName, path: `detail/?productId=${item.productId}` });
+          }
+        });
+      });
+    }
+    return res(ctx.status(200), ctx.json(matched));
+  }),
+  rest.get('/search/hotkeywords', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(hotKeyword));
+  }),
+
+  rest.get('/detail', (req, res, ctx) => {
+    const target = req.url.searchParm.get('productId');
   }),
 ];
 

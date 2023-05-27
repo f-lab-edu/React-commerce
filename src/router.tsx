@@ -7,6 +7,7 @@ const Search = lazy(() => import('@pages/Search'));
 const Detail = lazy(() => import('@pages/Detail'));
 const Cart = lazy(() => import('@pages/Cart'));
 const Pay = lazy(() => import('@pages/Pay'));
+const PaySuccess = lazy(() => import('@pages/PaySuccess'));
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback="로딩중..">
             <Pay />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pay_success',
+        element: (
+          <Suspense fallback="로딩중..">
+            <PaySuccess />
           </Suspense>
         ),
       },

@@ -5,7 +5,6 @@ import styled from 'styled-components';
 const Detail = () => {
   return (
     <S.Detail>
-      {/* 헤더 */}
       <DetailLayout />
     </S.Detail>
   );

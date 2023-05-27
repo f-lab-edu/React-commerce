@@ -1,10 +1,10 @@
 import React from 'react';
 import { ColorSet } from 'src/utils/constant';
-import { ICart, getLocalStorage } from 'src/utils/localStorage';
+import { IShop, getLocalStorage } from 'src/utils/localStorage';
 import styled from 'styled-components';
 
 const CurCartItemCountIcon = () => {
-  const cartData = getLocalStorage<ICart>('cart');
+  const cartData = getLocalStorage<IShop>('cart');
   if (cartData === null || Object.keys(cartData).length === 0) return null;
   return <S.IconWrap>{Object.values(cartData).length}</S.IconWrap>;
 };

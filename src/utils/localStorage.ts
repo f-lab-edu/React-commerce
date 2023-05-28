@@ -1,24 +1,44 @@
+import IProductDetail from '@interfaces/Detail';
+import { ISelectedProduct, ISelectedProducts } from 'src/context/ProductOptionsContext';
 import getErrorMessage from './getErrorMessage';
 
 const EXPIRETIME = Date.now() + 86400000;
-interface IStorageData {
+interface ISearchStorageData {
   data: IRecentKeyword[];
 }
-interface IRecentKeyword {
+export interface IRecentKeyword {
   name: string;
   path: string;
   expire: number;
 }
 
-type UnionType = IRecentKeyword;
+export interface ICart {
+  data: IShop;
+}
 
-export const setLocalStorage = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, keyName: string) => {
+export interface IShop {
+  [shopName: string]: IShopItems;
+}
+
+export interface IShopItems {
+  [productValue: string]: IShopItem;
+}
+
+export interface IShopItem {
+  productImage: string;
+  total: number;
+  estimated: number;
+  options: ISelectedProducts;
+  selected: boolean;
+}
+
+export const setSearchLocalStorage = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+  const base = localStorage.getItem('recentKeyword');
   try {
-    const base = localStorage.getItem(keyName);
     if (base != null) {
       let flag = false;
-      const parsedData: IStorageData = JSON.parse(base);
-      parsedData.data.forEach((data: UnionType) => {
+      const parsedData: ISearchStorageData = JSON.parse(base);
+      parsedData.data.forEach((data: IRecentKeyword) => {
         if (data.name === e.currentTarget.text) {
           data.expire = EXPIRETIME;
           flag = true;
@@ -26,32 +46,66 @@ export const setLocalStorage = (e: React.MouseEvent<HTMLAnchorElement, MouseEven
       });
       if (!flag) {
         parsedData.data.push({ name: e.currentTarget.text, path: e.currentTarget.href, expire: EXPIRETIME });
-        localStorage.setItem(keyName, JSON.stringify({ data: [...new Set(parsedData.data)] }));
+        localStorage.setItem('recentKeyword', JSON.stringify({ data: [...new Set(parsedData.data)] }));
+        return;
       }
-      return;
     }
-    localStorage.setItem(keyName, JSON.stringify({ data: [{ name: e.currentTarget.text, path: e.currentTarget.href, expire: EXPIRETIME }] }));
+    localStorage.setItem('recentKeyword', JSON.stringify({ data: [{ name: e.currentTarget.text, path: e.currentTarget.href, expire: EXPIRETIME }] }));
   } catch (error) {
     throw new Error(getErrorMessage(error));
   }
 };
 
-export const getLocalStorage = (keyName: string): IRecentKeyword[] | void => {
+export const getLocalStorage = <T>(keyName: string): T | null => {
   try {
     const base = localStorage.getItem(keyName);
-    if (base != null) {
+    if (base !== null) {
       return JSON.parse(base).data;
     }
-    return undefined;
+    return null;
   } catch (error) {
     throw new Error(getErrorMessage(error));
   }
 };
 
-export const clearLocalStorage = (keyName: string): void => {
+export const clearLocalStorage = (keyName: string) => {
   try {
     localStorage.removeItem(keyName);
   } catch (error) {
     throw new Error(getErrorMessage(error));
   }
+};
+
+export const setProductLocalStorage = (detailItem: IProductDetail, products: ISelectedProducts) => {
+  const base = localStorage.getItem('cart');
+  if (base != null) {
+    const parsedData: ICart = JSON.parse(base);
+    if (!parsedData.data[detailItem.store.name]) {
+      parsedData.data[detailItem.store.name] = {};
+    }
+    parsedData.data[detailItem.store.name][detailItem.name] = {
+      productImage: detailItem.image.images[0],
+      total:
+        (parsedData.data[detailItem.store.name][detailItem.name] ? parsedData.data[detailItem.store.name][detailItem.name].total : 0) +
+        Object.values(products).reduce((prev: number, cur: ISelectedProduct) => prev + cur.originTotalPrice, 0),
+      estimated:
+        (parsedData.data[detailItem.store.name][detailItem.name] ? parsedData.data[detailItem.store.name][detailItem.name].estimated : 0) +
+        Object.values(products).reduce((prev: number, cur: ISelectedProduct) => prev + cur.totalPrice, 0),
+      selected: false,
+      options: { ...parsedData.data[detailItem.store.name][detailItem.name]?.options, ...products },
+    };
+    localStorage.setItem('cart', JSON.stringify(parsedData));
+    return;
+  }
+
+  const data: IShop = {};
+  data[detailItem.store.name] = {};
+  data[detailItem.store.name][detailItem.name] = {
+    productImage: detailItem.image.images[0],
+    total: Object.values(products).reduce((prev: number, cur: ISelectedProduct) => prev + cur.originTotalPrice, 0),
+    estimated: Object.values(products).reduce((prev: number, cur: ISelectedProduct) => prev + cur.totalPrice, 0),
+    selected: false,
+    options: products,
+  };
+  localStorage.setItem('cart', JSON.stringify({ data }));
 };

@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { RECENT_KEYWORD, ColorSet } from 'src/utils/constant';
-import { clearLocalStorage, getLocalStorage } from 'src/utils/localStorage';
+import { clearLocalStorage, getLocalStorage, type IRecentKeyword } from 'src/utils/localStorage';
 import RecentSearchedItem from './RecentSearchedItem';
 
 const RecentSearchedBox = () => {
-  const [recentSearchedKeyword, setRecentSearchedKeyword] = useState(() => getLocalStorage(RECENT_KEYWORD));
+  const [recentSearchedKeyword, setRecentSearchedKeyword] = useState(() => getLocalStorage<IRecentKeyword[]>(RECENT_KEYWORD));
 
   return (
     <S.RecentSearched>
       <S.Title>최근 검색</S.Title>
-      <S.Remover onClick={() => setRecentSearchedKeyword(clearLocalStorage(RECENT_KEYWORD))}>전체 삭제</S.Remover>
+      <S.Remover
+        onClick={() => {
+          clearLocalStorage(RECENT_KEYWORD);
+          setRecentSearchedKeyword([]);
+        }}
+      >
+        전체 삭제
+      </S.Remover>
       <S.ListBox>
         {recentSearchedKeyword ? (
           recentSearchedKeyword.map((keyword) => {

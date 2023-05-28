@@ -1,11 +1,14 @@
 import React, { createContext, useReducer, useState, useMemo } from 'react';
 import IProductOptions from '@interfaces/Options';
+import { produce } from 'immer';
 import { useLocation } from 'react-router-dom';
 import useFetch from 'src/hooks/useFetch';
 
 export interface ISelectedProduct {
   options: string[];
   value: string;
+  originTotalPrice: number;
+  originPrice: number;
   singlePrice: number;
   count: number;
   totalPrice: number;
@@ -33,17 +36,22 @@ interface IOptionContext {
 }
 
 const productReducer = (products: ISelectedProducts, action: Action) => {
-  switch (action.type) {
-    case 'ADD_PRODUCT':
-      return { ...products, [action.id]: action.payload };
-    case 'DELETE_PRODUCT':
-      delete products[action.id];
-      return { ...products };
-    case 'UPDATE_PRODUCT':
-      return { ...products, [action.id]: action.payload };
-    default:
-      throw Error('from productReducer: 존재하지 않는 액션 타입입니다.');
-  }
+  // eslint-disable-next-line
+  return produce(products, (draft) => {
+    switch (action.type) {
+      case 'ADD_PRODUCT':
+        draft[action.id] = action.payload;
+        break;
+      case 'DELETE_PRODUCT':
+        delete draft[action.id];
+        break;
+      case 'UPDATE_PRODUCT':
+        draft[action.id] = action.payload;
+        break;
+      default:
+        return products;
+    }
+  });
 };
 
 export const ProductOptionsContext = createContext<IOptionContext | null>(null);
@@ -55,7 +63,6 @@ const ProductOptionsContextProvider = ({ children }: { children: React.ReactNode
   const [products, dispatch] = useReducer(productReducer, {});
   const options = useFetch<IProductOptions>(`/detail/options/${search}`, 'GET');
   const [selected, setSelected] = useState<number[]>([]);
-
   const providerValue = useMemo(
     () => ({
       products,

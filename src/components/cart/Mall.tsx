@@ -6,24 +6,23 @@ import styled from 'styled-components';
 import Product from './Product';
 
 const Mall = ({ title, data }: { title: string; data: IShopItems }) => {
-  const localStorageData = useContext(CartContext);
+  const cartContext = useContext(CartContext);
+
   const isChecked = ((): boolean => {
-    if (Object.keys(data).length === Object.values(data).reduce((prev: number, cur: IShopItem) => (cur.selected ? prev + 1 : prev), 0)) {
-      return true;
-    }
-    return false;
+    if (Object.values(data).some((product) => product.selected !== true)) return false;
+    return true;
   })();
 
-  if (localStorageData === null) return null;
+  if (cartContext === null) return null;
 
   const mallSelectHandler = () => {
     if (!isChecked) {
-      localStorageData.dispatch({
+      cartContext.dispatch({
         type: 'MALL_SELECTED',
         mall: title,
       });
     } else {
-      localStorageData.dispatch({
+      cartContext.dispatch({
         type: 'MALL_UNSELECTED',
         mall: title,
       });

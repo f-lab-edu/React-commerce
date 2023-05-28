@@ -7,14 +7,7 @@ const Price = ({ talkDeal, content }: { talkDeal: Boolean; content: string }) =>
   const [modal, setModal] = useState(false);
   return (
     <S.Wrap>
-      <InfoModal
-        modal={modal}
-        content={
-          talkDeal
-            ? '우측에서 수량 및 옵션 확인 후 톡딜가로 바로 구매해보세요.'
-            : '이 가격은 상품을 등록한 판매자가 직접 산정한 기준입니다'
-        }
-      />
+      <InfoModal modal={modal} content={talkDeal ? '우측에서 수량 및 옵션 확인 후 톡딜가로 바로 구매해보세요.' : '이 가격은 상품을 등록한 판매자가 직접 산정한 기준입니다'} />
       <S.Price talkDeal={talkDeal} onMouseOver={() => setModal(true)} onMouseOut={() => setModal(false)}>
         {content}
       </S.Price>

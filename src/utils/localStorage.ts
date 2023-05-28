@@ -1,5 +1,6 @@
 import IProductDetail from '@interfaces/Detail';
 import { ISelectedProduct, ISelectedProducts } from 'src/context/ProductOptionsContext';
+import getErrorMessage from './getErrorMessage';
 
 const EXPIRETIME = Date.now() + 86400000;
 interface ISearchStorageData {
@@ -33,35 +34,46 @@ export interface IShopItem {
 
 export const setSearchLocalStorage = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
   const base = localStorage.getItem('recentKeyword');
-
-  if (base != null) {
-    let flag = false;
-    const parsedData: ISearchStorageData = JSON.parse(base);
-    parsedData.data.forEach((data: IRecentKeyword) => {
-      if (data.name === e.currentTarget.text) {
-        data.expire = EXPIRETIME;
-        flag = true;
+  try {
+    if (base != null) {
+      let flag = false;
+      const parsedData: ISearchStorageData = JSON.parse(base);
+      parsedData.data.forEach((data: IRecentKeyword) => {
+        if (data.name === e.currentTarget.text) {
+          data.expire = EXPIRETIME;
+          flag = true;
+        }
+      });
+      if (!flag) {
+        parsedData.data.push({ name: e.currentTarget.text, path: e.currentTarget.href, expire: EXPIRETIME });
+        localStorage.setItem('recentKeyword', JSON.stringify({ data: [...new Set(parsedData.data)] }));
+        return;
       }
-    });
-    if (!flag) {
-      parsedData.data.push({ name: e.currentTarget.text, path: e.currentTarget.href, expire: EXPIRETIME });
-      localStorage.setItem('recentKeyword', JSON.stringify({ data: [...new Set(parsedData.data)] }));
     }
-    return;
+    localStorage.setItem('recentKeyword', JSON.stringify({ data: [{ name: e.currentTarget.text, path: e.currentTarget.href, expire: EXPIRETIME }] }));
+  } catch (error) {
+    throw new Error(getErrorMessage(error));
   }
-  localStorage.setItem('recentKeyword', JSON.stringify({ data: [{ name: e.currentTarget.text, path: e.currentTarget.href, expire: EXPIRETIME }] }));
 };
 
 export const getLocalStorage = <T>(keyName: string): T | null => {
-  const base = localStorage.getItem(keyName);
-  if (base !== null) {
-    return JSON.parse(base).data;
+  try {
+    const base = localStorage.getItem(keyName);
+    if (base !== null) {
+      return JSON.parse(base).data;
+    }
+    return null;
+  } catch (error) {
+    throw new Error(getErrorMessage(error));
   }
-  return null;
 };
 
 export const clearLocalStorage = (keyName: string) => {
-  localStorage.removeItem(keyName);
+  try {
+    localStorage.removeItem(keyName);
+  } catch (error) {
+    throw new Error(getErrorMessage(error));
+  }
 };
 
 export const setProductLocalStorage = (detailItem: IProductDetail, products: ISelectedProducts) => {

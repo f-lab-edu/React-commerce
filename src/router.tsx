@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import Main from '@pages/Main';
-import Search from '@pages/Search';
 import App from './App';
 
+const Main = lazy(() => import('@pages/Main'));
+const Search = lazy(() => import('@pages/Search'));
+const Detail = lazy(() => import('@pages/Detail'));
 const router = createBrowserRouter([
   {
     path: '/',
@@ -11,9 +12,28 @@ const router = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <Main />,
+        element: (
+          <Suspense fallback="로딩중..">
+            <Main />
+          </Suspense>
+        ),
       },
-      { path: 'search', element: <Search /> },
+      {
+        path: 'search',
+        element: (
+          <Suspense fallback="로딩중..">
+            <Search />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'detail',
+        element: (
+          <Suspense fallback="로딩중..">
+            <Detail />
+          </Suspense>
+        ),
+      },
     ],
   },
 ]);

@@ -11,7 +11,7 @@ function Carousel() {
     direction === 'left' ? setIndex((prev) => prev - 1) : setIndex((prev) => prev + 1);
   };
 
-  useDebounce(() => setIndex((prev) => prev + 1), 5000, [curIndex]);
+  useDebounce(() => setIndex((prev) => prev + 1), 5000);
 
   useEffect(() => {
     const container = slideContainer.current;

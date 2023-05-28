@@ -1,14 +1,15 @@
 import { useEffect } from 'react';
 
-const useDebounce = <T extends unknown>(callback: Function, time: number, deps: T[]) => {
-  // let timer: ReturnType<typeof setTimeout>;
+const useDebounce = (callback: Function, ms: number) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       callback();
-    }, time);
+    }, ms);
 
-    return () => clearTimeout(timer);
-  }, [callback, time, ...deps]);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [callback, ms]);
 };
 
 export default useDebounce;

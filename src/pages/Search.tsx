@@ -19,6 +19,7 @@ const Search = () => {
   );
   const [hotKeywordFetch, setHotKeywordFetch] = useState(() => fetchData<IHotKeywords>('search/hotkeywords'));
 
+
   useDebounce(() => setDebounceValue(searchValue), 300, [searchValue]);
 
   useEffect(() => {

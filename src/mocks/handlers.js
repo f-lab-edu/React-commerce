@@ -6,6 +6,8 @@ import {
   recommedStores,
   reviewBestTalkeDeals,
   specialCard,
+  productDetail,
+  productOptions,
   hotKeyword,
 } from './data';
 
@@ -68,7 +70,13 @@ const handlers = [
   }),
 
   rest.get('/detail', (req, res, ctx) => {
-    const target = req.url.searchParm.get('productId');
+    const target = req.url.searchParams.get('productId');
+    return res(ctx.status(200), ctx.json(productDetail[target]));
+  }),
+
+  rest.get('/detail/options', (req, res, ctx) => {
+    const target = req.url.searchParams.get('productId');
+    return res(ctx.status(200), ctx.json(productOptions[target]));
   }),
 ];
 

@@ -1,21 +1,30 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import { ColorSet } from 'src/utils/constant';
 
-const AddressForm = () => {
+interface FormValue {
+  name: string;
+  phoneNumber: string;
+  zoneCode: string;
+  address: string;
+  detailAddress: string;
+  deliveryRequest: string;
+}
+const AddressForm = ({ payHandler }: { payHandler: Function }) => {
   const [isShow, setIsShow] = useState<boolean>(true);
-  const [name, setName] = useState<string>();
-  const [phoneNumber, setPhoneNumber] = useState<string>();
-  const [zoneCode, setZoneCode] = useState();
-  const [address, setAddress] = useState<string>();
-  const [detailAddress, setDetailAddress] = useState<string>();
-  const [select, setSelect] = useState<string>();
-  const [request, setRequest] = useState<string>();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    trigger,
+    formState: { errors },
+  } = useForm<FormValue>();
+
   const open = useDaumPostcodePopup();
 
-  const handleComplete = (data: any) => {
-    setZoneCode(data.zonecode);
+  const handleDaumPostComplete = (data: any) => {
     let extraAddress = '';
     let fullAddress = data.address;
     if (data.addressType === 'R') {
@@ -26,47 +35,44 @@ const AddressForm = () => {
         extraAddress += extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
       }
       fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
-      setAddress(fullAddress);
+      setValue('zoneCode', data.zonecode);
+      setValue('address', fullAddress);
+      trigger(['zoneCode', 'address']);
     }
   };
 
   return (
-    <S.Wrap>
+    <S.Wrap onSubmit={handleSubmit(() => payHandler())} id="addressForm">
       <S.Title isShow={isShow} onClick={() => setIsShow((prev) => !prev)}>
         배송지 정보
       </S.Title>
       {isShow && (
-        <div>
-          <S.Input
-            type="text"
-            placeholder="주문자 성명을 입력해주세요"
-            size={40}
-            value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-          />
+        <>
+          <S.Input {...register('name', { required: '주문자 성명을 입력은 필수입니다' })} type="text" placeholder="주문자 성명을 입력해주세요" size={40} />
+          {errors.name && <S.Error>{errors.name.message}</S.Error>}
           <br />
-          <S.Input type="text" placeholder="휴대전화 번호를 -를 포함해 입력해주세요" size={40} value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+          <S.Input
+            {...register('phoneNumber', {
+              required: '휴대전화 번호 입력은 필수입니다',
+              pattern: { value: /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/g, message: '휴대전화 번호 형식에 맞지 않습니다.' },
+            })}
+            type="text"
+            placeholder="휴대전화 번호를 -를 포함해 입력해주세요"
+            size={40}
+          />
+          {errors.phoneNumber && <S.Error>{errors.phoneNumber.message}</S.Error>}
           <br />
           <div>
-            <S.Input type="text" placeholder="우편번호" value={zoneCode} />
-            <S.Input type="button" onClick={() => open({ onComplete: handleComplete })} value="우편번호 찾기" />
+            <S.Input {...register('zoneCode', { required: true })} type="text" placeholder="우편번호" />
+            <S.Input type="button" onClick={() => open({ onComplete: handleDaumPostComplete })} value="우편번호 찾기" />
+            {(errors.address || errors.zoneCode) && <S.Error>주소 입력은 필수입니다</S.Error>}
           </div>
-          <S.Input type="text" placeholder="주소" value={address} size={40} />
-          <S.Input
-            type="text"
-            placeholder="상세주소"
-            value={detailAddress}
-            onChange={(e) => {
-              setDetailAddress(e.target.value);
-            }}
-          />
+          <S.Input {...register('address', { required: true })} type="text" placeholder="주소" size={40} />
+          <S.Input {...register('detailAddress')} type="text" placeholder="상세주소" />
           <br />
           <S.Select
             onChange={(e) => {
-              setRequest(e.target.value);
-              setSelect(e.target.value);
+              setValue('deliveryRequest', e.target.value);
             }}
           >
             <option selected disabled>
@@ -78,8 +84,8 @@ const AddressForm = () => {
             <option value="">직접입력</option>
           </S.Select>
           <br />
-          <S.TextArea maxLength={50} placeholder="배송시 요청사항을 입력해주세요(최대 50자)" value={request} onChange={(e) => setRequest(e.target.value)} />
-        </div>
+          <S.TextArea {...register('deliveryRequest')} maxLength={50} placeholder="배송시 요청사항을 입력해주세요(최대 50자)" />
+        </>
       )}
     </S.Wrap>
   );
@@ -88,7 +94,7 @@ const AddressForm = () => {
 export default AddressForm;
 
 const S = {
-  Wrap: styled.div`
+  Wrap: styled.form`
     padding: 10px;
     border-bottom: 1px solid ${ColorSet.borderGray};
     margin-bottom: 5px;
@@ -110,21 +116,35 @@ const S = {
     }
   `,
   Input: styled.input`
+    border: 1px solid ${ColorSet.borderGray};
+    border-radius: 5px;
     line-height: 20px;
     margin: 0 5px 5px 0;
     padding: 5px;
   `,
   Select: styled.select`
+    border: 1px solid ${ColorSet.borderGray};
+    border-radius: 5px;
     width: 780px;
     padding: 10px;
-    box-sizing: border-box;
     margin-bottom: 5px;
+    position: relative;
+    appearance: none;
+    background: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>")
+      no-repeat;
+    background-position: 99% 50%;
   `,
   TextArea: styled.textarea`
+    border: 1px solid ${ColorSet.borderGray};
+    border-radius: 5px;
     resize: none;
     padding: 10px;
     box-sizing: border-box;
     width: 780px;
     height: 70px;
+  `,
+  Error: styled.small`
+    color: ${ColorSet.textRed};
+    font-size: 12px;
   `,
 };

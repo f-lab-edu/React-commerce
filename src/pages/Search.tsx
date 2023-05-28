@@ -14,13 +14,10 @@ import FetchErrorFallback from '@components/FetchErrorFallback';
 const Search = () => {
   const [searchValue, setSearchValue] = useState<string>('');
   const [debounceValue, setDebounceValue] = useState<string>('');
-  const [suggestedKeywordFetch, setSuggestedKeywordFetch] = useState(() =>
-    fetchData<ISearchKeyword[]>(`search/${searchValue}`)
-  );
+  const [suggestedKeywordFetch, setSuggestedKeywordFetch] = useState(() => fetchData<ISearchKeyword[]>(`search/${searchValue}`));
   const [hotKeywordFetch, setHotKeywordFetch] = useState(() => fetchData<IHotKeywords>('search/hotkeywords'));
 
-
-  useDebounce(() => setDebounceValue(searchValue), 300, [searchValue]);
+  useDebounce(() => setDebounceValue(searchValue), 300);
 
   useEffect(() => {
     setSuggestedKeywordFetch(fetchData<ISearchKeyword[]>(`search/?q=${debounceValue}`));
@@ -44,10 +41,7 @@ const Search = () => {
         <>
           <RecentSearchedBox />
 
-          <ErrorBoundary
-            onReset={() => setHotKeywordFetch(fetchData<IHotKeywords>('search/hotkeywords'))}
-            fallbackRender={FetchErrorFallback}
-          >
+          <ErrorBoundary onReset={() => setHotKeywordFetch(fetchData<IHotKeywords>('search/hotkeywords'))} fallbackRender={FetchErrorFallback}>
             <Suspense fallback={<h2>로딩중</h2>}>
               <HotKeywords fetcher={hotKeywordFetch} />
             </Suspense>

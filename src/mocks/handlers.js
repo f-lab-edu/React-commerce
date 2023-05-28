@@ -8,6 +8,7 @@ import {
   specialCard,
   productDetail,
   productOptions,
+  hotKeyword,
 } from './data';
 
 const handlers = [
@@ -63,6 +64,9 @@ const handlers = [
       });
     }
     return res(ctx.status(200), ctx.json(matched));
+  }),
+  rest.get('/search/hotkeywords', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(hotKeyword));
   }),
 
   rest.get('/detail', (req, res, ctx) => {

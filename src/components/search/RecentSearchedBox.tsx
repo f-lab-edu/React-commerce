@@ -5,7 +5,7 @@ import { clearLocalStorage, getLocalStorage } from 'src/utils/localStorage';
 import RecentSearchedItem from './RecentSearchedItem';
 
 const RecentSearchedBox = () => {
-  const [recentSearchedKeyword, setRecentSearchedKeyword] = useState(getLocalStorage(RECENT_KEYWORD));
+  const [recentSearchedKeyword, setRecentSearchedKeyword] = useState(() => getLocalStorage(RECENT_KEYWORD));
 
   return (
     <S.RecentSearched>
@@ -14,7 +14,7 @@ const RecentSearchedBox = () => {
       <S.ListBox>
         {recentSearchedKeyword ? (
           recentSearchedKeyword.map((keyword) => {
-            return <RecentSearchedItem content={keyword.name} path={keyword.path} />;
+            return <RecentSearchedItem key={keyword.expire} content={keyword.name} path={keyword.path} />;
           })
         ) : (
           <S.Notice>최근 검색 내역이 없습니다.</S.Notice>
@@ -30,8 +30,8 @@ const S = {
   RecentSearched: styled.div`
     box-sizing: border-box;
     position: relative;
-    padding: 10px;
-    height: 120px;
+    padding: 30px 0;
+    border-bottom: 1px solid ${ColorSet.borderGray};
   `,
   Title: styled.h3`
     color: ${ColorSet.textBlack};
@@ -42,7 +42,7 @@ const S = {
     position: absolute;
     border: none;
     background-color: inherit;
-    top: 5px;
+    top: 30px;
     right: 0;
     color: ${ColorSet.textGray};
   `,

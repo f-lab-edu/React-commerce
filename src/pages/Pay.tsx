@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import OrderInformation from '@components/pay/OrderInformation';
 import Purchase from '@components/pay/Purchase';
@@ -6,7 +6,6 @@ import AddressForm from '@components/pay/AddressForm';
 import PaymentInformation from '@components/pay/PaymentInformation';
 import { ColorSet } from 'src/utils/constant';
 import calculateCartData from 'src/utils/calculateCartData';
-import { redirect } from 'react-router-dom';
 import { getLocalStorage, type IShop } from 'src/utils/localStorage';
 import { kakaoPay, tossPG } from 'src/api/purchase';
 
@@ -20,22 +19,30 @@ const Pay = () => {
 
   if (cartData === null) return null;
 
-  const payHandler = () => {
+  const payHandler = async () => {
     if (payTool === 'kakao') {
-      kakaoPay(`${orderProduct} ${calculatedCartData.count - 1 !== 0 ? `외 ${calculatedCartData.count - 1}개` : ''}`, calculatedCartData.count, calculatedCartData.optionPrice.totalPrice);
+      const response = await kakaoPay(
+        `${orderProduct} ${calculatedCartData.count - 1 !== 0 ? `외 ${calculatedCartData.count - 1}개` : ''}`,
+        calculatedCartData.count,
+        calculatedCartData.optionPrice.totalPrice
+      );
+      sessionStorage.setItem('pg', JSON.stringify({ domain: payTool, tid: response.tid }));
+      window.location.href = response.next_redirect_pc_url;
     } else {
-      tossPG(payTool, `${orderProduct}  ${calculatedCartData.count - 1 !== 0 ? `외 ${calculatedCartData.count - 1}개` : ''}`, calculatedCartData.optionPrice.totalPrice);
+      const response = await tossPG(payTool, `${orderProduct}  ${calculatedCartData.count - 1 !== 0 ? `외 ${calculatedCartData.count - 1}개` : ''}`, calculatedCartData.optionPrice.totalPrice);
+      sessionStorage.setItem('pg', JSON.stringify({ domain: payTool }));
+      window.location.href = response.checkout.url;
     }
   };
   return (
     <S.Background>
       <S.Wrap>
         <S.Title>주문하기</S.Title>
-        <AddressForm />
+        <AddressForm payHandler={payHandler} />
         <OrderInformation />
         <PaymentInformation calculatedCartData={calculatedCartData} />
         <Purchase setTool={setPayTool} />
-        <S.PurchaseButton type="button" onClick={payHandler}>
+        <S.PurchaseButton type="submit" form="addressForm">
           {calculatedCartData.optionPrice.totalPrice.toLocaleString()}원 결제하기
         </S.PurchaseButton>
       </S.Wrap>

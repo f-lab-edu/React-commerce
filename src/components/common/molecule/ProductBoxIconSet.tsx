@@ -6,12 +6,14 @@ import ProductBoxShare from '../atom/ProductBoxShare';
 const StyledProductBoxIconSet = styled.span`
   display: flex;
   align-items: center;
+  width: 80px;
+  height: 30px;
 `;
-function ProductBoxIconSet() {
+function ProductBoxIconSet({ productName }: { productName: string }) {
   return (
     <StyledProductBoxIconSet>
       <ProductBoxShare />
-      <ProductBoxLike />
+      <ProductBoxLike productName={productName} />
     </StyledProductBoxIconSet>
   );
 }

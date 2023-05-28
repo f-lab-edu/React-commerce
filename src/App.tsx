@@ -4,9 +4,6 @@ import { Outlet } from 'react-router-dom';
 import Header from '@components/main/organism/Header';
 import ScrollUpModal from '@components/common/atom/ScrollUpModal';
 
-const Layout = styled.div`
-  padding-top: 80px;
-`;
 function App() {
   return (
     <>
@@ -20,3 +17,7 @@ function App() {
 }
 
 export default App;
+
+const Layout = styled.div`
+  padding-top: 80px;
+`;

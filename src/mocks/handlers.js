@@ -1,15 +1,5 @@
 import { rest } from 'msw';
-import {
-  product,
-  categoryGroups,
-  mainBanners,
-  recommedStores,
-  reviewBestTalkeDeals,
-  specialCard,
-  productDetail,
-  productOptions,
-  hotKeyword,
-} from './data';
+import { product, categoryGroups, mainBanners, recommedStores, reviewBestTalkeDeals, specialCard, productDetail, productOptions, hotKeyword } from './data';
 
 const handlers = [
   rest.get('/product', (req, res, ctx) => {

@@ -1,16 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
+import useFetch from 'src/hooks/useFetch';
 import IProductDetail from '@interfaces/Detail';
 import ProductDetailContext from 'src/context/ProductDetailContext';
 import ProductOptionsContextProvider from 'src/context/ProductOptionsContext';
-import fetchData from 'src/utils/fetchData';
 import MainSection from './mainSection/MainSection';
 import SideSection from './sideSection/SideSection';
 
-const productId = window.location.search;
-const fetcher = fetchData<IProductDetail>(`/detail/${productId}`);
 const DetailLayout = () => {
-  const data = fetcher.read();
+  const { search } = useLocation();
+  const data = useFetch<IProductDetail>(`/detail/${search}`);
+
+  if (data === undefined) return null;
   return (
     <S.Wrap>
       <ProductDetailContext.Provider value={data}>

@@ -68,12 +68,14 @@ export const getLocalStorage = <T>(keyName: string): T | null => {
   }
 };
 
+const cartChange = new CustomEvent('cartChange');
 export const clearLocalStorage = (keyName: string) => {
   try {
     localStorage.removeItem(keyName);
   } catch (error) {
     throw new Error(getErrorMessage(error));
   }
+  window.dispatchEvent(cartChange);
 };
 
 export const setProductLocalStorage = (detailItem: IProductDetail, products: ISelectedProducts) => {
@@ -95,6 +97,7 @@ export const setProductLocalStorage = (detailItem: IProductDetail, products: ISe
       options: { ...parsedData.data[detailItem.store.name][detailItem.name]?.options, ...products },
     };
     localStorage.setItem('cart', JSON.stringify(parsedData));
+    window.dispatchEvent(cartChange);
     return;
   }
 
@@ -108,6 +111,12 @@ export const setProductLocalStorage = (detailItem: IProductDetail, products: ISe
     options: products,
   };
   localStorage.setItem('cart', JSON.stringify({ data }));
+  window.dispatchEvent(cartChange);
+};
+
+export const setItem = (state: ICart) => {
+  localStorage.setItem('cart', JSON.stringify(state));
+  window.dispatchEvent(cartChange);
 };
 
 export const updateProductLocalStorage = () => {
@@ -122,4 +131,5 @@ export const updateProductLocalStorage = () => {
     });
     localStorage.setItem('cart', JSON.stringify(parsedData));
   }
+  dispatchEvent(cartChange);
 };

@@ -7,7 +7,6 @@ const CurCartItemCountIcon = () => {
   const [count, setCount] = useState(0);
   useEffect(() => {
     const update = () => {
-      console.log('why not work?');
       const cartData = getLocalStorage<IShop>('cart');
       cartData && setCount(Object.keys(cartData).length);
     };

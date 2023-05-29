@@ -30,29 +30,22 @@ const ProductBox = ({
   fetchMoreProducts,
 }: Props) => {
   const target = useRef<HTMLLIElement | null>(null);
-  const entry = useIntersectionObserve(target, {});
-  const isIntersecting = !!entry?.isIntersecting;
-
+  const entry = useIntersectionObserve(target, {}, isLast);
   useEffect(() => {
-    isLast && isIntersecting && fetchMoreProducts();
-  }, [isLast, isIntersecting]);
-
+    isLast && entry && fetchMoreProducts();
+  }, [isLast, entry]);
   return (
     <S.ProductBox ref={target}>
       <S.ProdcutBoxWrap to={linkPath}>
         <ProductBoxImage src={imageUrl} alt={productName} />
         <ProductTagList freeDelivery={freeDelivery} label={label} />
         <ProductBoxItemName content={mainCopy} />
-        <ProductBoxAboutPrice
-          specialDeal={groupDiscountDisplayable}
-          originPrice={originalPrice}
-          discountPrice={groupDiscountedPrice}
-        />
-        <S.ProductBoxFooter>
-          <ProductBoxAboutBoughtUser profiles={profiles} groupDiscountUserCount={groupDiscountUserCount} />
-          <ProductBoxIconSet />
-        </S.ProductBoxFooter>
+        <ProductBoxAboutPrice specialDeal={groupDiscountDisplayable} originPrice={originalPrice} discountPrice={groupDiscountedPrice} />
       </S.ProdcutBoxWrap>
+      <S.ProductBoxFooter>
+        <ProductBoxAboutBoughtUser profiles={profiles} groupDiscountUserCount={groupDiscountUserCount} />
+        <ProductBoxIconSet productName={productName} />
+      </S.ProductBoxFooter>
     </S.ProductBox>
   );
 };

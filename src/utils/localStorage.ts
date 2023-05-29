@@ -109,3 +109,17 @@ export const setProductLocalStorage = (detailItem: IProductDetail, products: ISe
   };
   localStorage.setItem('cart', JSON.stringify({ data }));
 };
+
+export const updateProductLocalStorage = () => {
+  const base = localStorage.getItem('cart');
+  if (base != null) {
+    const parsedData: ICart = JSON.parse(base);
+    Object.entries(parsedData.data).map(([shop, products]) => {
+      Object.entries(products).map(([name, value]) => {
+        if (value.selected) delete parsedData.data[shop][name];
+      });
+      if (Object.values(parsedData.data[shop]).length === 0) delete parsedData.data[shop];
+    });
+    localStorage.setItem('cart', JSON.stringify(parsedData));
+  }
+};

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Spinner from '@components/common/atom/Spinner';
 import { kakaoPayApprove, tossPgApprove } from 'src/api/purchase';
+import { updateProductLocalStorage } from 'src/utils/localStorage';
 
 const PayApprove = () => {
   const [searchParams] = useSearchParams();
@@ -29,6 +30,7 @@ const PayApprove = () => {
           throw new Error('토스 결제 승인 실패');
         }
       }
+      updateProductLocalStorage();
       window.location.replace('/pay_success');
     })();
   }, []);

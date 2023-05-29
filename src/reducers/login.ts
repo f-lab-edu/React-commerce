@@ -62,6 +62,7 @@ const userReducer = (state: AuthState = initialState, action: loginAction & logi
     case 'LOGIN_FAILED':
       return { ...state };
     case 'LOGOUT':
+      localStorage.removeItem('cart');
       sessionStorage.removeItem('user');
       return { ...state, isAuthenticated: false, user: null };
     case 'ADD_LIKE':

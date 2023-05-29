@@ -1,5 +1,6 @@
 import { put, takeEvery, call } from 'redux-saga/effects';
 import { TokenResponse, getToken, getUserData } from 'src/api/kakaoLogin';
+import { produce } from 'immer';
 
 export const login = (code: string) => ({ type: 'LOGIN', code });
 export const logout = () => ({ type: 'LOGOUT' });
@@ -33,7 +34,7 @@ export const loginSaga = function* (action: loginAction): any {
   try {
     const token: TokenResponse = yield call(getToken, code);
     const userInfo = yield call(getUserData, token);
-    sessionStorage.setItem('user', JSON.stringify({ isAuthenticated: true, user: userInfo.properties, like: [] }));
+    sessionStorage.setItem('user', JSON.stringify({ isAuthenticated: true, user: userInfo.properties, like: [], cart: 0 }));
     yield put({
       type: 'LOGIN_SUCCESS',
       userData: userInfo.properties,
@@ -52,32 +53,40 @@ export const userSaga = function* () {
 const serializedUserState = sessionStorage.getItem('user');
 const initialState = serializedUserState ? JSON.parse(serializedUserState) : {};
 
-// eslint-disable-next-line
-const userReducer = (state: AuthState = initialState, action: loginAction & loginSuccessAction & likeAction) => {
-  switch (action.type) {
-    case 'LOGIN_SUCCESS':
-      if ('userData' in action) {
-        return { ...state, isAuthenticated: true, user: action.userData };
-      }
-    case 'LOGIN_FAILED':
-      return { ...state };
-    case 'LOGOUT':
-      localStorage.removeItem('cart');
-      sessionStorage.removeItem('user');
-      return { ...state, isAuthenticated: false, user: null };
-    case 'ADD_LIKE':
-      if ('payload' in action) {
-        return { ...state, like: [...state.like, action.payload] };
-      }
-    case 'DELETE_LIKE':
-      if ('payload' in action) {
-        const targetIdx = state.like.indexOf(action.payload);
-        if (targetIdx > -1) state.like.splice(targetIdx, 1);
-        return { ...state, like: [...state.like] };
-      }
-    default:
-      return { ...state };
-  }
+/* eslint-disable */
+const userReducer = (state: AuthState = initialState, action: loginAction | loginSuccessAction | likeAction) => {
+  return produce(state, (draft) => {
+    switch (action.type) {
+      case 'LOGIN_SUCCESS':
+        if ('userData' in action) {
+          draft.isAuthenticated = true;
+          draft.user = action.userData;
+        }
+        break;
+      case 'LOGIN_FAILED':
+        throw new Error('로그인에 실패하였습니다.');
+        break;
+      case 'LOGOUT':
+        localStorage.removeItem('cart');
+        sessionStorage.removeItem('user');
+        draft.isAuthenticated = false;
+        draft.user = null;
+        break;
+      case 'ADD_LIKE':
+        if ('payload' in action) {
+          draft.like.push(action.payload);
+        }
+        break;
+      case 'DELETE_LIKE':
+        if ('payload' in action) {
+          const targetIdx = draft.like.indexOf(action.payload);
+          if (targetIdx > -1) draft.like.splice(targetIdx, 1);
+        }
+        break;
+      default:
+        return draft;
+    }
+  });
 };
 
 export default userReducer;

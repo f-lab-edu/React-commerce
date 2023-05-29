@@ -3,12 +3,10 @@ import styled from 'styled-components';
 import { ISelectedProduct, ISelectedProducts } from 'src/context/ProductOptionsContext';
 import { ColorSet } from 'src/utils/constant';
 
-const OptionResult = ({ products }: { products: ISelectedProducts }) => {
+const OptionSelectResult = ({ products }: { products: ISelectedProducts }) => {
   return (
     <S.OptionResult>
-      <span>
-        총 수량 {Object.values(products).reduce((prev: number, cur: ISelectedProduct) => prev + cur.count, 0)}개
-      </span>
+      <span>총 수량 {Object.values(products).reduce((prev: number, cur: ISelectedProduct) => prev + cur.count, 0)}개</span>
       <span>
         총 주문금액{' '}
         <S.em>
@@ -22,7 +20,7 @@ const OptionResult = ({ products }: { products: ISelectedProducts }) => {
   );
 };
 
-export default OptionResult;
+export default OptionSelectResult;
 
 const S = {
   OptionResult: styled.div`

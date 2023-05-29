@@ -14,7 +14,6 @@ interface Props {
 const Product = ({ title, data, mall }: Props) => {
   const localStorageData = useContext(CartContext);
   if (localStorageData === null) return null;
-
   const productSelectHandler = () => {
     if (!data.selected) {
       localStorageData.dispatch({

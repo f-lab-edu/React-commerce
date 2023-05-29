@@ -21,8 +21,7 @@ export default HeaderIcon;
 
 const S = {
   HeaderIcon: styled.span<IStyledHeaderIcon>`
-    background: url(https://st.kakaocdn.net/commerce_ui/front-talkstore/real/20230430/232103/ico_store_pc.82c1fd4bf8ec030b.svg)
-      no-repeat;
+    background: url(https://st.kakaocdn.net/commerce_ui/front-talkstore/real/20230430/232103/ico_store_pc.82c1fd4bf8ec030b.svg) no-repeat;
     display: inline-block;
     bacgkround-size: 800px 500px;
     width: 28px;

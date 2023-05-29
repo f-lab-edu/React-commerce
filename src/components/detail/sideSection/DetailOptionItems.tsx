@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { IOption } from '@interfaces/Options';
 import styled from 'styled-components';
 import { ColorSet } from 'src/utils/constant';
-import { ProductOptionsContext } from 'src/context/ProductOptionsContext';
 
 interface Props {
   data: IOption[];
@@ -10,21 +9,16 @@ interface Props {
   selected: number | undefined;
   basePrice: number;
 }
-const OptionItems = ({ data, selectHandler, selected, basePrice }: Props) => {
+const DetailOptionItems = ({ data, selectHandler, selected, basePrice }: Props) => {
   const priceCalculator = (index: number) => {
-    if (
-      (data[index].soldOut && data[index].soldOut === true) ||
-      (data[index].stock !== undefined && data[index].stock === 0)
-    ) {
+    if ((data[index].soldOut && data[index].soldOut === true) || (data[index].stock !== undefined && data[index].stock === 0)) {
       return '품절';
     }
     if (data[index].addPrice === undefined) {
       if (data[index].minAddPrice === data[index].maxAddPrice) {
         return `${(basePrice + Number(data[index].minAddPrice)).toLocaleString('ko-KR')}원`;
       }
-      return `${(basePrice + Number(data[index].minAddPrice)).toLocaleString('ko-KR')}원 ~ ${(
-        basePrice + Number(data[index].maxAddPrice)
-      ).toLocaleString('ko-KR')}원`;
+      return `${(basePrice + Number(data[index].minAddPrice)).toLocaleString('ko-KR')}원 ~ ${(basePrice + Number(data[index].maxAddPrice)).toLocaleString('ko-KR')}원`;
     }
     return `${(basePrice + Number(data[index].addPrice)).toLocaleString('ko-KR')}원`;
   };
@@ -34,7 +28,7 @@ const OptionItems = ({ data, selectHandler, selected, basePrice }: Props) => {
         return (
           <S.Item
             onClick={() => {
-              if ((e.soldOut && e.soldOut) || (e.stock !== undefined && e.stock === 0)) {
+              if (e.soldOut || (e.stock !== undefined && e.stock === 0)) {
                 alert('품절된 상품입니다.');
                 return;
               }
@@ -53,7 +47,7 @@ const OptionItems = ({ data, selectHandler, selected, basePrice }: Props) => {
   );
 };
 
-export default OptionItems;
+export default DetailOptionItems;
 
 const S = {
   Wrap: styled.ul``,

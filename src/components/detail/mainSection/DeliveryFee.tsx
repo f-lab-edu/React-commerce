@@ -8,13 +8,10 @@ const DeliveryFee = () => {
   if (data === null) return <S.Skeleton />;
   return (
     <S.Wrap>
-      <S.TxtInfo>
-        {data.delivery.deliveryFeeType === 'FREE' ? '배송비 무료' : `배송비 ${data.delivery.deliveryFee}원`}
-      </S.TxtInfo>
+      <S.TxtInfo>{data.delivery.deliveryFeeType === 'FREE' ? '배송비 무료' : `배송비 ${data.delivery.deliveryFee}원`}</S.TxtInfo>
       {data.delivery.availableIsolatedArea && data.delivery.isolatedAreaAdditionalFee && (
         <S.TxtInfo>
-          제주 추가 {data.delivery.jejuAreaAdditionalFee}원/ 제주 외 도서지역 추가{' '}
-          {data.delivery.isolatedAreaAdditionalFee}원
+          제주 추가 {data.delivery.jejuAreaAdditionalFee?.toLocaleString()}원/ 제주 외 도서지역 추가 {data.delivery.isolatedAreaAdditionalFee.toLocaleString()}원
         </S.TxtInfo>
       )}
     </S.Wrap>

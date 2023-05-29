@@ -12,20 +12,13 @@ const ProductDescription = () => {
       <S.Warning>
         <S.WarningTitle>직거래 유도 주의 안내</S.WarningTitle>
         <br />
-        판매자가 할인 등을 조건으로 문자/카톡 메시지로 <S.Strong>현금결제를 유도하면 입금하지 마시고</S.Strong>{' '}
-        쇼핑하기로 신고해주세요.
+        판매자가 할인 등을 조건으로 문자/카톡 메시지로 <S.Strong>현금결제를 유도하면 입금하지 마시고</S.Strong> 쇼핑하기로 신고해주세요.
       </S.Warning>
       <S.Description fold={fold}>
         <div dangerouslySetInnerHTML={{ __html: data.description }} />
-        {fold ? (
-          <S.Fold onClick={() => setFold(!fold)} fold={fold}>
-            상품설명 펼치기
-          </S.Fold>
-        ) : (
-          <S.Fold onClick={() => setFold(!fold)} fold={fold}>
-            상품설명 접기
-          </S.Fold>
-        )}
+        <S.Fold onClick={() => setFold(!fold)} fold={fold}>
+          {fold ? '상품설명 펼치기' : '상품설명 접기'}
+        </S.Fold>
       </S.Description>
     </S.Wrap>
   );

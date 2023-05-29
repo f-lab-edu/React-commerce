@@ -8,6 +8,7 @@ const Search = lazy(() => import('@pages/Search'));
 const Detail = lazy(() => import('@pages/Detail'));
 const Cart = lazy(() => import('@pages/Cart'));
 const Pay = lazy(() => import('@pages/Pay'));
+const PayApprove = lazy(() => import('@pages/PayApprove'));
 const PaySuccess = lazy(() => import('@pages/PaySuccess'));
 
 const router = createBrowserRouter([
@@ -60,6 +61,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<Spinner />}>
             <PaySuccess />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pay_approve',
+        element: (
+          <Suspense fallback={<Spinner />}>
+            <PayApprove />
           </Suspense>
         ),
       },

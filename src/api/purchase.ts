@@ -22,7 +22,7 @@ const kakaoPay = async (itemName: string, quantity: number, amount: number): Pro
         quantity,
         total_amount: amount,
         tax_free_amount: 0,
-        approval_url: 'http://localhost:3000/pay_success',
+        approval_url: 'http://localhost:3000/pay_approve',
         cancel_url: 'http://localhost:3000/pay',
         fail_url: 'http://localhost:3000/pay',
       },
@@ -49,7 +49,7 @@ const tossPG = async (method: string, itemName: string, amount: number) => {
         method: `${method}`,
         orderId: `Testing${Math.floor(Math.random() * 10000000)}`,
         orderName: itemName,
-        successUrl: 'http://localhost:3000/pay_success',
+        successUrl: 'http://localhost:3000/pay_approve',
       },
       { headers: { Authorization: 'Basic dGVzdF9za196WExrS0V5cE5BcldtbzUwblgzbG1lYXhZRzVSOg==', 'Content-Type': 'application/json' } }
     );

@@ -1,16 +1,11 @@
-import React, { useState, useEffect, forwardRef, ForwardedRef } from 'react';
-import axios, { AxiosResponse } from 'axios';
+import React, { forwardRef, ForwardedRef } from 'react';
+import useFetch from 'src/hooks/useFetch';
 import styled from 'styled-components';
 import MainBanner from '@interfaces/MainBanner';
 import CarouselScreen from '../atom/CarouselScreen';
 
 const CarouselContainer = forwardRef((props, ref: ForwardedRef<HTMLDivElement>) => {
-  const [bannerDatas, setBannerDatas] = useState<MainBanner[]>();
-  useEffect(() => {
-    axios
-      .get('http://localhost:3000/mainBanners')
-      .then((response: AxiosResponse<MainBanner[]>) => setBannerDatas(response.data));
-  }, []);
+  const bannerDatas = useFetch<MainBanner[]>('/mainBanners');
 
   return (
     <S.CarouselContainer ref={ref}>

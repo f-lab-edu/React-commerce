@@ -1,17 +1,17 @@
-import axios, { AxiosResponse } from 'axios';
+import fetch from 'src/api/fetch';
 
-const fetchData = <T>(url: string) => {
-  return use<T>(axios(url));
+const fetchData = <T>(url: string, method = 'GET') => {
+  return use<T>(fetch(url, method));
 };
 
-function use<T>(promise: Promise<AxiosResponse<T>>) {
+function use<T>(promise: Promise<T>) {
   let status = 'pending';
   let result: T;
 
   const suspender = promise.then(
     (resolve) => {
       status = 'success';
-      result = resolve.data;
+      result = resolve;
     },
     (reject) => {
       status = 'error';

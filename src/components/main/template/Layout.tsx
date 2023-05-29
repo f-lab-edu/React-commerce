@@ -1,9 +1,36 @@
-import React, { useEffect } from 'react';
+import React, { Suspense } from 'react';
 import styled from 'styled-components';
 import { MemoizedMiddleNavbar } from '@components/common/organism/MiddleNavbar';
+import Spinner from '@components/common/atom/Spinner';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorFallback from '@components/common/organism/ErrorFallback';
 import ProductSection from './ProductSection';
 import SpecialCard from '../molecule/SpecialCard';
 import ReviewBestTalkDeal from '../organism/ReviewBestTalkDeal';
+
+function Layout() {
+  return (
+    <StyledMainLayout>
+      <MainSection>
+        <StyledTitle>오늘의 딜</StyledTitle>
+        <MemoizedMiddleNavbar />
+        <ProductSection />
+      </MainSection>
+      <ErrorBoundary fallback={<div>ㅎㅎ</div>}>
+        <SideSection>
+          <ErrorBoundary fallback={<ErrorFallback title="스폐셜 카드 요청에 실패하였습니다." />}>
+            <Suspense fallback={<Spinner />}>
+              <SpecialCard />
+            </Suspense>
+          </ErrorBoundary>
+          <ReviewBestTalkDeal />
+        </SideSection>
+      </ErrorBoundary>
+    </StyledMainLayout>
+  );
+}
+
+export default Layout;
 
 const StyledMainLayout = styled.div`
   display: flex;
@@ -30,20 +57,3 @@ const SideSection = styled.div`
   width: 300px;
   flex-shrink: 0;
 `;
-function Layout() {
-  return (
-    <StyledMainLayout>
-      <MainSection>
-        <StyledTitle>오늘의 딜</StyledTitle>
-        <MemoizedMiddleNavbar />
-        <ProductSection />
-      </MainSection>
-      <SideSection>
-        <SpecialCard />
-        <ReviewBestTalkDeal />
-      </SideSection>
-    </StyledMainLayout>
-  );
-}
-
-export default Layout;

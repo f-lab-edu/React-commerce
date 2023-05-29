@@ -1,17 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import axios, { AxiosResponse } from 'axios';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import IreviewBest from '@interfaces/reviewBest';
+import useFetch from 'src/hooks/useFetch';
 
 const ReviewBestTalkDeal = () => {
   const [page, setPage] = useState(0);
-  const [data, setData] = useState<IreviewBest[]>();
-
-  useEffect(() => {
-    axios.get(`/reviewBestDeal/?page=${page}`).then((response: AxiosResponse<IreviewBest[]>) => {
-      setData(response.data);
-    });
-  }, [page]);
+  const data = useFetch<IreviewBest[]>(`/reviewBestDeal/?page=${page}`, 'GET', page);
 
   const prevBtnHandler = () => {
     page === 0 ? setPage(11) : setPage((prev) => prev - 1);
@@ -19,32 +13,28 @@ const ReviewBestTalkDeal = () => {
   const nextBtnHandler = () => {
     page === 11 ? setPage(0) : setPage((prev) => prev + 1);
   };
-  useEffect(() => {});
+  if (data === undefined) return null;
   return (
     <S.layout>
       <S.title>✏️ 후기 증명 BEST 톡딜</S.title>
-      {data ? (
-        data.map((product: IreviewBest, index) => {
-          return (
-            <S.container key={product.productId}>
-              <S.productImg src={data[index].productImage} />
-              <S.productDescription>
-                <S.productCount>{data[index].userCount.toLocaleString('ko-KR')}명이 참여한 딜</S.productCount>
-                <S.productName>{data[index].productName}</S.productName>
-                <S.productIcon />
-              </S.productDescription>
-              <S.productReview>
-                <S.productReviewCount>
-                  😍 리뷰 {data[index].reviewCount}건 만족도 {data[index].productPositivePercentage}%
-                </S.productReviewCount>
-                <S.productReviewContent>{data[index].reviewContent}</S.productReviewContent>
-              </S.productReview>
-            </S.container>
-          );
-        })
-      ) : (
-        <div>로딩중중중중</div>
-      )}
+      {data.map((product: IreviewBest, index) => {
+        return (
+          <S.container key={product.productId}>
+            <S.productImg src={data[index].productImage} />
+            <S.productDescription>
+              <S.productCount>{data[index].userCount.toLocaleString('ko-KR')}명이 참여한 딜</S.productCount>
+              <S.productName>{data[index].productName}</S.productName>
+              <S.productIcon />
+            </S.productDescription>
+            <S.productReview>
+              <S.productReviewCount>
+                😍 리뷰 {data[index].reviewCount}건 만족도 {data[index].productPositivePercentage}%
+              </S.productReviewCount>
+              <S.productReviewContent>{data[index].reviewContent}</S.productReviewContent>
+            </S.productReview>
+          </S.container>
+        );
+      })}
 
       <S.moveSection>
         <S.button onClick={prevBtnHandler}>{'<'}</S.button>

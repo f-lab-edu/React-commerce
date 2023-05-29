@@ -6,9 +6,11 @@ import CartContext, { cartReducer } from 'src/context/CartContext';
 import Empty from '@components/cart/Empty';
 import { useNavigate } from 'react-router-dom';
 import calculateCartData from 'src/utils/calculateCartData';
+import Announce from '@components/common/atom/Announce';
 
 const Cart = () => {
   const [toggle, setToggle] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
   const navigate = useNavigate();
   const [localData, dispatch] = useReducer(cartReducer, {}, () => {
     let rawData = localStorage.getItem('cart');
@@ -42,7 +44,7 @@ const Cart = () => {
     if (orderCount) {
       navigate('/pay');
     } else {
-      alert('주문할 상품을 선택해주세요');
+      setShowModal(true);
     }
   };
 
@@ -95,6 +97,7 @@ const Cart = () => {
               </S.OrderWrap>
             </div>
           )}
+          {showModal && <Announce content="주문할 상품을 선택해주세요." controller={setShowModal} />}
         </S.Wrap>
       </S.Background>
     </CartContext.Provider>

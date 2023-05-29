@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { ColorSet } from 'src/utils/constant';
 import ProductDetailContext from 'src/context/ProductDetailContext';
+import Announce from '@components/common/atom/Announce';
 import { ProductDispatchContext, ProductOptionsContext } from 'src/context/ProductOptionsContext';
 import useDataFilter from 'src/hooks/useDataFilter';
 import OptionItemTitle from './OptionItemTitle';
@@ -13,13 +14,14 @@ const OptionItem = ({ level }: { level: number }) => {
   const dispatch = useContext(ProductDispatchContext);
   const [isDetailOptionShow, setIsDetailOptionShow] = useState<boolean>(() => optionData?.selected[level] === undefined);
   const data = useDataFilter(level);
+  const [modalShow, setModalShow] = useState<boolean>(false);
 
   if (optionData === null || detailData === null) return null;
   const basePrice = detailData.talkDeal ? detailData.talkDeal.discountPrice : detailData.price.standardPrice;
 
   const detailOptionShowHandler = () => {
     if (optionData.selected.length < level) {
-      alert(`${optionData.options?.names[optionData.selected.length]}먼저 선택 해주세용`);
+      setModalShow(true);
       return;
     }
     setIsDetailOptionShow((prev) => !prev);
@@ -65,6 +67,7 @@ const OptionItem = ({ level }: { level: number }) => {
         <OptionItemTitle level={level} data={data} />
       </S.TitleWrap>
       {isDetailOptionShow && data && <DetailOptionItems data={data} selectHandler={selectHandler} selected={optionData.selected[level]} basePrice={basePrice} />}
+      {modalShow && <Announce content={`${optionData.options?.names[optionData.selected.length]} 먼저 선택 해주세요`} controller={setModalShow} />}
     </S.Wrap>
   );
 };

@@ -1,4 +1,5 @@
 import React, { lazy, Suspense } from 'react';
+import Spinner from '@components/common/atom/Spinner';
 import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
 
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
       {
         path: '',
         element: (
-          <Suspense fallback="로딩중..">
+          <Suspense fallback={<Spinner />}>
             <Main />
           </Suspense>
         ),
@@ -25,7 +26,7 @@ const router = createBrowserRouter([
       {
         path: 'search',
         element: (
-          <Suspense fallback="로딩중..">
+          <Suspense fallback={<Spinner />}>
             <Search />
           </Suspense>
         ),
@@ -33,7 +34,7 @@ const router = createBrowserRouter([
       {
         path: 'detail',
         element: (
-          <Suspense fallback="로딩중..">
+          <Suspense fallback={<Spinner />}>
             <Detail />
           </Suspense>
         ),
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
       {
         path: 'cart',
         element: (
-          <Suspense fallback="로딩중..">
+          <Suspense fallback={<Spinner />}>
             <Cart />
           </Suspense>
         ),
@@ -49,7 +50,7 @@ const router = createBrowserRouter([
       {
         path: 'pay',
         element: (
-          <Suspense fallback="로딩중..">
+          <Suspense fallback={<Spinner />}>
             <Pay />
           </Suspense>
         ),
@@ -57,7 +58,7 @@ const router = createBrowserRouter([
       {
         path: 'pay_success',
         element: (
-          <Suspense fallback="로딩중..">
+          <Suspense fallback={<Spinner />}>
             <PaySuccess />
           </Suspense>
         ),

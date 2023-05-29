@@ -4,12 +4,11 @@ import { IOption } from '@interfaces/Options';
 import { ProductOptionsContext } from 'src/context/ProductOptionsContext';
 import { ColorSet } from 'src/utils/constant';
 
-const OptionSelectTitle = ({ level, data }: { level: number; data: IOption[] | undefined }) => {
+const OptionItemTitle = ({ level, data }: { level: number; data: IOption[] | undefined }) => {
   const optionData = useContext(ProductOptionsContext);
   if (optionData === null) return null;
 
-  const curSelect =
-    data && (optionData.selected[level] === undefined ? '선택안함' : data[optionData.selected[level]].value);
+  const curSelect = data && (optionData.selected[level] === undefined ? '선택안함' : data[optionData.selected[level]].value);
 
   return (
     <>
@@ -19,7 +18,7 @@ const OptionSelectTitle = ({ level, data }: { level: number; data: IOption[] | u
   );
 };
 
-export default OptionSelectTitle;
+export default OptionItemTitle;
 
 const S = {
   OptionName: styled.span`

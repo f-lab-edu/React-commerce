@@ -3,36 +3,29 @@ import styled from 'styled-components';
 import { ColorSet } from 'src/utils/constant';
 import ProductDetailContext from 'src/context/ProductDetailContext';
 
-const OptionDeliveryFee = () => {
+const DeliveryFee = () => {
   const detailData = useContext(ProductDetailContext);
 
   return (
     <S.DeliveryFeeSection>
       <S.DeliveryFeeBox>
         <S.DeliveryFeeTitle>배송방법</S.DeliveryFeeTitle>
-        <S.DeliveryMethodType>
-          {detailData?.delivery.deliveryMethodType === 'DELIVERY' && '택배배송'}
-        </S.DeliveryMethodType>
+        <S.DeliveryMethodType>{detailData?.delivery.deliveryMethodType === 'DELIVERY' && '택배배송'}</S.DeliveryMethodType>
       </S.DeliveryFeeBox>
       <S.DeliveryFeeBox>
         <S.DeliveryFeeTitle>배송비</S.DeliveryFeeTitle>
-        <S.DeliveryFeeType>
-          {detailData?.delivery.deliveryFeeType === 'FREE'
-            ? '무료'
-            : `${detailData?.delivery.deliveryFee.toLocaleString('ko-KR')}원`}
-        </S.DeliveryFeeType>
+        <S.DeliveryFeeType>{detailData?.delivery.deliveryFeeType === 'FREE' ? '무료' : `${detailData?.delivery.deliveryFee.toLocaleString('ko-KR')}원`}</S.DeliveryFeeType>
       </S.DeliveryFeeBox>
       {detailData?.delivery.availableIsolatedArea && detailData.delivery.isolatedAreaAdditionalFee && (
         <S.AdditionalFeeInfo>
-          제주 추가 {detailData.delivery.jejuAreaAdditionalFee?.toLocaleString('ko-KR')}원/ 제주 외 도서지역 추가{' '}
-          {detailData.delivery.isolatedAreaAdditionalFee?.toLocaleString('ko-KR')}원
+          제주 추가 {detailData.delivery.jejuAreaAdditionalFee?.toLocaleString('ko-KR')}원/ 제주 외 도서지역 추가 {detailData.delivery.isolatedAreaAdditionalFee?.toLocaleString('ko-KR')}원
         </S.AdditionalFeeInfo>
       )}
     </S.DeliveryFeeSection>
   );
 };
 
-export default OptionDeliveryFee;
+export default DeliveryFee;
 
 const S = {
   DeliveryFeeSection: styled.div`

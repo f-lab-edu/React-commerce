@@ -1,16 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from 'src/reducers';
 
 const StyledProductBoxLike = styled.button`
+  cursor: pointer;
   border: none;
   background-color: inherit;
   color: rgba(24, 32, 55, 0.7);
   font-size: 24px;
 `;
-function ProductBoxLike() {
-  // 유저 정보 가져와서 라이크 unlike check
-  // 로그인 안되어있으면 로그인 페이지로 이동
-  return <StyledProductBoxLike>♡</StyledProductBoxLike>;
+function ProductBoxLike({ productName }: { productName: string }) {
+  const dispatch = useDispatch();
+  const { isAuthenticated, like } = useSelector((state: RootState) => ({ isAuthenticated: state.user.isAuthenticated, like: state.user.like }));
+
+  if (!isAuthenticated) {
+    return (
+      <StyledProductBoxLike
+        // eslint-disable-next-line
+        onClick={() => {
+          window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code`;
+        }}
+      >
+        ♡
+      </StyledProductBoxLike>
+    );
+  }
+  return (
+    <StyledProductBoxLike onClick={() => (like.includes(productName) ? dispatch({ type: 'DELETE_LIKE', payload: productName }) : dispatch({ type: 'ADD_LIKE', payload: productName }))}>
+      {like.includes(productName) ? '❤️' : '♡'}
+    </StyledProductBoxLike>
+  );
 }
 
 export default ProductBoxLike;

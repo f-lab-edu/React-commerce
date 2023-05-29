@@ -5,10 +5,13 @@ import { Link } from 'react-router-dom';
 import { setSearchLocalStorage } from 'src/utils/localStorage';
 
 /* eslint-disable */
-const SuggestedKeywordBox = ({ keywords }: { keywords: ISearchKeyword[] | undefined }) => {
+
+const SuggestedKeywordBox = ({ fetcher }: { fetcher: { read(): ISearchKeyword[] } }) => {
+  const keywords = fetcher.read();
+  if (keywords.length === 0) return <div>검색결과가 없습니다.</div>;
   return (
     <ul>
-      {keywords?.map((keywordData: ISearchKeyword, index) => {
+      {keywords.map((keywordData: ISearchKeyword, index) => {
         return (
           <S.SuggestedKeyword key={index}>
             <S.Link to={''} onClick={setSearchLocalStorage}>

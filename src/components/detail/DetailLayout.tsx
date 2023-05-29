@@ -5,8 +5,8 @@ import useFetch from 'src/hooks/useFetch';
 import IProductDetail from '@interfaces/Detail';
 import ProductDetailContext from 'src/context/ProductDetailContext';
 import ProductOptionsContextProvider from 'src/context/ProductOptionsContext';
-import MainSection from './MainSection';
-import SideSection from './SideSection';
+import MainSection from './mainSection/MainSection';
+import SideSection from './sideSection/SideSection';
 
 const DetailLayout = () => {
   const { search } = useLocation();

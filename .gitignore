@@ -25,4 +25,5 @@ yarn-error.log*
 ## mock data
 src/mocks/data.js
 
-/.env
+# kakaoAPI
+.env

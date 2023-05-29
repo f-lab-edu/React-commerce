@@ -11,9 +11,9 @@ module.exports = function override(config) {
       '@interfaces': path.resolve(__dirname, 'src/interfaces'),
       '@assets': path.resolve(__dirname, 'src/assets'),
     },
+    plugins: [...config.resolve.plugins, new TsconfigPathsPlugin({})],
+    extensions: [...config.resolve.extensions, '.ts', '.tsx'],
   };
-  config.resolve.extensions?.push('.ts', '.tsx');
-  config.resolve?.plugins?.push(new TsconfigPathsPlugin({}));
 
   return config;
 };

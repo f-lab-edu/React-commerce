@@ -30,7 +30,7 @@ const S = {
     border: none;
     font-size: 16px;
     height: 30px;
-    padding: 20px;
+    padding: 10px;
     outline: none;
   `,
   Icon: styled.span`

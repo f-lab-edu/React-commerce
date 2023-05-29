@@ -133,3 +133,16 @@ export const updateProductLocalStorage = () => {
   }
   dispatchEvent(cartChange);
 };
+
+export const buyingSessionStorage = (detailItem: IProductDetail, products: ISelectedProducts) => {
+  const data: IShop = {};
+  data[detailItem.store.name] = {};
+  data[detailItem.store.name][detailItem.name] = {
+    productImage: detailItem.image.images[0],
+    total: Object.values(products).reduce((prev: number, cur: ISelectedProduct) => prev + cur.originTotalPrice, 0),
+    estimated: Object.values(products).reduce((prev: number, cur: ISelectedProduct) => prev + cur.totalPrice, 0),
+    selected: true,
+    options: products,
+  };
+  sessionStorage.setItem('buying', JSON.stringify({ data }));
+};

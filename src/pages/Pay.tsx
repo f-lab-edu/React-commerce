@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
 import OrderInformation from '@components/pay/OrderInformation';
 import Purchase from '@components/pay/Purchase';
@@ -6,18 +6,18 @@ import AddressForm from '@components/pay/AddressForm';
 import PaymentInformation from '@components/pay/PaymentInformation';
 import { ColorSet } from 'src/utils/constant';
 import calculateCartData from 'src/utils/calculateCartData';
-import { getLocalStorage, type IShop } from 'src/utils/localStorage';
+import { type IShop } from 'src/utils/localStorage';
 import { kakaoPay, tossPG } from 'src/api/purchase';
-
-const cartData = getLocalStorage<IShop>('cart');
-
-const calculatedCartData = cartData !== null ? calculateCartData(cartData) : { checked: false, count: 0, optionPrice: { totalPrice: 0, originTotalPrice: 0 } };
-const orderProduct = cartData !== null ? Object.values(cartData).map((product) => Object.keys(product).filter((key) => product[key].selected)[0])[0] : '';
 
 const Pay = () => {
   const [payTool, setPayTool] = useState<string>('kakao');
+  const stringBuyingData = sessionStorage.getItem('buying');
+  const parsedBuyingData: IShop = stringBuyingData === null ? null : JSON.parse(stringBuyingData).data;
 
-  if (cartData === null) return null;
+  const calculatedCartData = useMemo(() => (parsedBuyingData !== null ? calculateCartData(parsedBuyingData) : { checked: false, count: 0, optionPrice: { totalPrice: 0, originTotalPrice: 0 } }), []);
+  const orderProduct = useMemo(() => (parsedBuyingData !== null ? Object.values(parsedBuyingData).map((product) => Object.keys(product).filter((key) => product[key].selected)[0])[0] : ''), []);
+
+  if (parsedBuyingData === null) return null;
 
   const payHandler = async () => {
     if (payTool === 'kakao') {

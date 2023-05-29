@@ -43,6 +43,7 @@ const Cart = () => {
   const orderHandler = (orderCount: number) => {
     if (orderCount) {
       navigate('/pay');
+      sessionStorage.setItem('buying', JSON.stringify(localData));
     } else {
       setShowModal(true);
     }

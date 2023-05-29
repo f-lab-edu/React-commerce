@@ -31,6 +31,7 @@ const PayApprove = () => {
         }
       }
       updateProductLocalStorage();
+      sessionStorage.removeItem('buying');
       window.location.replace('/pay_success');
     })();
   }, []);

@@ -4,10 +4,12 @@ import Mall from '@components/cart/Mall';
 import { ColorSet } from 'src/utils/constant';
 import CartContext, { cartReducer } from 'src/context/CartContext';
 import Empty from '@components/cart/Empty';
+import { useNavigate } from 'react-router-dom';
+import calculateCartData from 'src/utils/calculateCartData';
 
 const Cart = () => {
   const [toggle, setToggle] = useState<boolean>(false);
-
+  const navigate = useNavigate();
   const [localData, dispatch] = useReducer(cartReducer, {}, () => {
     let rawData = localStorage.getItem('cart');
     if (rawData === null) {
@@ -36,55 +38,15 @@ const Cart = () => {
       });
     }
   };
-
-  const isChecked = (() => {
-    console.log(localData.data);
-    const productsCount = Object.keys(localData.data)
-      .map((mall) => Object.keys(localData.data[mall]).length)
-      .reduce((prev, cur) => prev + cur, 0);
-
-    const selectedCount = Object.keys(localData.data)
-      .map((mall) =>
-        Object.values(localData.data[mall])
-          .map((product) => (product.selected ? 1 : 0))
-          .reduce((prev: number, cur: number) => prev + cur, 0)
-      )
-      .reduce((prev, cur) => prev + cur, 0);
-
-    const optionPrice = Object.keys(localData.data)
-      .map((mall) => {
-        return Object.keys(localData.data[mall])
-          .map((product) => {
-            if (localData.data[mall][product].selected) {
-              return Object.values(localData.data[mall][product].options)
-                .map((item) => {
-                  return { originTotalPrice: item.originTotalPrice, totalPrice: item.totalPrice };
-                })
-                .reduce(
-                  (prev, cur) => {
-                    return { originTotalPrice: prev.originTotalPrice + cur.originTotalPrice, totalPrice: prev.totalPrice + cur.totalPrice };
-                  },
-                  { originTotalPrice: 0, totalPrice: 0 }
-                );
-            }
-            return { originTotalPrice: 0, totalPrice: 0 };
-          })
-          .reduce((prev, cur) => {
-            return { originTotalPrice: prev.originTotalPrice + cur.originTotalPrice, totalPrice: prev.totalPrice + cur.totalPrice };
-          });
-      })
-      .reduce(
-        (prev, cur) => {
-          return { originTotalPrice: prev.originTotalPrice + cur.originTotalPrice, totalPrice: prev.totalPrice + cur.totalPrice };
-        },
-        { originTotalPrice: 0, totalPrice: 0 }
-      );
-
-    if (productsCount === selectedCount && productsCount !== 0) {
-      return { checked: true, count: selectedCount, optionPrice };
+  const orderHandler = (orderCount: number) => {
+    if (orderCount) {
+      navigate('/pay');
+    } else {
+      alert('주문할 상품을 선택해주세요');
     }
-    return { checked: false, count: selectedCount, optionPrice };
-  })();
+  };
+
+  const isChecked = calculateCartData(localData.data);
 
   return (
     <CartContext.Provider value={providerValue}>
@@ -129,7 +91,7 @@ const Cart = () => {
                     </S.OrderReciptItem>
                   </S.OrderRecipt>
                 )}
-                <S.OrderBtn>{isChecked.count}건 주문하기</S.OrderBtn>
+                <S.OrderBtn onClick={() => orderHandler(isChecked.count)}>{isChecked.count}건 주문하기</S.OrderBtn>
               </S.OrderWrap>
             </div>
           )}
@@ -150,6 +112,8 @@ const S = {
     background-color: ${ColorSet.backgroundGray};
   `,
   Wrap: styled.div`
+    padding-top: 30px;
+    box-shadow: 0px 40px 40px rgba(0, 0, 0, 0.1);
     width: 870px;
     margin: 0 auto;
   `,

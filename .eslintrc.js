@@ -40,5 +40,6 @@ module.exports = {
     'react/require-default-props': 'off',
     'react/function-component-definition': [2, { namedComponents: ['arrow-function', 'function-declaration'] }],
     'react/destructuring-assignment': 'off',
+    'jsx-a11y/label-has-associated-control': [2, { labelAttributes: ['htmlFor'] }],
   },
 };

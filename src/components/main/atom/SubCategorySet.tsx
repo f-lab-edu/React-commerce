@@ -12,7 +12,7 @@ function SubCategorySet() {
           setModal(!modal);
         }}
       >
-        ☰ 카테고리
+        <S.Icon>☰</S.Icon> 카테고리
       </S.SubCategorySet>
       {modal && <SubCategoryModal />}
     </>
@@ -30,5 +30,9 @@ const S = {
     color: #4684e9;
     border: none;
     background-color: inherit;
+  `,
+  Icon: styled.span`
+    display: inline-block;
+    margin-top: -10px;
   `,
 };

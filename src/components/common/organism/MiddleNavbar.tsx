@@ -1,28 +1,28 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import useFetch from 'src/hooks/useFetch';
+import fetchData from 'src/utils/fetchData';
 
 interface IMiddleNavbar {
   title: string;
   path: string;
   categoryId: number;
 }
-
-export const MiddleNavbar = () => {
-  const Items = useFetch<IMiddleNavbar[]>('/middleCategory');
-
+const promiseItems = fetchData<IMiddleNavbar[]>('/middleCategory');
+export const MiddleNavbar = ({ category, setCategory }: { category: string; setCategory: React.Dispatch<React.SetStateAction<string>> }) => {
+  const Items = promiseItems.read();
   const ItemList = Items?.map((item: IMiddleNavbar) => {
     return (
       <S.LinkWrap key={item.categoryId}>
-        <S.Navlink to={item.path}>{item.title}</S.Navlink>
+        <S.Navlink onClick={() => setCategory(item.title)} active={item.title === category}>
+          {item.title}
+        </S.Navlink>
       </S.LinkWrap>
     );
   });
   return <S.MiddelNavbarWrap>{ItemList}</S.MiddelNavbarWrap>;
 };
 
-export const MemoizedMiddleNavbar = React.memo(MiddleNavbar);
+export default MiddleNavbar;
 
 const S = {
   MiddelNavbarWrap: styled.ul`
@@ -35,20 +35,16 @@ const S = {
     flex-basis: 0;
     flex-grow: 1;
   `,
-  Navlink: styled(NavLink)`
-    text-decoration: none;
+  Navlink: styled.span<{ active: boolean }>`
     display: inline-block;
     padding: 15px 5px;
     text-align: center;
     width: 100%;
-    color: black;
 
     &:hover {
-      color: #437edd;
+      color: ${(props) => (props.active ? 'white' : '#437edd')};
     }
-    &.active {
-      background-color: #437edd;
-      color: white;
-    }
+    background-color: ${(props) => props.active && '#437edd'};
+    color: ${(props) => (props.active ? 'white' : 'black')};
   `,
 };

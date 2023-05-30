@@ -1,6 +1,6 @@
 const RECENT_KEYWORD = 'recentKeyword';
 
-const BASE_URL = 'https://yobimall.netlify.app';
+const BASE_URL = 'http://localhost:3000';
 
 const ColorSet = {
   textBlue: '#4e96f2',

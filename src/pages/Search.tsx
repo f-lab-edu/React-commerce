@@ -54,11 +54,11 @@ const Search = () => {
 
 const S = {
   Layout: styled.div`
-    margin-top: 50px;
     max-width: 750px;
     display: flex;
     flex-direction: column;
     margin: 0 auto;
+    margin-top: 50px;
   `,
 };
 export default Search;

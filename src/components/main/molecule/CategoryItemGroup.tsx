@@ -2,10 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import CategoryItem from '../atom/CategoryItem';
 
-const paths = [
-  { content: '홈', path: '/', id: 1 },
-  { content: '기획전', path: '/promotion', id: 2 },
-];
+const paths = [{ content: '홈', path: '/', id: 1 }];
 
 interface Items {
   content: string;

@@ -7,7 +7,7 @@ function HeaderIconGroup() {
   return (
     <S.HeaderIconGroup>
       <HeaderIcon x={0} y={0} path="/search" />
-      <HeaderIcon x={-30} y={0} path="/order_delivery" />
+      <HeaderIcon x={-30} y={0} path="/delivery" />
       <S.CartIconWrap>
         <HeaderIcon x={-60} y={0} path="/cart" />
         <CurCartItemCountIcon />

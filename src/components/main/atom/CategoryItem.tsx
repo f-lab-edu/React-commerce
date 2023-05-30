@@ -21,6 +21,8 @@ export default CategoryItem;
 const S = {
   CategoryLi: styled.li`
     display: inline-block;
+    width: 50px;
+    text-align: center;
     list-style: none;
   `,
   CategoryItemNavLink: styled(NavLink)`

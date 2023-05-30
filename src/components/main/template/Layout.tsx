@@ -1,6 +1,5 @@
 import React, { Suspense } from 'react';
 import styled from 'styled-components';
-import { MemoizedMiddleNavbar } from '@components/common/organism/MiddleNavbar';
 import Spinner from '@components/common/atom/Spinner';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from '@components/common/organism/ErrorFallback';
@@ -13,7 +12,6 @@ function Layout() {
     <StyledMainLayout>
       <MainSection>
         <StyledTitle>오늘의 딜</StyledTitle>
-        <MemoizedMiddleNavbar />
         <ProductSection />
       </MainSection>
       <SideSection>

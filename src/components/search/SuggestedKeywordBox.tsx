@@ -14,7 +14,7 @@ const SuggestedKeywordBox = ({ fetcher }: { fetcher: { read(): ISearchKeyword[] 
       {keywords.map((keywordData: ISearchKeyword, index) => {
         return (
           <S.SuggestedKeyword key={index}>
-            <S.Link to={keywordData.path} onClick={setSearchLocalStorage}>
+            <S.Link to={`/${keywordData.path}`} onClick={setSearchLocalStorage}>
               {keywordData.keyword}
             </S.Link>
           </S.SuggestedKeyword>

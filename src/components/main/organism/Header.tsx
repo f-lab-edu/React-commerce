@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ColorSet } from 'src/utils/constant';
 import SubCategorySet from '@components/main/atom/SubCategorySet';
 import CategoryItemGroup from '../molecule/CategoryItemGroup';
 import HeaderIconGroup from '../molecule/HeaderIconGroup';
@@ -9,7 +10,7 @@ function Header() {
   return (
     <S.Header>
       <S.InnerHeader>
-        <span>아이콘</span>
+        <S.Title>YobiMall</S.Title>
         <CategoryItemGroup />
         <SubCategorySet />
         <HeaderIconGroup />
@@ -38,5 +39,15 @@ const S = {
     left: 0;
     right: 0;
     top: 0;
+  `,
+  Title: styled.span`
+    background-color: ${ColorSet.textBlue};
+    border-radius: 10px 0 10px 0;
+    padding: 10px;
+    color: aqau-blue;
+    font-weight: 500;
+    margin-right: 20px;
+    font-size: 20px;
+    color: white;
   `,
 };

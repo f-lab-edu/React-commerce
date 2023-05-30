@@ -10,7 +10,6 @@ const handlers = [
   rest.get('/categoryList', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(categoryGroups));
   }),
-
   rest.get('/middleCategory', (req, res, ctx) => {
     return res(
       ctx.status(200),

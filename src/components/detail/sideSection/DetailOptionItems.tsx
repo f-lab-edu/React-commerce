@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import { IOption } from '@interfaces/Options';
 import styled from 'styled-components';
 import { ColorSet } from 'src/utils/constant';
+import Announce from '@components/common/atom/Announce';
 
 interface Props {
   data: IOption[];
@@ -10,6 +11,7 @@ interface Props {
   basePrice: number;
 }
 const DetailOptionItems = ({ data, selectHandler, selected, basePrice }: Props) => {
+  const [isShow, setIsShow] = useState(false);
   const priceCalculator = (index: number) => {
     if ((data[index].soldOut && data[index].soldOut === true) || (data[index].stock !== undefined && data[index].stock === 0)) {
       return '품절';
@@ -29,7 +31,7 @@ const DetailOptionItems = ({ data, selectHandler, selected, basePrice }: Props) 
           <S.Item
             onClick={() => {
               if (e.soldOut || (e.stock !== undefined && e.stock === 0)) {
-                alert('품절된 상품입니다.');
+                setIsShow(true);
                 return;
               }
               selectHandler(index);
@@ -43,6 +45,7 @@ const DetailOptionItems = ({ data, selectHandler, selected, basePrice }: Props) 
           </S.Item>
         );
       })}
+      {isShow && <Announce content="품절 된 상품입니다." controller={setIsShow} />}
     </S.Wrap>
   );
 };

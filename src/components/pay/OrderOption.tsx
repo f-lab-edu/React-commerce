@@ -29,6 +29,7 @@ const S = {
     border-radius: 5px;
     border: 1px solid ${ColorSet.borderGray};
     padding: 20px;
+    margin-bottom: 5px;
   `,
   Title: styled.div`
     font-weight: 500;

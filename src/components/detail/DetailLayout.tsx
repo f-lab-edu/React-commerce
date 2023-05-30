@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import useFetch from 'src/hooks/useFetch';
@@ -12,16 +12,14 @@ const DetailLayout = () => {
   const { search } = useLocation();
   const data = useFetch<IProductDetail>(`/detail/${search}`);
 
-  if (data === undefined) return <h2>로드</h2>;
+  if (data === undefined) return null;
   return (
     <S.Wrap>
       <ProductDetailContext.Provider value={data}>
         <MainSection />
-        <Suspense fallback={<h2>로딩중</h2>}>
-          <ProductOptionsContextProvider>
-            <SideSection />
-          </ProductOptionsContextProvider>
-        </Suspense>
+        <ProductOptionsContextProvider>
+          <SideSection />
+        </ProductOptionsContextProvider>
       </ProductDetailContext.Provider>
     </S.Wrap>
   );

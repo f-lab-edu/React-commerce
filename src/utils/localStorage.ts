@@ -68,12 +68,14 @@ export const getLocalStorage = <T>(keyName: string): T | null => {
   }
 };
 
+const cartChange = new CustomEvent('cartChange');
 export const clearLocalStorage = (keyName: string) => {
   try {
     localStorage.removeItem(keyName);
   } catch (error) {
     throw new Error(getErrorMessage(error));
   }
+  window.dispatchEvent(cartChange);
 };
 
 export const setProductLocalStorage = (detailItem: IProductDetail, products: ISelectedProducts) => {
@@ -95,6 +97,7 @@ export const setProductLocalStorage = (detailItem: IProductDetail, products: ISe
       options: { ...parsedData.data[detailItem.store.name][detailItem.name]?.options, ...products },
     };
     localStorage.setItem('cart', JSON.stringify(parsedData));
+    window.dispatchEvent(cartChange);
     return;
   }
 
@@ -108,4 +111,38 @@ export const setProductLocalStorage = (detailItem: IProductDetail, products: ISe
     options: products,
   };
   localStorage.setItem('cart', JSON.stringify({ data }));
+  window.dispatchEvent(cartChange);
+};
+
+export const setItem = (state: ICart) => {
+  localStorage.setItem('cart', JSON.stringify(state));
+  window.dispatchEvent(cartChange);
+};
+
+export const updateProductLocalStorage = () => {
+  const base = localStorage.getItem('cart');
+  if (base != null) {
+    const parsedData: ICart = JSON.parse(base);
+    Object.entries(parsedData.data).map(([shop, products]) => {
+      Object.entries(products).map(([name, value]) => {
+        if (value.selected) delete parsedData.data[shop][name];
+      });
+      if (Object.values(parsedData.data[shop]).length === 0) delete parsedData.data[shop];
+    });
+    localStorage.setItem('cart', JSON.stringify(parsedData));
+  }
+  dispatchEvent(cartChange);
+};
+
+export const buyingSessionStorage = (detailItem: IProductDetail, products: ISelectedProducts) => {
+  const data: IShop = {};
+  data[detailItem.store.name] = {};
+  data[detailItem.store.name][detailItem.name] = {
+    productImage: detailItem.image.images[0],
+    total: Object.values(products).reduce((prev: number, cur: ISelectedProduct) => prev + cur.originTotalPrice, 0),
+    estimated: Object.values(products).reduce((prev: number, cur: ISelectedProduct) => prev + cur.totalPrice, 0),
+    selected: true,
+    options: products,
+  };
+  sessionStorage.setItem('buying', JSON.stringify({ data }));
 };

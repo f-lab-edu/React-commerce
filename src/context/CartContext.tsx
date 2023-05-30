@@ -1,6 +1,6 @@
 import React, { createContext } from 'react';
 import { produce } from 'immer';
-import { ICart, IShopItem } from 'src/utils/localStorage';
+import { ICart, IShopItem, setItem } from 'src/utils/localStorage';
 
 interface AllAction {
   type: string;
@@ -115,7 +115,7 @@ export const cartReducer = (state: ICart, action: AllAction | MallAction | Produ
         return state;
     }
   });
-  localStorage.setItem('cart', JSON.stringify(newState));
+  setItem(newState);
   return newState;
 };
 

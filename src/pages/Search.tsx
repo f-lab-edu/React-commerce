@@ -9,18 +9,16 @@ import useDebounce from 'src/hooks/useDebounce';
 import HotKeywords from '@components/search/HotKeywords';
 import IHotKeywords from '@interfaces/HotKeywords';
 import { ErrorBoundary } from 'react-error-boundary';
-import FetchErrorFallback from '@components/FetchErrorFallback';
+import Spinner from '@components/common/atom/Spinner';
+import ErrorFallback from '@components/common/organism/ErrorFallback';
 
 const Search = () => {
   const [searchValue, setSearchValue] = useState<string>('');
   const [debounceValue, setDebounceValue] = useState<string>('');
-  const [suggestedKeywordFetch, setSuggestedKeywordFetch] = useState(() =>
-    fetchData<ISearchKeyword[]>(`search/${searchValue}`)
-  );
+  const [suggestedKeywordFetch, setSuggestedKeywordFetch] = useState(() => fetchData<ISearchKeyword[]>(`search/${searchValue}`));
   const [hotKeywordFetch, setHotKeywordFetch] = useState(() => fetchData<IHotKeywords>('search/hotkeywords'));
 
-
-  useDebounce(() => setDebounceValue(searchValue), 300, [searchValue]);
+  useDebounce(() => setDebounceValue(searchValue), 300);
 
   useEffect(() => {
     setSuggestedKeywordFetch(fetchData<ISearchKeyword[]>(`search/?q=${debounceValue}`));
@@ -34,21 +32,17 @@ const Search = () => {
           onError={() => {
             setSuggestedKeywordFetch(fetchData<ISearchKeyword[]>(`search/?q=${debounceValue}`));
           }}
-          fallbackRender={FetchErrorFallback}
+          fallback={<ErrorFallback title="상품 검색 요청에 실패하였습니다." />}
         >
-          <Suspense fallback={<h2>로딩중</h2>}>
+          <Suspense fallback={<Spinner />}>
             <SuggestedKeywordBox fetcher={suggestedKeywordFetch} />
           </Suspense>
         </ErrorBoundary>
       ) : (
         <>
           <RecentSearchedBox />
-
-          <ErrorBoundary
-            onReset={() => setHotKeywordFetch(fetchData<IHotKeywords>('search/hotkeywords'))}
-            fallbackRender={FetchErrorFallback}
-          >
-            <Suspense fallback={<h2>로딩중</h2>}>
+          <ErrorBoundary onReset={() => setHotKeywordFetch(fetchData<IHotKeywords>('search/hotkeywords'))} fallback={<ErrorFallback title="핫 키워드 요청에 실패하였습니다." />}>
+            <Suspense fallback={<Spinner />}>
               <HotKeywords fetcher={hotKeywordFetch} />
             </Suspense>
           </ErrorBoundary>

@@ -2,7 +2,7 @@ import axios from 'axios';
 import getErrorMessage from 'src/utils/getErrorMessage';
 
 const client = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'https://yobimall.netlify.app',
 });
 
 const fetch = async <T>(url: string, method: string): Promise<T> => {

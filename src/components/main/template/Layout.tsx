@@ -16,16 +16,14 @@ function Layout() {
         <MemoizedMiddleNavbar />
         <ProductSection />
       </MainSection>
-      <ErrorBoundary fallback={<div>ㅎㅎ</div>}>
-        <SideSection>
-          <ErrorBoundary fallback={<ErrorFallback title="스폐셜 카드 요청에 실패하였습니다." />}>
-            <Suspense fallback={<Spinner />}>
-              <SpecialCard />
-            </Suspense>
-          </ErrorBoundary>
-          <ReviewBestTalkDeal />
-        </SideSection>
-      </ErrorBoundary>
+      <SideSection>
+        <ErrorBoundary fallback={<ErrorFallback title="스폐셜 카드 요청에 실패하였습니다." />}>
+          <Suspense fallback={<Spinner />}>
+            <SpecialCard />
+          </Suspense>
+        </ErrorBoundary>
+        <ReviewBestTalkDeal />
+      </SideSection>
     </StyledMainLayout>
   );
 }

@@ -6,7 +6,7 @@ import { ColorSet } from 'src/utils/constant';
 const ProductDescription = () => {
   const [fold, setFold] = useState(true);
   const data = useContext(ProductDetailContext);
-  if (data === null) return <h2>로드중</h2>;
+  if (data === null) return null;
   return (
     <S.Wrap>
       <S.Warning>

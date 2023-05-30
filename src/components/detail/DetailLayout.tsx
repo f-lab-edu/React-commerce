@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import useFetch from 'src/hooks/useFetch';
-import IProductDetail from '@interfaces/detail';
+import IProductDetail from '@interfaces/detailType';
 import ProductDetailContext from 'src/context/ProductDetailContext';
 import ProductOptionsContextProvider from 'src/context/ProductOptionsContext';
 import MainSection from './mainSection/MainSection';

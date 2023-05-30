@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { IShopItems, IShopItem } from 'src/utils/localStorage';
+import { IShopItems } from 'src/utils/localStorage';
 import { ColorSet } from 'src/utils/constant';
 import CartContext from 'src/context/CartContext';
 import styled from 'styled-components';

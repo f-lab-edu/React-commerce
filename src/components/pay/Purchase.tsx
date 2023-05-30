@@ -53,6 +53,7 @@ const S = {
     align-items: center;
     justify-content: space-between;
     background-color: ${ColorSet.backgroundYellow};
+    border-radius: 5px;
   `,
   ImgWrap: styled.div`
     flex: 1;

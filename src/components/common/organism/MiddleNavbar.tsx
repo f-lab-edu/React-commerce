@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
-import axios, { AxiosResponse } from 'axios';
 import styled from 'styled-components';
+import useFetch from 'src/hooks/useFetch';
 
 interface IMiddleNavbar {
   title: string;
@@ -10,12 +10,7 @@ interface IMiddleNavbar {
 }
 
 export const MiddleNavbar = () => {
-  const [Items, setItems] = useState<IMiddleNavbar[]>();
-  useEffect(() => {
-    axios.get('/middleCategory').then((response: AxiosResponse<IMiddleNavbar[]>) => {
-      setItems(response.data);
-    });
-  }, []);
+  const Items = useFetch<IMiddleNavbar[]>('/middleCategory');
 
   const ItemList = Items?.map((item: IMiddleNavbar) => {
     return (

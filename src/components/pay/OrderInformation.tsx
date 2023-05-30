@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ColorSet } from 'src/utils/constant';
-import { getLocalStorage, type IShop } from 'src/utils/localStorage';
+import { type IShop } from 'src/utils/localStorage';
 import OrderMall from './OrderMall';
 
 const OrderInformation = () => {
-  const mallData = getLocalStorage<IShop>('cart');
+  const stringBuyingData = sessionStorage.getItem('buying');
+  const mallData: IShop = stringBuyingData === null ? null : JSON.parse(stringBuyingData).data;
   const [isShow, setIsShow] = useState<boolean>(true);
   if (mallData === null) return null;
 

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import axios, { AxiosResponse } from 'axios';
+import useFetch from 'src/hooks/useFetch';
 import styled from 'styled-components';
 import ProductBoxImage from '@components/common/atom/ProductBoxImage';
 import ProductBoxAboutPrice from '@components/common/molecule/ProductBoxAboutPrice';
 import { Link } from 'react-router-dom';
+import { ColorSet } from 'src/utils/constant';
+import fetchData from 'src/utils/fetchData';
 
 interface IspecialCard {
   id: number;
@@ -24,17 +26,10 @@ interface IspecialCard {
   ad: boolean;
   displayPeriod: { from: string; to: string };
 }
-
+const fetcher = fetchData<IspecialCard>('/specialCard');
 const SpecialCard = () => {
-  const [data, setData] = useState<IspecialCard | null>(null);
-  useEffect(() => {
-    axios.get('./specialCard').then((response: AxiosResponse<IspecialCard>) => {
-      setData(response.data);
-    });
-  }, []);
-  if (!data) {
-    return <div>로디이이이이이잉</div>;
-  }
+  // const data = useFetch<IspecialCard>('/specialCard');
+  const data = fetcher.read();
   return (
     <S.specialCard backgroundColor={data.specialCardBackgroundColor}>
       <S.innerWrap to={data.landingUrl}>
@@ -42,11 +37,7 @@ const SpecialCard = () => {
         <S.cardInfo>
           <S.title specialCardPrimaryColor={data.specialCardPrimaryColor}>{data.specialCardTitle}</S.title>
           <S.subtitle>{data.specialCardDescription}</S.subtitle>
-          <ProductBoxAboutPrice
-            specialDeal={false}
-            originPrice={data.specialCardSlot2}
-            discountPrice={data.specialCardSlot1}
-          />
+          <ProductBoxAboutPrice specialDeal={false} originPrice={data.specialCardSlot2} discountPrice={data.specialCardSlot1} />
         </S.cardInfo>
       </S.innerWrap>
     </S.specialCard>

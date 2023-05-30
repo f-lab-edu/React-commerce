@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import axios, { AxiosResponse } from 'axios';
+import React from 'react';
+import useFetch from 'src/hooks/useFetch';
 import styled from 'styled-components';
-import { categoryGroup, categoryData } from '@interfaces/categoryGroups';
+import { categoryData } from '@interfaces/categoryGroups';
 import SubCategoryInnerItem from './SubCategoryInnerItem';
 
 function SubCategoryModal() {
-  const [categoryList, setCategoryList] = useState<categoryGroup[]>();
-  useEffect(() => {
-    axios.get('/categoryList').then((response: AxiosResponse<categoryData>) => {
-      setCategoryList(response.data.data);
-    });
-  }, []);
+  const categoryList = useFetch<categoryData>('/categoryList')?.data;
 
   const subcateogries = categoryList?.map((e) => <SubCategoryInnerItem key={e.groupId} {...e} />);
   return <S.SubCategoryModal>{subcateogries}</S.SubCategoryModal>;

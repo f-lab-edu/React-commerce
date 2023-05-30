@@ -3,15 +3,19 @@ import styled from 'styled-components';
 import { Outlet } from 'react-router-dom';
 import Header from '@components/main/organism/Header';
 import ScrollUpModal from '@components/common/atom/ScrollUpModal';
+import { ErrorBoundary } from 'react-error-boundary';
+import FetchErrorFallback from '@components/common/organism/ErrorFallback';
 
 function App() {
   return (
     <>
       <Header />
-      <Layout>
-        <Outlet />
-      </Layout>
-      <ScrollUpModal />
+      <ErrorBoundary fallback={<FetchErrorFallback title="네트워크 요청에 실패하였습니다." />}>
+        <Layout>
+          <Outlet />
+        </Layout>
+        <ScrollUpModal />
+      </ErrorBoundary>
     </>
   );
 }

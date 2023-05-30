@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ColorSet } from 'src/utils/constant';
-import { IShop, getLocalStorage } from 'src/utils/localStorage';
+import { getLocalStorage, type IShop } from 'src/utils/localStorage';
 import styled from 'styled-components';
 
 const CurCartItemCountIcon = () => {
-  const cartData = getLocalStorage<IShop>('cart');
-  if (cartData === null || Object.keys(cartData).length === 0) return null;
-  return <S.IconWrap>{Object.values(cartData).length}</S.IconWrap>;
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    const update = () => {
+      const cartData = getLocalStorage<IShop>('cart');
+      cartData && setCount(Object.keys(cartData).length);
+    };
+    window.addEventListener('cartChange', update);
+    return () => window.removeEventListener('cartChange', update);
+  }, []);
+
+  if (count === 0) return null;
+  return <S.IconWrap>{count}</S.IconWrap>;
 };
 
 export default CurCartItemCountIcon;

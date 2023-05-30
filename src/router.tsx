@@ -1,4 +1,5 @@
 import React, { lazy, Suspense } from 'react';
+import Spinner from '@components/common/atom/Spinner';
 import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
 
@@ -7,6 +8,7 @@ const Search = lazy(() => import('@pages/Search'));
 const Detail = lazy(() => import('@pages/Detail'));
 const Cart = lazy(() => import('@pages/Cart'));
 const Pay = lazy(() => import('@pages/Pay'));
+const PayApprove = lazy(() => import('@pages/PayApprove'));
 const PaySuccess = lazy(() => import('@pages/PaySuccess'));
 
 const router = createBrowserRouter([
@@ -17,7 +19,7 @@ const router = createBrowserRouter([
       {
         path: '',
         element: (
-          <Suspense fallback="로딩중..">
+          <Suspense fallback={<Spinner />}>
             <Main />
           </Suspense>
         ),
@@ -25,7 +27,7 @@ const router = createBrowserRouter([
       {
         path: 'search',
         element: (
-          <Suspense fallback="로딩중..">
+          <Suspense fallback={<Spinner />}>
             <Search />
           </Suspense>
         ),
@@ -33,7 +35,7 @@ const router = createBrowserRouter([
       {
         path: 'detail',
         element: (
-          <Suspense fallback="로딩중..">
+          <Suspense fallback={<Spinner />}>
             <Detail />
           </Suspense>
         ),
@@ -41,7 +43,7 @@ const router = createBrowserRouter([
       {
         path: 'cart',
         element: (
-          <Suspense fallback="로딩중..">
+          <Suspense fallback={<Spinner />}>
             <Cart />
           </Suspense>
         ),
@@ -49,7 +51,7 @@ const router = createBrowserRouter([
       {
         path: 'pay',
         element: (
-          <Suspense fallback="로딩중..">
+          <Suspense fallback={<Spinner />}>
             <Pay />
           </Suspense>
         ),
@@ -57,8 +59,16 @@ const router = createBrowserRouter([
       {
         path: 'pay_success',
         element: (
-          <Suspense fallback="로딩중..">
+          <Suspense fallback={<Spinner />}>
             <PaySuccess />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'pay_approve',
+        element: (
+          <Suspense fallback={<Spinner />}>
+            <PayApprove />
           </Suspense>
         ),
       },

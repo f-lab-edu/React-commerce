@@ -8,15 +8,13 @@ import FetchErrorFallback from '@components/common/organism/ErrorFallback';
 
 function App() {
   return (
-    <>
+    <ErrorBoundary fallback={<FetchErrorFallback title="네트워크 요청에 실패하였습니다." />}>
       <Header />
-      <ErrorBoundary fallback={<FetchErrorFallback title="네트워크 요청에 실패하였습니다." />}>
-        <Layout>
-          <Outlet />
-        </Layout>
-        <ScrollUpModal />
-      </ErrorBoundary>
-    </>
+      <Layout>
+        <Outlet />
+      </Layout>
+      <ScrollUpModal />
+    </ErrorBoundary>
   );
 }
 

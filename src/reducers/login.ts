@@ -1,6 +1,7 @@
 import { put, takeEvery, call } from 'redux-saga/effects';
 import { TokenResponse, getToken, getUserData } from 'src/api/kakaoLogin';
 import { produce } from 'immer';
+import { BASE_URL } from 'src/utils/constant';
 
 export const login = (code: string) => ({ type: 'LOGIN', code });
 export const logout = () => ({ type: 'LOGOUT' });
@@ -39,7 +40,7 @@ export const loginSaga = function* (action: loginAction): any {
       type: 'LOGIN_SUCCESS',
       userData: userInfo.properties,
     });
-    window.location.replace('http://localhost:3000');
+    window.location.replace(`${BASE_URL}`);
   } catch (e) {
     yield put({
       type: 'LOGIN_FAILED',

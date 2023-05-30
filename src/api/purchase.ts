@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { BASE_URL } from 'src/utils/constant';
 
 interface IKaKaoReady {
   tid: string;
@@ -22,9 +23,9 @@ const kakaoPay = async (itemName: string, quantity: number, amount: number): Pro
         quantity,
         total_amount: amount,
         tax_free_amount: 0,
-        approval_url: 'http://localhost:3000/pay_approve',
-        cancel_url: 'http://localhost:3000/pay',
-        fail_url: 'http://localhost:3000/pay',
+        approval_url: `${BASE_URL}/pay_approve`,
+        cancel_url: `${BASE_URL}/pay`,
+        fail_url: `${BASE_URL}/pay`,
       },
       {
         headers: {
@@ -45,11 +46,11 @@ const tossPG = async (method: string, itemName: string, amount: number) => {
       'https://api.tosspayments.com/v1/payments',
       {
         amount,
-        failUrl: 'http://localhost:3000/pay',
+        failUrl: `${BASE_URL}/pay`,
         method: `${method}`,
         orderId: `Testing${Math.floor(Math.random() * 10000000)}`,
         orderName: itemName,
-        successUrl: 'http://localhost:3000/pay_approve',
+        successUrl: `${BASE_URL}/pay_approve`,
       },
       { headers: { Authorization: 'Basic dGVzdF9za196WExrS0V5cE5BcldtbzUwblgzbG1lYXhZRzVSOg==', 'Content-Type': 'application/json' } }
     );

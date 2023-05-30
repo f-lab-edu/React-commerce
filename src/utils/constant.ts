@@ -1,4 +1,7 @@
 const RECENT_KEYWORD = 'recentKeyword';
+
+const BASE_URL = 'https://yobimall.netlify.app';
+
 const ColorSet = {
   textBlue: '#4e96f2',
   textGray: '#999',
@@ -13,4 +16,4 @@ const ColorSet = {
   backgroundGray: '#f7f9fa',
 } as const;
 
-export { RECENT_KEYWORD, ColorSet };
+export { RECENT_KEYWORD, ColorSet, BASE_URL };

@@ -1,5 +1,5 @@
 import React from 'react';
-import IProductOptions from '@interfaces/Options';
+import IProductOptions from '@interfaces/option';
 import OptionItem from './OptionItem';
 
 const OptionItems = ({ options }: { options: IProductOptions }) => {

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ColorSet } from 'src/utils/constant';
 import { Link } from 'react-router-dom';
-import IHotKeywords from '@interfaces/HotKeywords';
+import IHotKeywords from '@interfaces/hotKeywords';
 
 const HotKeywords = ({ fetcher }: { fetcher: { read(): IHotKeywords } }) => {
   const keywords = fetcher.read();

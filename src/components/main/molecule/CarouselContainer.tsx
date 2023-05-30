@@ -1,20 +1,18 @@
 import React, { useState, useEffect, forwardRef, ForwardedRef } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import styled from 'styled-components';
-import MainBanner from '@interfaces/MainBanner';
+import IMainBanner from '@interfaces/mainBanner';
 import CarouselScreen from '../atom/CarouselScreen';
 
 const CarouselContainer = forwardRef((props, ref: ForwardedRef<HTMLDivElement>) => {
-  const [bannerDatas, setBannerDatas] = useState<MainBanner[]>();
+  const [bannerDatas, setBannerDatas] = useState<IMainBanner[]>();
   useEffect(() => {
-    axios
-      .get('http://localhost:3000/mainBanners')
-      .then((response: AxiosResponse<MainBanner[]>) => setBannerDatas(response.data));
+    axios.get('http://localhost:3000/mainBanners').then((response: AxiosResponse<IMainBanner[]>) => setBannerDatas(response.data));
   }, []);
 
   return (
     <S.CarouselContainer ref={ref}>
-      {bannerDatas?.map((bannerData: MainBanner) => {
+      {bannerDatas?.map((bannerData: IMainBanner) => {
         return (
           <CarouselScreen
             key={bannerData.id}

@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useState, useMemo } from 'react';
-import IProductOptions from '@interfaces/Options';
+import IProductOptions from '@interfaces/option';
 import { produce } from 'immer';
 import { useLocation } from 'react-router-dom';
 import useFetch from 'src/hooks/useFetch';

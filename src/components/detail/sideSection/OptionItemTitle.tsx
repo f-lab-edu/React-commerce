@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { IOption } from '@interfaces/Options';
+import { IOption } from '@interfaces/option';
 import { ProductOptionsContext } from 'src/context/ProductOptionsContext';
 import { ColorSet } from 'src/utils/constant';
 

@@ -1,4 +1,4 @@
-import IProductDetail from '@interfaces/Detail';
+import IProductDetail from '@interfaces/detail';
 import { ISelectedProduct, ISelectedProducts } from 'src/context/ProductOptionsContext';
 import getErrorMessage from './getErrorMessage';
 

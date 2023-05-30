@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { IOption } from '@interfaces/Options';
+import { IOption } from '@interfaces/option';
 import styled from 'styled-components';
 import { ColorSet } from 'src/utils/constant';
 

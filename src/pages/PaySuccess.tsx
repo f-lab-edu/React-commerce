@@ -7,7 +7,8 @@ const PaySuccess = () => {
   return (
     <S.Background>
       <S.Wrap>
-        <S.Announce>🎉 결제가 완료되었습니다.</S.Announce>
+        <S.Icon>🎉</S.Icon>
+        <S.Announce>결제가 완료되었습니다.</S.Announce>
         <S.HomeBtn to="/">홈으로</S.HomeBtn>
       </S.Wrap>
     </S.Background>
@@ -37,6 +38,7 @@ const S = {
     align-items: center;
   `,
   Announce: styled.div`
+    text-align: center;
     font-size: 40px;
     font-weight: 500;
   `,
@@ -50,6 +52,10 @@ const S = {
     line-height: 40px;
     color: white;
     text-align: center;
-    background-color: ${ColorSet.backgroundYellow};
+    background-color: ${ColorSet.backgroundBlack};
+  `,
+  Icon: styled.span`
+    font-size: 80px;
+    margin-bottom: 20px;
   `,
 };

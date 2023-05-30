@@ -46,5 +46,6 @@ const S = {
     height: 300px;
     margin: 0 auto;
     max-width: 1920px;
+    min-width: 1280px;
   `,
 };

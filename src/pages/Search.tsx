@@ -7,7 +7,7 @@ import SuggestedKeywordBox from '@components/search/SuggestedKeywordBox';
 import RecentSearchedBox from '@components/search/RecentSearchedBox';
 import useDebounce from 'src/hooks/useDebounce';
 import HotKeywords from '@components/search/HotKeywords';
-import IHotKeywords from '@interfaces/hotKeywords';
+import IHotKeywords from '@interfaces/hotkeywordsType';
 import { ErrorBoundary } from 'react-error-boundary';
 import FetchErrorFallback from '@components/FetchErrorFallback';
 

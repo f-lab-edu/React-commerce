@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { BASE_URL } from 'src/utils/constant';
 import getErrorMessage from 'src/utils/getErrorMessage';
 
 const client = axios.create({
-  baseURL: 'https://yobimall.netlify.app',
+  baseURL: `${BASE_URL}`,
 });
 
 const fetch = async <T>(url: string, method: string): Promise<T> => {

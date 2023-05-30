@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import Spinner from '@components/common/atom/Spinner';
 import { kakaoPayApprove, tossPgApprove } from 'src/api/purchase';
 import { updateProductLocalStorage } from 'src/utils/localStorage';
 
 const PayApprove = () => {
   const [searchParams] = useSearchParams();
+  const navigator = useNavigate();
   useEffect(() => {
     (async () => {
       const pg = sessionStorage.getItem('pg');
@@ -32,7 +33,7 @@ const PayApprove = () => {
       }
       updateProductLocalStorage();
       sessionStorage.removeItem('buying');
-      window.location.replace('/pay_success');
+      navigator('/pay_success', { replace: true });
     })();
   }, []);
 

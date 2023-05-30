@@ -40,7 +40,7 @@ export const loginSaga = function* (action: loginAction): any {
       type: 'LOGIN_SUCCESS',
       userData: userInfo.properties,
     });
-    window.location.replace(`${BASE_URL}`);
+    window.history.replaceState('', '', `${BASE_URL}`);
   } catch (e) {
     yield put({
       type: 'LOGIN_FAILED',
@@ -52,7 +52,7 @@ export const userSaga = function* () {
   yield takeEvery('LOGIN', loginSaga);
 };
 const serializedUserState = sessionStorage.getItem('user');
-const initialState = serializedUserState ? JSON.parse(serializedUserState) : {};
+const initialState = serializedUserState ? JSON.parse(serializedUserState) : { isAuthenticated: false, user: {}, like: [], cart: 0 };
 
 /* eslint-disable */
 const userReducer = (state: AuthState = initialState, action: loginAction | loginSuccessAction | likeAction) => {

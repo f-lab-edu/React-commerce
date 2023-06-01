@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import Iproduct from '@interfaces/product';
 import ProductBox from '@components/common/organism/ProductBox';
@@ -12,27 +12,29 @@ const ProductItems = ({ category }: { category: string }) => {
   const [hasError, setHasError] = useState(false);
   const [isLoad, setIsLoad] = useState(false);
   const [isLast, setIsLast] = useState(false);
+
   const fetchProduct = async () => {
     try {
       setIsLoad(true);
       const response = await fetch<Iproduct[]>(`/product/?page=${page}&category=${category}`, 'GET');
       response.length === 0 && setIsLast(true);
-      setProducts([...products, ...response]);
+      setProducts((prev) => [...prev, ...response]);
       setIsLoad(false);
     } catch (e) {
       setHasError(true);
       setIsLoad(false);
     }
   };
+
   useEffect(() => {
-    setPage(0);
+    setPage((prev) => (prev === 0 ? 0 : 0));
     setProducts([]);
     setIsLast(false);
   }, [category]);
 
   useEffect(() => {
     !isLast && fetchProduct();
-  }, [page]);
+  }, [category, page]);
 
   if (hasError) {
     return (

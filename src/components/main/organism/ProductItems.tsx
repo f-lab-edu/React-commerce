@@ -18,7 +18,9 @@ const ProductItems = ({ category }: { category: string }) => {
       setIsLoad(true);
       const response = await fetch<Iproduct[]>(`/product/?page=${page}&category=${category}`, 'GET');
       response.length === 0 && setIsLast(true);
-      setProducts((prev) => [...prev, ...response]);
+      setProducts((prev) => {
+        return [...prev, ...response];
+      });
       setIsLoad(false);
     } catch (e) {
       setHasError(true);
@@ -52,7 +54,7 @@ const ProductItems = ({ category }: { category: string }) => {
       </S.ErrorComponent>
     );
   }
-  if (isLoad) {
+  if (isLoad && page === 0) {
     return (
       <S.ProductListWrap>
         <Spinner />

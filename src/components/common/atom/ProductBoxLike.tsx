@@ -10,7 +10,7 @@ const StyledProductBoxLike = styled.button`
   color: rgba(24, 32, 55, 0.7);
   font-size: 24px;
 `;
-function ProductBoxLike({ productName }: { productName: string }) {
+function ProductBoxLike({ productId }: { productId: string }) {
   const dispatch = useDispatch();
   const { isAuthenticated, like } = useSelector((state: RootState) => ({ isAuthenticated: state.user.isAuthenticated, like: state.user.like }));
 
@@ -27,8 +27,8 @@ function ProductBoxLike({ productName }: { productName: string }) {
     );
   }
   return (
-    <StyledProductBoxLike onClick={() => (like.includes(productName) ? dispatch({ type: 'DELETE_LIKE', payload: productName }) : dispatch({ type: 'ADD_LIKE', payload: productName }))}>
-      {like.includes(productName) ? '❤️' : '♡'}
+    <StyledProductBoxLike onClick={() => (like.includes(productId) ? dispatch({ type: 'DELETE_LIKE', payload: productId }) : dispatch({ type: 'ADD_LIKE', payload: productId }))}>
+      {like.includes(productId) ? '❤️' : '♡'}
     </StyledProductBoxLike>
   );
 }

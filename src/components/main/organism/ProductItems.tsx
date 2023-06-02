@@ -21,7 +21,7 @@ const ProductItems = ({ category }: { category: string }) => {
       await new Promise((resolve) => {
         setTimeout(resolve, 1000);
       });
-      response.length === 0 && setIsLast(true);
+      response.length < 10 && setIsLast(true);
       setProducts((prev) => {
         return [...prev, ...response];
       });

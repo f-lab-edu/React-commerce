@@ -1,4 +1,5 @@
 export default interface IProductDetail {
+  productId: string;
   name: string;
   image: {
     imageRatio: string;

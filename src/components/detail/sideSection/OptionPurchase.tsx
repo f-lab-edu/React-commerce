@@ -16,7 +16,7 @@ const OptionPurchase = ({ products }: { products: ISelectedProducts }) => {
   const dispatch = useDispatch();
   const { isAuthenticated, like } = useSelector((state: RootState) => ({ isAuthenticated: state.user.isAuthenticated, like: state.user.like }));
   if (productDetail === null) return null;
-  const isLiked = like?.includes(productDetail.name);
+  const isLiked = like?.includes(productDetail.productId);
 
   if (isAuthenticated) {
     return (
@@ -25,7 +25,7 @@ const OptionPurchase = ({ products }: { products: ISelectedProducts }) => {
           flex={1}
           backgroundColor={ColorSet.backgroundGray}
           color="black"
-          onClick={() => (isLiked ? dispatch({ type: 'DELETE_LIKE', payload: productDetail.name }) : dispatch({ type: 'ADD_LIKE', payload: productDetail.name }))}
+          onClick={() => (isLiked ? dispatch({ type: 'DELETE_LIKE', payload: productDetail.productId }) : dispatch({ type: 'ADD_LIKE', payload: productDetail.productId }))}
         >
           <S.ItemInner>{isLiked ? '❤️' : '♡'} </S.ItemInner>
         </S.Item>

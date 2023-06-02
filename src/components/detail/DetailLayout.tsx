@@ -11,8 +11,9 @@ import SideSection from './sideSection/SideSection';
 const DetailLayout = () => {
   const { search } = useLocation();
   const data = useFetch<IProductDetail>(`/detail/${search}`);
-
   if (data === undefined) return null;
+  // eslint-disable-next-line
+  data['productId'] = search.split('=')[1];
   return (
     <S.Wrap>
       <ProductDetailContext.Provider value={data}>

@@ -4,7 +4,21 @@ import { product, categoryGroups, mainBanners, recommedStores, reviewBestTalkeDe
 const handlers = [
   rest.get('/product', (req, res, ctx) => {
     const page = req.url.searchParams.get('page');
-    return res(ctx.status(200), ctx.json(product.data.products[page]));
+    const category = req.url.searchParams.get('category');
+    switch (category) {
+      case '전체':
+        return res(ctx.status(200), ctx.json(product.data.products[page]));
+      case '식품':
+        return res(ctx.status(200), ctx.json(product.data.food[page]));
+      case '생활':
+        return res(ctx.status(200), ctx.json(product.data.live[page]));
+      case '디지털':
+        return res(ctx.status(200), ctx.json(product.data.digital[page]));
+      case '뷰티 · 패션':
+        return res(ctx.status(200), ctx.json(product.data.passion[page]));
+      default:
+        return [];
+    }
   }),
 
   rest.get('/categoryList', (req, res, ctx) => {

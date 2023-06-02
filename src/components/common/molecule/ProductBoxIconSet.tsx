@@ -9,11 +9,11 @@ const StyledProductBoxIconSet = styled.span`
   width: 80px;
   height: 30px;
 `;
-function ProductBoxIconSet({ productName }: { productName: string }) {
+function ProductBoxIconSet({ productId }: { productId: string }) {
   return (
     <StyledProductBoxIconSet>
       <ProductBoxShare />
-      <ProductBoxLike productName={productName} />
+      <ProductBoxLike productId={productId} />
     </StyledProductBoxIconSet>
   );
 }

@@ -21,6 +21,7 @@ const ProductBox = ({
   originalPrice,
   freeDelivery,
   label,
+  productId,
   productName,
   mainCopy,
   profiles,
@@ -44,7 +45,7 @@ const ProductBox = ({
       </S.ProdcutBoxWrap>
       <S.ProductBoxFooter>
         <ProductBoxAboutBoughtUser profiles={profiles} groupDiscountUserCount={groupDiscountUserCount} />
-        <ProductBoxIconSet productName={productName} />
+        <ProductBoxIconSet productId={`${productId}`} />
       </S.ProductBoxFooter>
     </S.ProductBox>
   );

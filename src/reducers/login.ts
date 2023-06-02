@@ -35,7 +35,7 @@ export const loginSaga = function* (action: loginAction): any {
   try {
     const token: TokenResponse = yield call(getToken, code);
     const userInfo = yield call(getUserData, token);
-    sessionStorage.setItem('user', JSON.stringify({ isAuthenticated: true, user: userInfo.properties, like: [], cart: 0 }));
+    sessionStorage.setItem('user', JSON.stringify({ isAuthenticated: true, user: userInfo.properties, like: [] }));
     yield put({
       type: 'LOGIN_SUCCESS',
       userData: userInfo.properties,
@@ -52,7 +52,7 @@ export const userSaga = function* () {
   yield takeEvery('LOGIN', loginSaga);
 };
 const serializedUserState = sessionStorage.getItem('user');
-const initialState = serializedUserState ? JSON.parse(serializedUserState) : { isAuthenticated: false, user: {}, like: [], cart: 0 };
+const initialState = serializedUserState ? JSON.parse(serializedUserState) : { isAuthenticated: false, user: {}, like: [] };
 
 /* eslint-disable */
 const userReducer = (state: AuthState = initialState, action: loginAction | loginSuccessAction | likeAction) => {
@@ -77,11 +77,13 @@ const userReducer = (state: AuthState = initialState, action: loginAction | logi
         if ('payload' in action) {
           draft.like.push(action.payload);
         }
+        sessionStorage.setItem('user', JSON.stringify(draft));
         break;
       case 'DELETE_LIKE':
         if ('payload' in action) {
           const targetIdx = draft.like.indexOf(action.payload);
           if (targetIdx > -1) draft.like.splice(targetIdx, 1);
+          sessionStorage.setItem('user', JSON.stringify(draft));
         }
         break;
       default:

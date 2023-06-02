@@ -34,7 +34,7 @@ const Search = () => {
           }}
           fallback={<ErrorFallback title="상품 검색 요청에 실패하였습니다." />}
         >
-          <Suspense fallback={<Spinner />}>
+          <Suspense fallback={<Spinner width="30px" height="30px" />}>
             <SuggestedKeywordBox fetcher={suggestedKeywordFetch} />
           </Suspense>
         </ErrorBoundary>
@@ -42,7 +42,7 @@ const Search = () => {
         <>
           <RecentSearchedBox />
           <ErrorBoundary onReset={() => setHotKeywordFetch(fetchData<IHotKeywords>('search/hotkeywords'))} fallback={<ErrorFallback title="핫 키워드 요청에 실패하였습니다." />}>
-            <Suspense fallback={<Spinner />}>
+            <Suspense fallback={<Spinner width="30px" height="30px" />}>
               <HotKeywords fetcher={hotKeywordFetch} />
             </Suspense>
           </ErrorBoundary>

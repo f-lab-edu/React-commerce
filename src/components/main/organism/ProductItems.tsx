@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import Iproduct from '@interfaces/product';
 import ProductBox from '@components/common/organism/ProductBox';
 import fetch from 'src/api/fetch';
@@ -17,6 +17,10 @@ const ProductItems = ({ category }: { category: string }) => {
     try {
       setIsLoad(true);
       const response = await fetch<Iproduct[]>(`/product/?page=${page}&category=${category}`, 'GET');
+      // 인위적 지연
+      await new Promise((resolve) => {
+        setTimeout(resolve, 1000);
+      });
       response.length === 0 && setIsLast(true);
       setProducts((prev) => {
         return [...prev, ...response];
@@ -57,20 +61,31 @@ const ProductItems = ({ category }: { category: string }) => {
   if (isLoad && page === 0) {
     return (
       <S.ProductListWrap>
-        <Spinner />
+        <Spinner width="60px" height="60px" />
       </S.ProductListWrap>
     );
   }
   return (
-    <S.ProductListWrap>
-      {products.map((product: Iproduct, index, { length }) => (
-        <ProductBox {...product} isLast={index + 1 === length} fetchMoreProducts={() => setPage((prev) => prev + 1)} />
-      ))}
-    </S.ProductListWrap>
+    <>
+      <S.ProductListWrap>
+        {products.map((product: Iproduct, index, { length }) => (
+          <ProductBox {...product} isLast={index + 1 === length} fetchMoreProducts={() => setPage((prev) => prev + 1)} />
+        ))}
+      </S.ProductListWrap>
+      {isLoad && (
+        <S.LoadWrap>
+          <Spinner width="30px" height="30px" />
+        </S.LoadWrap>
+      )}
+    </>
   );
 };
 
 const S = {
+  LoadWrap: styled.div`
+    position: relative;
+    margin-bottom: 100px;
+  `,
   ProductListWrap: styled.ul`
     display: flex;
     flex-wrap: wrap;

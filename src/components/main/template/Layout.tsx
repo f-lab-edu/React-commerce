@@ -16,7 +16,7 @@ function Layout() {
       </MainSection>
       <SideSection>
         <ErrorBoundary fallback={<ErrorFallback title="스폐셜 카드 요청에 실패하였습니다." />}>
-          <Suspense fallback={<Spinner />}>
+          <Suspense fallback={<Spinner width="60px" height="60px" />}>
             <SpecialCard />
           </Suspense>
         </ErrorBoundary>

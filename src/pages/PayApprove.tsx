@@ -37,7 +37,7 @@ const PayApprove = () => {
     })();
   }, []);
 
-  return <Spinner />;
+  return <Spinner width="60px" height="60px" />;
 };
 
 export default PayApprove;

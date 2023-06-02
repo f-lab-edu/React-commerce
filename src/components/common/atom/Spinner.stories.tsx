@@ -6,4 +6,9 @@ export default {
   component: Spinner,
 };
 type Story = StoryObj<typeof Spinner>;
-export const Default: Story = {};
+export const Default: Story = {
+  args: {
+    width: '60px',
+    height: '60px',
+  },
+};

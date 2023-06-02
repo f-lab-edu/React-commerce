@@ -21,7 +21,7 @@ const router = createBrowserRouter([
       {
         path: '',
         element: (
-          <Suspense fallback={<Spinner />}>
+          <Suspense fallback={<Spinner width="60px" height="60px" />}>
             <Main />
           </Suspense>
         ),
@@ -29,7 +29,7 @@ const router = createBrowserRouter([
       {
         path: 'search',
         element: (
-          <Suspense fallback={<Spinner />}>
+          <Suspense fallback={<Spinner width="60px" height="60px" />}>
             <Search />
           </Suspense>
         ),
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
       {
         path: 'detail',
         element: (
-          <Suspense fallback={<Spinner />}>
+          <Suspense fallback={<Spinner width="60px" height="60px" />}>
             <Detail />
           </Suspense>
         ),
@@ -45,7 +45,7 @@ const router = createBrowserRouter([
       {
         path: 'cart',
         element: (
-          <Suspense fallback={<Spinner />}>
+          <Suspense fallback={<Spinner width="60px" height="60px" />}>
             <Cart />
           </Suspense>
         ),
@@ -53,7 +53,7 @@ const router = createBrowserRouter([
       {
         path: 'pay',
         element: (
-          <Suspense fallback={<Spinner />}>
+          <Suspense fallback={<Spinner width="60px" height="60px" />}>
             <Pay />
           </Suspense>
         ),
@@ -61,7 +61,7 @@ const router = createBrowserRouter([
       {
         path: 'pay_success',
         element: (
-          <Suspense fallback={<Spinner />}>
+          <Suspense fallback={<Spinner width="60px" height="60px" />}>
             <PaySuccess />
           </Suspense>
         ),
@@ -69,7 +69,7 @@ const router = createBrowserRouter([
       {
         path: 'pay_approve',
         element: (
-          <Suspense fallback={<Spinner />}>
+          <Suspense fallback={<Spinner width="60px" height="60px" />}>
             <PayApprove />
           </Suspense>
         ),
@@ -77,7 +77,7 @@ const router = createBrowserRouter([
       {
         path: 'delivery',
         element: (
-          <Suspense fallback={<Spinner />}>
+          <Suspense fallback={<Spinner width="60px" height="60px" />}>
             <Delivery />
           </Suspense>
         ),
@@ -85,7 +85,7 @@ const router = createBrowserRouter([
       {
         path: 'category/*',
         element: (
-          <Suspense fallback={<Spinner />}>
+          <Suspense fallback={<Spinner width="60px" height="60px" />}>
             <Category />
           </Suspense>
         ),

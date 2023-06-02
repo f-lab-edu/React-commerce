@@ -30,8 +30,8 @@ from{
     opacity:1;
   transform: translateY(0);
 }to{
-    opacity:0;
-  transform: translateY(100px);
+  opacity:0;
+  transform: translateY(200px);
 }
 `;
 const S = {
@@ -47,7 +47,8 @@ const S = {
     background-color: ${ColorSet.backgroundBlack};
     border-radius: 5px;
     color: white;
-    animation: ${modalDown} 1s 2s 1;
+    animation: ${modalDown} 1s 2s;
+    animation-fill-mode: forwards;
   `,
   link: styled(Link)`
     text-decoration: none;

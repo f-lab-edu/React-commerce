@@ -35,9 +35,9 @@ const OptionPurchase = ({ products }: { products: ISelectedProducts }) => {
           color="white"
           onClick={() => {
             if (Object.keys(products).length !== 0) {
-              setModalShow(true);
               setProductLocalStorage(productDetail, products);
             }
+            setModalShow(true);
           }}
         >
           <S.ItemInner>🧺</S.ItemInner>
@@ -50,12 +50,19 @@ const OptionPurchase = ({ products }: { products: ISelectedProducts }) => {
             if (Object.keys(products).length !== 0) {
               buyingSessionStorage(productDetail, products);
               navigate('/pay');
+            } else {
+              setModalShow(true);
             }
           }}
         >
           바로구매
         </S.Item>
-        {modalShow && <Announce content="장바구니에 상품이 담겼습니다." link="/cart" controller={setModalShow} />}
+        {modalShow &&
+          (Object.keys(products).length !== 0 ? (
+            <Announce content="장바구니에 상품이 담겼습니다." link="/cart" controller={setModalShow} />
+          ) : (
+            <Announce content="구매하실 상품을 선택 혹은 옵션 선택을 마무리 해주세요." controller={setModalShow} />
+          ))}
       </S.Wrap>
     );
   }
@@ -86,6 +93,7 @@ const S = {
     height: 60px;
   `,
   Item: styled.button<{ flex: number; backgroundColor: string; color: string }>`
+    cursor: pointer;
     flex: ${(props) => props.flex};
     background-color: ${(props) => props.backgroundColor};
     color: ${(props) => props.color};

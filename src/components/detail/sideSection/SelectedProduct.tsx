@@ -77,6 +77,7 @@ const S = {
     position: relative;
   `,
   DeleteBtn: styled.button`
+    cursor: pointer;
     position: absolute;
     border: none;
     background-color: inherit;
@@ -114,6 +115,7 @@ const S = {
     border: 1px solid ${ColorSet.borderGray};
   `,
   CountBtn: styled.button`
+    cursor: pointer;
     flex: 1;
     border: 1px solid ${ColorSet.borderGray};
     background-color: inherit;

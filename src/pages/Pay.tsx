@@ -73,6 +73,7 @@ const S = {
     background-color: white;
   `,
   PurchaseButton: styled.button`
+    cursor: pointer;
     background-color: ${ColorSet.backgroundYellow};
     text-align: center;
     font-weight: 700;

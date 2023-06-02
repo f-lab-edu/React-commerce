@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import useFetch from 'src/hooks/useFetch';
+import React from 'react';
 import styled from 'styled-components';
 import ProductBoxImage from '@components/common/atom/ProductBoxImage';
 import ProductBoxAboutPrice from '@components/common/molecule/ProductBoxAboutPrice';
 import { Link } from 'react-router-dom';
-import { ColorSet } from 'src/utils/constant';
 import fetchData from 'src/utils/fetchData';
 
 interface IspecialCard {
@@ -28,7 +26,6 @@ interface IspecialCard {
 }
 const fetcher = fetchData<IspecialCard>('/specialCard');
 const SpecialCard = () => {
-  // const data = useFetch<IspecialCard>('/specialCard');
   const data = fetcher.read();
   return (
     <S.specialCard backgroundColor={data.specialCardBackgroundColor}>

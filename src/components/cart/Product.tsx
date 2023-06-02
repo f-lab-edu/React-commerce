@@ -64,6 +64,7 @@ const S = {
     padding: 10px;
   `,
   CheckBox: styled.input`
+    cursor: pointer;
     width: 20px;
     height: 20px;
     color: white;

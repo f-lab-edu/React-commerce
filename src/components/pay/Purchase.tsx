@@ -49,7 +49,7 @@ const S = {
   `,
   Kakao: styled.div`
     display: flex;
-    padding: 5px;
+    padding: 10px 15px 10px 10px;
     align-items: center;
     justify-content: space-between;
     background-color: ${ColorSet.backgroundYellow};
@@ -65,7 +65,9 @@ const S = {
     line-height: 30px;
     &:after {
       content: '>';
-      right: 10px;
+      right: 20px;
+      font-size: 14px;
+      font-weight: 400;
       position: absolute;
       display: inline-block;
       transform: ${(props) => (props.isShow ? 'rotate(-90deg)' : 'rotate(90deg)')};
@@ -80,6 +82,7 @@ const S = {
     height: 20px;
     border-radius: 50%;
     background-color: white;
+    cursor: pointer;
     &:after {
       position: absolute;
       top: 0;
@@ -122,6 +125,7 @@ const S = {
     width: 20px;
     height: 20px;
     margin: 0 0 0 5px;
+    cursor: pointer;
     &:after {
       content: 'L';
       transform: rotateY(180deg) rotate(-45deg);

@@ -138,6 +138,7 @@ const S = {
     align-items: center;
   `,
   Select: styled.input`
+    cursor: pointer;
     width: 20px;
     height: 20px;
     margin-right: 6px;
@@ -150,6 +151,7 @@ const S = {
     align-items: center;
   `,
   DeleteBtn: styled.button`
+    cursor: pointer;
     background-color: white;
     border: 1px solid ${ColorSet.borderGray};
     border-radius: 3px;
@@ -160,6 +162,7 @@ const S = {
     background-color: white;
   `,
   Order: styled.div<{ toggle: boolean }>`
+    cursor: pointer;
     line-height: 40px;
     padding: 10px;
     border-bottom: 1px solid ${ColorSet.borderGray};
@@ -195,6 +198,7 @@ const S = {
   DataTitle: styled.span``,
   DataDef: styled.span``,
   OrderBtn: styled.button`
+    cursor: pointer;
     text-align: center;
     width: 100%;
     height: 50px;

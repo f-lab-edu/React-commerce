@@ -81,6 +81,7 @@ const S = {
     margin: 10px 0;
   `,
   TitleWrap: styled.button<{ toggle: boolean }>`
+    cursor: pointer;
     background-color: ${ColorSet.backgroundGray};
     border: none;
     text-align: start;

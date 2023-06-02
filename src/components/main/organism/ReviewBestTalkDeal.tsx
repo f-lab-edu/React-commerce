@@ -108,6 +108,7 @@ const S = {
     color: gray;
   `,
   button: styled.button`
+    cursor: pointer;
     background-color: inherit;
     font-size: 15px;
     color: gray;

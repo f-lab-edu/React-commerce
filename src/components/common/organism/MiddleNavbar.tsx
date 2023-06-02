@@ -34,6 +34,7 @@ const S = {
   LinkWrap: styled.li`
     flex-basis: 0;
     flex-grow: 1;
+    cursor: pointer;
   `,
   Navlink: styled.span<{ active: boolean }>`
     display: inline-block;

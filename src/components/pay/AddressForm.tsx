@@ -64,7 +64,7 @@ const AddressForm = ({ payHandler }: { payHandler: Function }) => {
           <br />
           <div>
             <S.Input {...register('zoneCode', { required: true })} type="text" placeholder="우편번호" />
-            <S.Input type="button" onClick={() => open({ onComplete: handleDaumPostComplete })} value="우편번호 찾기" />
+            <S.Btn onClick={() => open({ onComplete: handleDaumPostComplete })}>우편번호 찾기</S.Btn>
             {(errors.address || errors.zoneCode) && <S.Error>주소 입력은 필수입니다</S.Error>}
           </div>
           <S.Input {...register('address', { required: true })} type="text" placeholder="주소" size={40} />
@@ -116,6 +116,14 @@ const S = {
     }
   `,
   Input: styled.input`
+    border: 1px solid ${ColorSet.borderGray};
+    border-radius: 5px;
+    line-height: 20px;
+    margin: 0 5px 5px 0;
+    padding: 5px;
+  `,
+  Btn: styled.button`
+    cursor: pointer;
     border: 1px solid ${ColorSet.borderGray};
     border-radius: 5px;
     line-height: 20px;

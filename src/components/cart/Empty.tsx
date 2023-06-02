@@ -37,12 +37,14 @@ const S = {
     margin: 5px;
   `,
   BeforeBtn: styled.button`
+    cursor: pointer;
     border: 1px solid ${ColorSet.borderGray};
     background-color: inherit;
     padding: 10px 20px;
     margin: 10px;
   `,
   HomeBtn: styled.button`
+    cursor: pointer;
     border: none;
     background-color: ${ColorSet.backgroundBlack};
     color: white;

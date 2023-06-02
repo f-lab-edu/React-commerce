@@ -55,6 +55,7 @@ export default DetailOptionItems;
 const S = {
   Wrap: styled.ul``,
   Item: styled.li<{ selected: boolean }>`
+    cursor: pointer;
     list-style: none;
     font-size: 14px;
     line-height: 20px;

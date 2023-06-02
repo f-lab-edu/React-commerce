@@ -100,6 +100,7 @@ const S = {
     flex-direction: column;
   `,
   DeleteBtn: styled.button`
+    cursor: pointer;
     background-color: inherit;
     border: 1px solid ${ColorSet.borderGray};
     margin-right: 10px;
@@ -120,6 +121,7 @@ const S = {
     border: 1px solid ${ColorSet.borderGray};
   `,
   CountBtn: styled.button`
+    cursor: pointer;
     flex: 1;
     border: 1px solid ${ColorSet.borderGray};
     background-color: inherit;

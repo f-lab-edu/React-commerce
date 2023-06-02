@@ -29,6 +29,7 @@ export default memorizedCarouselBtn;
 
 const S = {
   CarouselBtn: styled.button<StyledProps>`
+    cursor: pointer;
     position: absolute;
     border-radius: 50px;
     width: 50px;

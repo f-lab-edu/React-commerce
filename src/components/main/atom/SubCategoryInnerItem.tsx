@@ -3,10 +3,16 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { categoryGroup, category } from '@interfaces/categoryGroups';
 
-function SubCategoryInnerItem({ name, categories, groupId }: categoryGroup) {
+interface Props {
+  groupId: number;
+  name: string;
+  categories: category[];
+  setModal: React.Dispatch<React.SetStateAction<Boolean>>;
+}
+function SubCategoryInnerItem({ name, categories, groupId, setModal }: Props) {
   return (
     <S.SubCategoryInnerItem>
-      <S.SubCategoryInnerItemHeader to={`/category/${groupId}`}>
+      <S.SubCategoryInnerItemHeader to={`/category/${groupId}`} onClick={() => setModal(false)}>
         {name}
         <S.GoIcon />
       </S.SubCategoryInnerItemHeader>
@@ -14,7 +20,7 @@ function SubCategoryInnerItem({ name, categories, groupId }: categoryGroup) {
         {categories.map((categoryData: category) => {
           return (
             <li key={categoryData.categoryId}>
-              <S.SubcategoryinnterItemContent to={`/category/${groupId}/${categoryData.categoryId}`}>
+              <S.SubcategoryinnterItemContent to={`/category/${groupId}/${categoryData.categoryId}`} onClick={() => setModal(false)}>
                 {categoryData.name}
               </S.SubcategoryinnterItemContent>
             </li>
@@ -54,8 +60,7 @@ const S = {
     line-height: 26px;
   `,
   GoIcon: styled.span`
-    background: url(https://st.kakaocdn.net/commerce_ui/front-talkstore/real/20230430/232103/ico_store_pc.82c1fd4bf8ec030b.svg)
-      no-repeat;
+    background: url(https://st.kakaocdn.net/commerce_ui/front-talkstore/real/20230430/232103/ico_store_pc.82c1fd4bf8ec030b.svg) no-repeat;
     bacgkround-size: 800px 500px;
     display: inline-block;
     position: absolute;

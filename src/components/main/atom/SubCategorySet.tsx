@@ -14,7 +14,7 @@ function SubCategorySet() {
       >
         <S.Icon>☰</S.Icon> 카테고리
       </S.SubCategorySet>
-      {modal && <SubCategoryModal />}
+      {modal && <SubCategoryModal setModal={setModal} />}
     </>
   );
 }

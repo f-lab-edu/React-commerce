@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { categoryData } from '@interfaces/categoryGroups';
 import SubCategoryInnerItem from './SubCategoryInnerItem';
 
-function SubCategoryModal() {
+function SubCategoryModal({ setModal }: { setModal: React.Dispatch<React.SetStateAction<Boolean>> }) {
   const categoryList = useFetch<categoryData>('/categoryList')?.data;
 
-  const subcateogries = categoryList?.map((e) => <SubCategoryInnerItem key={e.groupId} {...e} />);
+  const subcateogries = categoryList?.map((e) => <SubCategoryInnerItem key={e.groupId} {...e} setModal={setModal} />);
   return <S.SubCategoryModal>{subcateogries}</S.SubCategoryModal>;
 }
 

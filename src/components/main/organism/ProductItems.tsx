@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useLayoutEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Iproduct from '@interfaces/product';
 import ProductBox from '@components/common/organism/ProductBox';

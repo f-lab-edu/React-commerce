@@ -10,10 +10,10 @@ const ReviewBestTalkDeal = () => {
   const data = useFetch<IreviewBest[]>(`/reviewBestDeal/?page=${page}`, 'GET', page);
 
   const prevBtnHandler = () => {
-    page === 0 ? setPage(11) : setPage((prev) => prev - 1);
+    page === 0 ? setPage(4) : setPage((prev) => prev - 1);
   };
   const nextBtnHandler = () => {
-    page === 11 ? setPage(0) : setPage((prev) => prev + 1);
+    page === 4 ? setPage(0) : setPage((prev) => prev + 1);
   };
   if (data === undefined) return null;
   return (
@@ -40,7 +40,7 @@ const ReviewBestTalkDeal = () => {
 
       <S.moveSection>
         <S.button onClick={prevBtnHandler}>{'<'}</S.button>
-        <S.curpage>{page + 1}/12</S.curpage>
+        <S.curpage>{page + 1}/5</S.curpage>
         <S.button onClick={nextBtnHandler}>{'>'}</S.button>
       </S.moveSection>
     </S.layout>

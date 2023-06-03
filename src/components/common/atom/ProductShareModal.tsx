@@ -1,4 +1,5 @@
 import React from 'react';
+import { BASE_URL } from 'src/utils/constant';
 import styled from 'styled-components';
 
 const StyledProductShareModal = styled.div`
@@ -31,6 +32,7 @@ const StyledModalContent = styled.ul`
   justify-content: space-around;
 `;
 const ShareIconWrap = styled.li`
+  cursor: pointer;
   list-style: none;
   font-size: 14px;
   text-align: center;
@@ -40,8 +42,7 @@ const KaKaoIcon = styled.span`
   width: 50px;
   height: 50px;
   margin-bottom: 10px;
-  background: url('https://st.kakaocdn.net/commerce_ui/front-talkstore/real/20230425/141920/ico_comm_module.7f73cf8916820fd7.svg')
-    0 0 no-repeat;
+  background: url('https://st.kakaocdn.net/commerce_ui/front-talkstore/real/20230425/141920/ico_comm_module.7f73cf8916820fd7.svg') 0 0 no-repeat;
   background-size: 215px 120px;
   background-position: 0 0;
 `;
@@ -61,8 +62,7 @@ const CloseIcon = styled.button`
   right: 10px;
   width: 24px;
   height: 24px;
-  background: url('https://st.kakaocdn.net/commerce_ui/front-talkstore/real/20230425/141920/ico_comm_module.7f73cf8916820fd7.svg')
-    0 0 no-repeat;
+  background: url('https://st.kakaocdn.net/commerce_ui/front-talkstore/real/20230425/141920/ico_comm_module.7f73cf8916820fd7.svg') 0 0 no-repeat;
   background-size: 215px 120px;
   background-position: -120px -60px;
 `;
@@ -79,23 +79,25 @@ function ProductShareModal({ close }: { close: React.Dispatch<React.SetStateActi
           <CloseIcon onClick={(e: React.MouseEvent<HTMLButtonElement>) => close(false)} type="button" />
         </StyledModalHeader>
         <StyledModalContent>
-          <ShareIconWrap>
-            {/* 클릭시 카카오톡 공유 api */}
+          <ShareIconWrap
+            onClick={() =>
+              window.Kakao.Share.sendScrap({
+                requestUrl: BASE_URL,
+              })
+            }
+          >
             <KaKaoIcon />
             <span>카카오톡</span>
           </ShareIconWrap>
-          <ShareIconWrap>
-            {/* 클릭시 상품 상세페이지 url clip */}
+          <ShareIconWrap onClick={() => navigator.clipboard.writeText(window.location.href)}>
             <UrlIcon />
             <span>URL 복사</span>
           </ShareIconWrap>
-          <ShareIconWrap>
-            {/* 클릭시 페이스북 공유 api */}
+          <ShareIconWrap onClick={() => window.open(`http://www.facebook.com/sharer/sharer.php?u=${window.location.href}`)}>
             <FacebookIcon />
             <span>페이스북</span>
           </ShareIconWrap>
-          <ShareIconWrap>
-            {/* 클릭시 트위터 공유 api */}
+          <ShareIconWrap onClick={() => window.open(`https://twitter.com/intent/tweet?text=요비몰입니다&url=${window.location.href}`)}>
             <TwitterIcon />
             <span>트위터</span>
           </ShareIconWrap>

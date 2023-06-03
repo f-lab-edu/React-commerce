@@ -14,6 +14,10 @@ const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 sagaMiddleware.run(rootSaga);
 
+if (window.Kakao) {
+  const kakao = window.Kakao;
+  if (!kakao.isInitialized()) kakao.init(process.env.REACT_APP_JS_KEY);
+}
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <Provider store={store}>

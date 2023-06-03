@@ -1,5 +1,5 @@
 import IProductDetail from '@interfaces/detailType';
-import { ISelectedProduct, ISelectedProducts } from 'src/context/ProductOptionsContext';
+import { ISelectedProducts } from 'src/context/ProductOptionsContext';
 import getErrorMessage from './getErrorMessage';
 
 const EXPIRETIME = Date.now() + 86400000;
@@ -26,8 +26,6 @@ export interface IShopItems {
 
 export interface IShopItem {
   productImage: string;
-  total: number;
-  estimated: number;
   options: ISelectedProducts;
   selected: boolean;
 }
@@ -87,12 +85,6 @@ export const setProductLocalStorage = (detailItem: IProductDetail, products: ISe
     }
     parsedData.data[detailItem.store.name][detailItem.name] = {
       productImage: detailItem.image.images[0],
-      total:
-        (parsedData.data[detailItem.store.name][detailItem.name] ? parsedData.data[detailItem.store.name][detailItem.name].total : 0) +
-        Object.values(products).reduce((prev: number, cur: ISelectedProduct) => prev + cur.originTotalPrice, 0),
-      estimated:
-        (parsedData.data[detailItem.store.name][detailItem.name] ? parsedData.data[detailItem.store.name][detailItem.name].estimated : 0) +
-        Object.values(products).reduce((prev: number, cur: ISelectedProduct) => prev + cur.totalPrice, 0),
       selected: false,
       options: { ...parsedData.data[detailItem.store.name][detailItem.name]?.options, ...products },
     };
@@ -105,8 +97,6 @@ export const setProductLocalStorage = (detailItem: IProductDetail, products: ISe
   data[detailItem.store.name] = {};
   data[detailItem.store.name][detailItem.name] = {
     productImage: detailItem.image.images[0],
-    total: Object.values(products).reduce((prev: number, cur: ISelectedProduct) => prev + cur.originTotalPrice, 0),
-    estimated: Object.values(products).reduce((prev: number, cur: ISelectedProduct) => prev + cur.totalPrice, 0),
     selected: false,
     options: products,
   };
@@ -139,8 +129,6 @@ export const buyingSessionStorage = (detailItem: IProductDetail, products: ISele
   data[detailItem.store.name] = {};
   data[detailItem.store.name][detailItem.name] = {
     productImage: detailItem.image.images[0],
-    total: Object.values(products).reduce((prev: number, cur: ISelectedProduct) => prev + cur.originTotalPrice, 0),
-    estimated: Object.values(products).reduce((prev: number, cur: ISelectedProduct) => prev + cur.totalPrice, 0),
     selected: true,
     options: products,
   };

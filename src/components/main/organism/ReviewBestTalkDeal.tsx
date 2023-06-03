@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import IreviewBest from '@interfaces/reviewBest';
 import useFetch from 'src/hooks/useFetch';
+import { Link } from 'react-router-dom';
+import { ColorSet } from 'src/utils/constant';
 
 const ReviewBestTalkDeal = () => {
   const [page, setPage] = useState(0);
@@ -19,7 +21,7 @@ const ReviewBestTalkDeal = () => {
       <S.title>✏️ 후기 증명 BEST 톡딜</S.title>
       {data.map((product: IreviewBest, index) => {
         return (
-          <S.container key={product.productId}>
+          <S.container key={product.productId} to={`detail/?productId=${product.productId}`}>
             <S.productImg src={data[index].productImage} />
             <S.productDescription>
               <S.productCount>{data[index].userCount.toLocaleString('ko-KR')}명이 참여한 딜</S.productCount>
@@ -57,7 +59,9 @@ const S = {
     font-weight: 700;
     font-size: 18px;
   `,
-  container: styled.div`
+  container: styled(Link)`
+    text-decoration: none;
+    color: ${ColorSet.textBlack};
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -100,7 +104,7 @@ const S = {
   `,
   productReviewContent: styled.div`
     margin-top: 10px;
-    font-size: 15px;
+    font-size: 14px;
   `,
   moveSection: styled.div`
     width: 100%;

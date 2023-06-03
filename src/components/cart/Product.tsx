@@ -12,6 +12,7 @@ interface Props {
 }
 
 const Product = ({ title, data, mall }: Props) => {
+  console.log(Object.values(data.options).reduce((prev, cur) => prev + cur.originTotalPrice, 0));
   const localStorageData = useContext(CartContext);
   if (localStorageData === null) return null;
   const productSelectHandler = () => {
@@ -41,16 +42,30 @@ const Product = ({ title, data, mall }: Props) => {
       ))}
       <S.PriceDetail>
         <S.Dt>상품금액</S.Dt>
-        <S.Dd>{data.total.toLocaleString()}원</S.Dd>
+        <S.Dd>
+          {Object.values(data.options)
+            .reduce((prev, cur) => prev + cur.originTotalPrice, 0)
+            .toLocaleString()}
+          원
+        </S.Dd>
         <S.Dt>할인금액</S.Dt>
         <S.Dd>
-          <S.Em>{(data.estimated - data.total).toLocaleString()}원</S.Em>
+          <S.Em>
+            {' '}
+            {(Object.values(data.options).reduce((prev, cur) => prev + cur.totalPrice, 0) - Object.values(data.options).reduce((prev, cur) => prev + cur.originTotalPrice, 0)).toLocaleString()}원
+          </S.Em>
         </S.Dd>
         <S.Dt>
           <S.Strong>주문금액</S.Strong>
         </S.Dt>
         <S.Dd>
-          <S.Strong>{data.estimated.toLocaleString()}원</S.Strong>
+          <S.Strong>
+            {' '}
+            {Object.values(data.options)
+              .reduce((prev, cur) => prev + cur.totalPrice, 0)
+              .toLocaleString()}
+            원
+          </S.Strong>
         </S.Dd>
       </S.PriceDetail>
     </S.Wrap>

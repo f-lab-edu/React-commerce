@@ -29,24 +29,18 @@ export const cartReducer = (state: ICart, action: AllAction | MallAction | Produ
       case 'INCREMENT':
         if ('id' in action) {
           const targetoption = draft.data[action.mall][action.product].options[action.id];
-          const targetproduct = draft.data[action.mall][action.product];
           targetoption.count += 1;
           targetoption.totalPrice += targetoption.singlePrice;
           targetoption.originTotalPrice += targetoption.originPrice;
-          targetproduct.estimated += targetoption.singlePrice;
-          targetproduct.total += targetoption.originPrice;
         }
         break;
       case 'DECREMENT':
         if ('id' in action) {
           const targetoption = draft.data[action.mall][action.product].options[action.id];
-          const targetproduct = draft.data[action.mall][action.product];
           if (targetoption.count > 1) {
             targetoption.count -= 1;
             targetoption.totalPrice -= targetoption.singlePrice;
             targetoption.originTotalPrice -= targetoption.originPrice;
-            targetproduct.estimated -= targetoption.singlePrice;
-            targetproduct.total -= targetoption.originPrice;
           }
         }
         break;

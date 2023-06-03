@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import Iproduct from '@interfaces/product';
 import ProductBox from '@components/common/organism/ProductBox';
 import fetch from 'src/api/fetch';
@@ -18,9 +18,11 @@ const ProductItems = ({ category }: { category: string }) => {
       setIsLoad(true);
       const response = await fetch<Iproduct[]>(`/product/?page=${page}&category=${category}`, 'GET');
       // 인위적 지연
-      await new Promise((resolve) => {
-        setTimeout(resolve, 1000);
-      });
+      if (page !== 0) {
+        await new Promise((resolve) => {
+          setTimeout(resolve, 1000);
+        });
+      }
       response.length < 10 && setIsLast(true);
       setProducts((prev) => {
         return [...prev, ...response];
